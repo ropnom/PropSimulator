@@ -1,4 +1,4 @@
-package Model;
+package eetac.model;
 
 public class MatrixCollection {
 

@@ -1,6 +1,8 @@
 package eetac.model.component;
 
-public class AtmosfereModel {
+import eetac.model.BasicBlock;
+
+public class AtmosfereModel extends BasicBlock {
 
 	// Constants
 	protected static double R_gas = 286.9; // J (kg K)^-1

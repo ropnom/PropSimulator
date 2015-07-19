@@ -1,6 +1,8 @@
 package eetac.model.component;
 
-public class Diffuser {
+import eetac.model.BasicBlock;
+
+public class Diffuser extends BasicBlock{
 
 	protected double Pt_0;
 	protected double Tt_0;
@@ -26,6 +28,7 @@ public class Diffuser {
 	public Diffuser(double Vin, float AreaIn, double Rho) {
 		this.Vin = Vin;
 		this.AreaIn = AreaIn;
+		this.Rho = Rho;
 		CalPArameter();
 	}
 
@@ -33,6 +36,7 @@ public class Diffuser {
 		this.Vin = Vin;
 		this.AreaIn = AreaIn;
 		this.AreaOut = AreaOut;
+		this.Rho = Rho;
 		CalPArameter();
 	}
 
@@ -45,6 +49,23 @@ public class Diffuser {
 		if (MassFlow == 0 && isworking) {
 			MassFlow = Rho * Vin * AreaIn;
 		}
+		
+		if(AreaOut !=-1)
+		{
+			Vout = Vin*AreaIn/AreaOut;
+		}
+		
+		
+	}
+	
+	public String Difuser_Values(){
+		String line = "";
+		line += " Vin is  "+Vin;
+		line += " AreaIn is  "+AreaIn;
+		line += " Rho is  "+Rho;
+		line += " Vout is  "+Vout;
+		line += " MassFlow is  "+MassFlow;
+		return line;
 	}
 
 	// GETs and SETs
