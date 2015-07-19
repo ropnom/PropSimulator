@@ -12,10 +12,6 @@ public class FlowBlock extends SimulationBlock {
 	protected double Tout;
 	protected double MassFlow_out;
 
-	protected double PI;
-	protected double TAU;
-
-	protected double Work;
 
 	protected double Pt_0;
 	protected double Tt_0;
@@ -91,30 +87,6 @@ public class FlowBlock extends SimulationBlock {
 
 	public void setMassFlow_out(double massFlow_out) {
 		MassFlow_out = massFlow_out;
-	}
-
-	public double getPI() {
-		return PI;
-	}
-
-	public void setPI(double pI) {
-		PI = pI;
-	}
-
-	public double getTAU() {
-		return TAU;
-	}
-
-	public void setTAU(double tAU) {
-		TAU = tAU;
-	}
-
-	public double getWork() {
-		return Work;
-	}
-
-	public void setWork(double work) {
-		Work = work;
 	}
 
 }
