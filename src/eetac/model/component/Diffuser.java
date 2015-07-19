@@ -1,6 +1,5 @@
 package eetac.model.component;
 
-import eetac.model.FlowBlock;
 
 public class Diffuser extends FlowBlock {
 
@@ -32,9 +31,9 @@ public class Diffuser extends FlowBlock {
 	}
 
 	@Override
-	protected double[][] Jx_equations(double[] X, double[] Fx, double epsilon) {
+	protected double[][] Jx_equations() {
 		// TODO Auto-generated method stub
-		return super.Jx_equations(X, Fx, epsilon);
+		return super.Jx_equations();
 	}
 
 	

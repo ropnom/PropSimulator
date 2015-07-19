@@ -1,4 +1,6 @@
-package eetac.model;
+package eetac.model.component;
+
+import Model.SimulationBlock;
 
 public class FlowBlock extends SimulationBlock {
 

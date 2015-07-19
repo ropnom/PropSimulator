@@ -1,7 +1,8 @@
-package eetac.model;
+package Model;
 
 public class MatrixCollection {
 
+	double[] X_equations;
 	double[] Fx_equations;
 	double[][] Jx;
 
@@ -29,6 +30,14 @@ public class MatrixCollection {
 
 	public void setJx(	double[][] jx) {
 		Jx = jx;
+	}
+
+	public double[] getX_equations() {
+		return X_equations;
+	}
+
+	public void setX_equations(double[] x_equations) {
+		X_equations = x_equations;
 	}
 
 }

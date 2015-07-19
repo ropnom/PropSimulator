@@ -1,4 +1,4 @@
-package eetac.model;
+package eetac.model.component;
 
 import java.util.Date;
 

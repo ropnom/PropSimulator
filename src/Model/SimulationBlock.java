@@ -1,17 +1,18 @@
-package eetac.model;
+package Model;
 
 
 public class SimulationBlock {
 
 	// Model identificator
-	protected short idnum;
-	protected String name;
-	protected String description;
+	protected short idnum = 0;
+	protected String name = "Not defined";
+	protected String description = "Not defined";
 	protected String reference;
-
-	// propierties
-	protected short numequations;
-	protected float n_efficiencce = 1;
+	
+	//math internal matrix
+	MatrixCollection matrices = new MatrixCollection();	
+	protected double epsilon;
+	protected short numequations=0;
 
 	public SimulationBlock() {
 		// TODO Auto-generated constructor stub
@@ -22,22 +23,21 @@ public class SimulationBlock {
 	protected double[] Fx_equations(double[] X) {
 
 		// Make F(x) vector using functions
-
 		return null;
 	}
 
-	protected double[][] Jx_equations(double[] X, double[] Fx, double epsilon ) {
+	protected double[][] Jx_equations( ) {
 
 		// Make  Jx = [(F(x)- F(x+e))/e] por variable
 
 		return null;
 	}
 	
-	protected MatrixCollection getMatrix(double[] X,double epsilon ) {
+	protected MatrixCollection getMatrix( ) {
 
-		double[] Fx = Fx_equations(X);
-		double[][] Jx_equations = Jx_equations(X, Fx, epsilon);
-		MatrixCollection matrices = new MatrixCollection(Fx, Jx_equations);		
+		//Generar matriz de X
+		double[] Fx = Fx_equations(matrices.getX_equations());
+		double[][] Jx_equations = Jx_equations();			
 
 		return matrices;
 	}
@@ -88,12 +88,21 @@ public class SimulationBlock {
 		this.numequations = numequations;
 	}
 
-	public float getN_efficiencce() {
-		return n_efficiencce;
+	public MatrixCollection getMatrices() {
+		return matrices;
 	}
 
-	public void setN_efficiencce(float n_efficiencce) {
-		this.n_efficiencce = n_efficiencce;
+	public void setMatrices(MatrixCollection matrices) {
+		this.matrices = matrices;
 	}
+
+	public double getEpsilon() {
+		return epsilon;
+	}
+
+	public void setEpsilon(double epsilon) {
+		this.epsilon = epsilon;
+	}
+
 
 }
