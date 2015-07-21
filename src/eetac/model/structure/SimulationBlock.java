@@ -10,6 +10,7 @@ public class SimulationBlock extends BasicBlock {
 	protected short endnum = -1;
 	protected short numvariables = -1;
 	protected short numconstants = -1;
+	protected short totalequations = -1;
 
 	public SimulationBlock() {
 
@@ -35,13 +36,13 @@ public class SimulationBlock extends BasicBlock {
 		// Make X(x) vector using functions
 		return null;
 	}
-	
+
 	protected String[] Variables_equations() {
 
 		// Variables of X
 		return null;
 	}
-	
+
 	protected boolean[] Constants_equations() {
 
 		// Boolean constants
@@ -54,7 +55,7 @@ public class SimulationBlock extends BasicBlock {
 		return null;
 	}
 
-	protected double[][] Jx_equations() {
+	protected double[][] Jx_equations(double[] X, double[] Fx, boolean[] constants) {
 
 		// Make Jx = [(F(x)- F(x+e))/e] por variable
 
@@ -65,8 +66,11 @@ public class SimulationBlock extends BasicBlock {
 
 		// Generar matriz de X
 		double[] X = X_equations();
+		String[] variable = Variables_equations();
+		boolean[] constants = Constants_equations();
+
 		double[] Fx = Fx_equations(X);
-		double[][] Jx_equations = Jx_equations();
+		double[][] Jx_equations = Jx_equations(X, Fx, constants);
 
 		return matrices;
 	}
@@ -127,6 +131,14 @@ public class SimulationBlock extends BasicBlock {
 
 	public void setNumconstants(short numconstants) {
 		this.numconstants = numconstants;
+	}
+
+	public short getTotalequations() {
+		return totalequations;
+	}
+
+	public void setTotalequations(short totalequations) {
+		this.totalequations = totalequations;
 	}
 
 }

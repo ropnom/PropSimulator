@@ -66,8 +66,8 @@ public class Newton_Raphson {
 
 		while (i < Max_iteration && !acabar) {
 
-			Fx_cal(X[0][0], X[0][0]);
-			Jx_cal(X[0][0], X[0][0]);
+			Fx_cal(X[0][0], X[1][0]);
+			Jx_cal(X[0][0], X[1][0]);
 
 			Functions = new DoubleMatrix(Fx);
 			Jacobian = new DoubleMatrix(Jx);

@@ -51,7 +51,7 @@ public class Compressor extends FlowWorkBlock {
 
 	@Override
 	protected String[] Variables_equations() {
-		
+
 		String[] variable = new String[this.numvariables];
 		variable[0] = "P_compresor_in";
 		variable[1] = "T_compresor_in";
@@ -70,7 +70,7 @@ public class Compressor extends FlowWorkBlock {
 
 	@Override
 	protected boolean[] Constants_equations() {
-		
+
 		boolean[] constants = new boolean[this.numvariables];
 		constants[0] = false;
 		constants[1] = false;
@@ -83,14 +83,14 @@ public class Compressor extends FlowWorkBlock {
 		constants[8] = false;
 		constants[9] = false;
 		constants[10] = false;
-		
+
 		return constants;
 	}
 
 	@Override
 	protected double[] Fx_equations(double[] X) {
 
-		double[] Fx = new double[this.numequations + this.numconstants];
+		double[] Fx = new double[this.totalequations];
 		Fx[0] = PressureRelations();
 		Fx[1] = TemperatureRelations();
 		Fx[2] = MassFlowRelations();
@@ -98,17 +98,20 @@ public class Compressor extends FlowWorkBlock {
 		Fx[4] = IsentropicRelations();
 		Fx[5] = WorkRelations();
 
-		for (int i = 6; i < (numequations + numvariables); i++) {
-
+		for (int i = 6; i < (this.totalequations); i++) {
+			// If is a known variable, X_i - cte = 0;
+			Fx[i] = 0;
 		}
 
-		return (X);
+		return (Fx);
 	}
 
 	@Override
-	protected double[][] Jx_equations() {
-		// TODO Auto-generated method stub
-		return super.Jx_equations();
+	protected double[][] Jx_equations(double[] X, double[] Fx, boolean[] constants) {
+
+		double[][] Jx = new double[this.numvariables][this.totalequations];
+
+		return Jx;
 	}
 
 	// GENERACION DE ECUACIONES
