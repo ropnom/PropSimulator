@@ -1,10 +1,12 @@
-package eetac.model;
+package eetac.model.structure;
 
 public class MatrixCollection {
 
-	double[] X_equations;
-	double[] Fx_equations;
-	double[][] Jx;
+	protected double[] X_equations;
+	protected double[] Fx_equations;
+	protected double[][] Jx;
+	protected String[] variable;
+	protected boolean[] constants;
 
 	public MatrixCollection() {
 

@@ -1,4 +1,4 @@
-package eetac.model;
+package eetac.model.structure;
 
 
 public class BasicBlock {
@@ -12,6 +12,14 @@ public class BasicBlock {
 
 	public BasicBlock() {
 		// TODO Auto-generated constructor stub
+	}
+
+	public BasicBlock(short idnum, String name, String description, String reference) {
+		super();
+		this.idnum = idnum;
+		this.name = name;
+		this.description = description;
+		this.reference = reference;
 	}
 
 	// GEneral Methods
@@ -56,5 +64,6 @@ public class BasicBlock {
 	public void setReference(String reference) {
 		this.reference = reference;
 	}
+	
 
 }

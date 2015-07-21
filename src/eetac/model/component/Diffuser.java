@@ -1,6 +1,6 @@
 package eetac.model.component;
 
-import eetac.model.BasicBlock;
+import eetac.model.structure.BasicBlock;
 
 public class Diffuser extends BasicBlock{
 
