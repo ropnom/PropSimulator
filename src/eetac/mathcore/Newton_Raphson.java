@@ -47,8 +47,8 @@ public class Newton_Raphson {
 	public static void Jx_cal(double x1, double x2) {
 
 		Jx[0][0] = -(Fx[0][0] - F1(x1 + ephsilon, x2)) / ephsilon;
-		Jx[0][1] = -(Fx[0][1] - F2(x1 + ephsilon, x2)) / ephsilon;
-		Jx[1][0] = -(Fx[0][0] - F1(x1, x2 + ephsilon)) / ephsilon;
+		Jx[1][0] = -(Fx[0][1] - F2(x1 + ephsilon, x2)) / ephsilon;
+		Jx[0][1] = -(Fx[0][0] - F1(x1, x2 + ephsilon)) / ephsilon;
 		Jx[1][1] = -(Fx[0][1] - F2(x1, x2 + ephsilon)) / ephsilon;
 
 	}
@@ -58,8 +58,8 @@ public class Newton_Raphson {
 
 		//X = new double[][] { { 5 }, { 5 } };
 		X = new double[2][1];
-		X[0][0] = 5;
-		X[1][0] = 5;
+		X[0][0] = 0;
+		X[1][0] = 0.5;
 		Fx = new double[1][2];
 		Jx = new double[2][2];
 
