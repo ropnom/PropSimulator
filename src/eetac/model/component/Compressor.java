@@ -33,7 +33,7 @@ public class Compressor extends FlowWorkBlock {
 	@Override
 	protected double[] X_equations() {
 
-		double[] X = new double[this.numvariables];
+		double[][] X = new double[this.numvariables][];
 		X[0] = this.Pin;
 		X[1] = this.Tin;
 		X[2] = this.MassFlow_in;
@@ -90,7 +90,7 @@ public class Compressor extends FlowWorkBlock {
 	@Override
 	protected double[] Fx_equations(double[] X) {
 
-		double[] Fx = new double[this.totalequations];
+		double[][] Fx = new double[this.totalequations][];
 		Fx[0] = PressureRelations();
 		Fx[1] = TemperatureRelations();
 		Fx[2] = MassFlowRelations();

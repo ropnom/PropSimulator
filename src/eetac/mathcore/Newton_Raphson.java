@@ -8,8 +8,8 @@ public class Newton_Raphson {
 	public static double[][] X;
 	public static double[][] Fx;
 	public static double[][] Jx;
-	public static double ephsilon = 0.000000001;
-	public static double tolerance = 0.001;
+	public static double ephsilon = 0.0000000001;
+	public static double tolerance = 0.01;
 
 	public static DoubleMatrix variables;
 	public static DoubleMatrix Functions;
@@ -21,7 +21,7 @@ public class Newton_Raphson {
 
 	public static void check_solve() {
 
-		if (Fx[0][0] <= tolerance && Fx[0][1] <= tolerance)
+		if (Math.abs(Fx[0][0]) <= tolerance && Math.abs(Fx[0][1]) <= tolerance)
 			acabar = true;
 
 	}
@@ -56,7 +56,10 @@ public class Newton_Raphson {
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 
-		X = new double[][] { { 5 }, { 5 } };
+		//X = new double[][] { { 5 }, { 5 } };
+		X = new double[2][1];
+		X[0][0] = 5;
+		X[1][0] = 5;
 		Fx = new double[1][2];
 		Jx = new double[2][2];
 
@@ -82,6 +85,8 @@ public class Newton_Raphson {
 			System.out.println(variables.rows + "x" + variables.columns + ": " + variables);
 
 		}
+		
+		System.out.println(Fx[0][0] +" "+Fx[0][1]);
 
 		// double[][] data = new double[][] { { 1, 2, 3, 4, 5 }, { 6, 7, 8, 9,
 		// 10 }, { 11, 12, 13, 14, 15 } };
