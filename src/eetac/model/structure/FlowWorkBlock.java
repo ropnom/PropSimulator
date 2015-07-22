@@ -1,6 +1,6 @@
 package eetac.model.structure;
 
-public class FlowWorkBlock extends FlowBlock {
+public abstract class FlowWorkBlock extends FlowBlock {
 
 	
 	/* THE ORDER OF MATH VARIABLES IS

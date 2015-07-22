@@ -1,7 +1,7 @@
 package eetac.model.structure;
 
 
-public class FlowBlock extends SimulationBlock {
+public abstract class  FlowBlock extends SimulationBlock {
 	
 	/* THE ORDER OF MATH VARIABLES IS
 	 * 1º PIN

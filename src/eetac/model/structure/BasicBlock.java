@@ -1,7 +1,7 @@
 package eetac.model.structure;
 
 
-public class BasicBlock {
+public abstract class BasicBlock {
 
 	// Model identificator
 	protected short idnum = 0;

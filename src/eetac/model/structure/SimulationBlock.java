@@ -1,5 +1,7 @@
 package eetac.model.structure;
 
+import eetac.propsimulator.GlobalConstants;
+
 public class SimulationBlock extends BasicBlock {
 
 	// math internal matrix
@@ -31,50 +33,48 @@ public class SimulationBlock extends BasicBlock {
 	}
 
 	// GEneral Methods
-	protected double[] X_equations() {
-
-		// Make X(x) vector using functions
-		return null;
-	}
-
 	protected String[] Variables_equations() {
 
 		// Variables of X
 		return null;
 	}
 
-	protected boolean[] Constants_equations() {
 
-		// Boolean constants
-		return null;
+	protected double getDifferencial(double fx, double fx_delta, double delta) {
+
+		// Make df = (f(x+delta) - f(x))/delta
+		double df = (fx_delta - fx) / delta;
+
+		if (Math.abs(df) < GlobalConstants.getDerivate_min())
+			return 0;
+		else
+			return (df);
+	}
+	
+	protected double getFx(double[][] X, int equation){
+		
+		switch(equation){
+		case 1:
+			break;
+		default:
+			break;
+		}
+		return 0;
 	}
 
-	protected double[] Fx_equations(double[] X) {
-
-		// Make F(x) vector using functions
-		return null;
-	}
-
-	protected double[][] Jx_equations(double[] X, double[] Fx, boolean[] constants) {
-
-		// Make Jx = [(F(x)- F(x+e))/e] por variable
-
-		return null;
-	}
-
-	protected MatrixCollection getMatrix() {
-
+	protected MatrixCollection genMatrix() {
+		
 		// Generar matriz de X
-		double[] X = X_equations();
-		String[] variable = Variables_equations();
-		boolean[] constants = Constants_equations();
-
-		double[] Fx = Fx_equations(X);
-		double[][] Jx_equations = Jx_equations(X, Fx, constants);
+		double[][] X =null;
+		String[] variable=null;
+		boolean[] constants = null;
+		double[][] Fx=null;
+		double[][] Jx_equations = null;
 
 		return matrices;
 	}
-
+	
+	
 	// GETs and SETs
 
 	public MatrixCollection getMatrices() {
