@@ -1,10 +1,10 @@
 package eetac.model.component;
 
+import eetac.model.AuxMethods;
+import eetac.model.GlobalConstants;
+import eetac.model.MatrixCollection;
 import eetac.model.structure.AirPropierties;
 import eetac.model.structure.FlowWorkBlock;
-import eetac.model.structure.MatrixCollection;
-import eetac.propsimulator.AuxMethods;
-import eetac.propsimulator.GlobalConstants;
 
 public class Compressor extends FlowWorkBlock {
 
@@ -26,15 +26,26 @@ public class Compressor extends FlowWorkBlock {
 		this.reference = "Teorical Reference Termodinamics";
 		this.numequations = 6;
 		this.numvariables = 11;
+		genMatrix();
 
 		// this.initnum = initnum;
-		// this.endnum = endnum;
+		// this.endnum = initnum + numvaribles;
 	}
 
 	// Genermos las matrices.
 
 	@Override
-	protected MatrixCollection genMatrix() {
+	public MatrixCollection Simulate() {
+		
+		if (isBlockSimulated()) {
+			genMatrix();
+		}
+		
+		return this.matrices;
+	}
+
+	@Override
+	protected void genMatrix() {
 		// Gen variable names
 		String[] variable = new String[this.numvariables];
 		variable[0] = "P_compresor_in";
@@ -63,70 +74,65 @@ public class Compressor extends FlowWorkBlock {
 		X[9][0] = this.n_i;
 		X[10][0] = this.n_p;
 
-		// Gen boolean constant know
-		boolean[] constants = new boolean[this.numvariables];
-		constants[0] = false;
-		constants[1] = false;
-		constants[2] = false;
-		constants[3] = false;
-		constants[4] = false;
-		constants[5] = false;
-		constants[6] = false;
-		constants[7] = false;
-		constants[8] = false;
-		constants[9] = false;
-		constants[10] = false;
+		this.matrices.setX_equations(X);
+		this.matrices.setVariable(variable);
 
-		// Gen Fx vector
-		double[][] Fx = new double[this.totalequations][];
-//		Fx[0][0] = PressureRelations(X);
-//		Fx[1][0] = TemperatureRelations(X);
-//		Fx[2][0] = MassFlowRelations(X);
-//		Fx[3][0] = PolitropicRelations(X);
-//		Fx[4][0] = IsentropicRelations(X);
-//		Fx[5][0] = WorkRelations(X);
+		if (isdefined) {
 
-		for (int i = 0; i < (this.totalequations); i++) {
-			// If is a known variable, X_i - cte = 0;
-			if(i<6){
-				Fx[i][0] = getFx(X, i);
-			}else{
-				Fx[i][0] = 0;
-			}
-			
-		}
+			// Gen Fx vector
+			double[][] Fx = new double[this.totalequations][];
+			// Fx[0][0] = PressureRelations(X);
+			// Fx[1][0] = TemperatureRelations(X);
+			// Fx[2][0] = MassFlowRelations(X);
+			// Fx[3][0] = PolitropicRelations(X);
+			// Fx[4][0] = IsentropicRelations(X);
+			// Fx[5][0] = WorkRelations(X);
 
-		// Gen Jx Matrix
-		double[][] Jx = new double[this.numvariables][this.totalequations];
-		double[][] X_delta = AuxMethods.Copy_matrix(X);		
-		
-		for (int i = 0; i < numvariables; i++) {
-			// iteracion por filas x1, x2 ..xn
-			X_delta[i][0] += GlobalConstants.getDelta();
-			
-			for (int j = 0; j < totalequations; j++) {
-				
-				
-				if (j < numequations) {
-					//Calculate parcial derivate of f_j/x_i
-					Jx[j][i]= getDifferencial(Fx[j][0], getFx(X_delta, j), GlobalConstants.getDelta());
-
+			for (int i = 0; i < (this.totalequations); i++) {
+				// If is a known variable, X_i - cte = 0;
+				if (i < 6) {
+					Fx[i][0] = getFx(X, i);
 				} else {
-					//Constantes X_k - cte =0
-					// derivada 0, salvo sobre si mismas que es 1
-
+					Fx[i][0] = 0;
 				}
+
 			}
-			X_delta[i][0] = X[i][0];
+
+			// Gen Jx Matrix
+			double[][] Jx = new double[this.numvariables][this.totalequations];
+			double[][] X_delta = AuxMethods.Copy_matrix(X);
+
+			for (int i = 0; i < numvariables; i++) {
+				// iteracion por filas x1, x2 ..xn
+				X_delta[i][0] += GlobalConstants.getDelta();
+
+				for (int j = 0; j < totalequations; j++) {
+
+					if (j < numequations) {
+						// Calculate parcial derivate of f_j/x_i
+						Jx[j][i] = getDifferencial(Fx[j][0], getFx(X_delta, j), GlobalConstants.getDelta());
+
+					} else {
+						// Constantes X_k - cte =0
+						// derivada 0, salvo sobre si mismas que es 1
+
+					}
+				}
+				X_delta[i][0] = X[i][0];
+			}
+
+			this.matrices.setFx_equations(Fx);
+			this.matrices.setJx(Jx);
+
+		} else {
+			// Gen boolean constant know for init objet
+			boolean[] constants = new boolean[this.numvariables];
+			for (int l = 0; l < numvariables; l++) {
+				constants[l] = false;
+			}
+
+			this.matrices.setConstants(constants);
 		}
-		
-		MatrixCollection mymatrix = new MatrixCollection();
-		mymatrix.setX_equations(X);
-		mymatrix.setFx_equations(Fx);
-		mymatrix.setJx(Jx);
-		
-		return mymatrix;
-		
 
 	}
 
@@ -154,7 +160,7 @@ public class Compressor extends FlowWorkBlock {
 		case 6:
 			fx = WorkRelations(X);
 			break;
-			
+
 		default:
 			break;
 		}

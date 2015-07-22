@@ -5,6 +5,7 @@ public abstract class BasicBlock {
 
 	// Model identificator
 	protected short idnum = 0;
+	protected short blocknumber = 0;
 	protected String name = "Not defined";
 	protected String description = "Not defined";
 	protected String reference;
@@ -63,6 +64,14 @@ public abstract class BasicBlock {
 
 	public void setReference(String reference) {
 		this.reference = reference;
+	}
+
+	public short getBlocknumber() {
+		return blocknumber;
+	}
+
+	public void setBlocknumber(short blocknumber) {
+		this.blocknumber = blocknumber;
 	}
 	
 

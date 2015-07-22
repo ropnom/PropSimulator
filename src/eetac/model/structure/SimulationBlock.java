@@ -1,18 +1,20 @@
 package eetac.model.structure;
 
-import eetac.propsimulator.GlobalConstants;
+import eetac.model.GlobalConstants;
+import eetac.model.MatrixCollection;
 
 public class SimulationBlock extends BasicBlock {
 
 	// math internal matrix
-	MatrixCollection matrices = new MatrixCollection();
+	protected MatrixCollection matrices = new MatrixCollection();
 	protected double epsilon = 0.001;
 	protected short numequations = 0;
-	protected short initnum = -1;
-	protected short endnum = -1;
 	protected short numvariables = -1;
 	protected short numconstants = -1;
 	protected short totalequations = -1;
+	protected short initnum = -1;
+	protected short endnum = -1;
+	protected boolean isdefined = false;
 
 	public SimulationBlock() {
 
@@ -33,12 +35,6 @@ public class SimulationBlock extends BasicBlock {
 	}
 
 	// GEneral Methods
-	protected String[] Variables_equations() {
-
-		// Variables of X
-		return null;
-	}
-
 
 	protected double getDifferencial(double fx, double fx_delta, double delta) {
 
@@ -50,31 +46,49 @@ public class SimulationBlock extends BasicBlock {
 		else
 			return (df);
 	}
-	
-	protected double getFx(double[][] X, int equation){
-		
-		switch(equation){
-		case 1:
-			break;
-		default:
-			break;
-		}
+
+	protected double getFx(double[][] X, int equation) {
+
+		// switch(equation){
+		// case 1:
+		// break;
+		// default:
+		// break;
+		// }
 		return 0;
 	}
 
-	protected MatrixCollection genMatrix() {
-		
-		// Generar matriz de X
-		double[][] X =null;
-		String[] variable=null;
-		boolean[] constants = null;
-		double[][] Fx=null;
-		double[][] Jx_equations = null;
+	protected void genMatrix() {
 
-		return matrices;
+		// Generar matriz de X
+		// double[][] X = null;
+		// String[] variable = null;
+		// boolean[] constants = null;
+		// double[][] Fx = null;
+		// double[][] Jx_equations = null;
+
+	}
+
+	public boolean isBlockSimulated() {
+		/*
+		 * Check if component is defined and if num of varaibles, equations and constants are enough to solve.
+		 */
+		boolean simulate = false;
+		if (isdefined) {
+			if (numvariables == totalequations && totalequations == (numequations + numconstants)) {
+				simulate = true;
+			}
+		}
+
+		return simulate;
 	}
 	
-	
+	public MatrixCollection Simulate(){
+		//crate matrix
+		
+		return null;
+	}
+
 	// GETs and SETs
 
 	public MatrixCollection getMatrices() {
@@ -139,6 +153,14 @@ public class SimulationBlock extends BasicBlock {
 
 	public void setTotalequations(short totalequations) {
 		this.totalequations = totalequations;
+	}
+
+	public boolean isIsdefined() {
+		return isdefined;
+	}
+
+	public void setIsdefined(boolean isdefined) {
+		this.isdefined = isdefined;
 	}
 
 }

@@ -1,4 +1,4 @@
-package eetac.propsimulator;
+package eetac.model;
 
 public  class GlobalConstants {
 	

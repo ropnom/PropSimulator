@@ -1,5 +1,7 @@
 package eetac.model.structure;
 
+import eetac.model.MatrixCollection;
+
 
 public abstract class  FlowBlock extends SimulationBlock {
 	

@@ -1,4 +1,4 @@
-package eetac.model.structure;
+package eetac.model;
 
 public class MatrixCollection {
 
@@ -41,5 +41,22 @@ public class MatrixCollection {
 	public void setX_equations(double[][] x_equations) {
 		X_equations = x_equations;
 	}
+
+	public String[] getVariable() {
+		return variable;
+	}
+
+	public void setVariable(String[] variable) {
+		this.variable = variable;
+	}
+
+	public boolean[] getConstants() {
+		return constants;
+	}
+
+	public void setConstants(boolean[] constants) {
+		this.constants = constants;
+	}
+	
 
 }
