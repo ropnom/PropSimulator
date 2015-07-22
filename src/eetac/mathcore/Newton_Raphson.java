@@ -45,6 +45,8 @@ public class Newton_Raphson {
 	}
 
 	public static void Jx_cal(double x1, double x2) {
+		
+		//Esta bien definido el jacobiano??¿¿¿
 
 		Jx[0][0] = -(Fx[0][0] - F1(x1 + ephsilon, x2)) / ephsilon;
 		Jx[1][0] = -(Fx[0][1] - F2(x1 + ephsilon, x2)) / ephsilon;
