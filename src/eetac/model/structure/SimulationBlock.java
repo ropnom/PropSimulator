@@ -9,9 +9,9 @@ public class SimulationBlock extends BasicBlock {
 	protected MatrixCollection matrices = new MatrixCollection();
 	protected double epsilon = 0.001;
 	protected short numequations = 0;
-	protected short numvariables = -1;
-	protected short numconstants = -1;
-	protected short totalequations = -1;
+	protected short numvariables = 0;
+	protected short numconstants = 0;
+	protected short totalequations = 0;
 	protected short initnum = -1;
 	protected short endnum = -1;
 	protected boolean isdefined = false;

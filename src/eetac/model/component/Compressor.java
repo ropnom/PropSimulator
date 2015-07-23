@@ -170,7 +170,7 @@ public class Compressor extends FlowWorkBlock {
 		variable[10] = "Politropic_efficiency";
 
 		// GEN X vecto
-		double[][] X = new double[this.numvariables][0];
+		double[][] X = new double[this.numvariables][1];
 		X[0][0] = this.Pin;
 		X[1][0] = this.Tin;
 		X[2][0] = this.MassFlow_in;
@@ -189,7 +189,7 @@ public class Compressor extends FlowWorkBlock {
 		if (isdefined) {
 
 			// Gen Fx vector
-			double[][] Fx = new double[this.totalequations][0];
+			double[][] Fx = new double[this.totalequations][1];
 			// Fx[0][0] = PressureRelations(X);
 			// Fx[1][0] = TemperatureRelations(X);
 			// Fx[2][0] = MassFlowRelations(X);

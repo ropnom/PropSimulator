@@ -48,14 +48,14 @@ public class propsimconsole {
 
 		} else {
 			System.out.println("Fail, we have " + compresor.getNumequations() + " equations, " + compresor.getNumconstants() + " constants and a total of " + compresor.getNumvariables() + " varaibles.");
-			System.out.println(" We need:" + (compresor.getNumvariables() - compresor.getNumconstants()) + "constants to define the system");
+			System.out.println(" We need:" + (compresor.getNumvariables()-compresor.getNumequations() - compresor.getNumconstants()) + " constants to define the system");
 		}
 		
 		MatrixCollection matrices = compresor.getMatrices();
 		
 		for ( int i = 0; i< compresor.getNumvariables();i++){
 			System.out.println(" X_"+i+": "+matrices.getX_equations()[i][0]);
-			System.out.println(" Fx_"+i+": "+matrices.getFx_equations()[i][0]);
+			//System.out.println(" Fx_"+i+": "+matrices.getFx_equations()[i][0]);
 		}
 	}
 }
