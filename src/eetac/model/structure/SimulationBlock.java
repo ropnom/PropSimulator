@@ -36,16 +36,17 @@ public class SimulationBlock extends BasicBlock {
 
 	// GEneral Methods
 
-	protected double getDifferencial(double fx, double fx_delta, double delta) {
+	protected double getvariable(int index) {
 
-		// Make df = (f(x+delta) - f(x))/delta
-		double df = (fx_delta - fx) / delta;
-
-		if (Math.abs(df) < GlobalConstants.getDerivate_min())
-			return 0;
-		else
-			return (df);
+		double variable = 0;
+		// switch
+		return variable;
 	}
+
+	protected void setvariable(double variable, int index) {
+
+		//Set variable
+	}	
 
 	protected double getFx(double[][] X, int equation) {
 
@@ -68,27 +69,54 @@ public class SimulationBlock extends BasicBlock {
 		// double[][] Jx_equations = null;
 
 	}
+	
+	protected double getDifferencial(double fx, double fx_delta, double delta) {
+
+		// Make df = (f(x+delta) - f(x))/delta
+		double df = (fx_delta - fx) / delta;
+
+		if (Math.abs(df) < GlobalConstants.getDerivate_min())
+			return 0;
+		else
+			return (df);
+	}
+
+	protected void iteration(double[][] X) {
+
+		// Actulizar matriz X y re iterar
+
+	}
 
 	public boolean isBlockSimulated() {
 		/*
-		 * Check if component is defined and if num of varaibles, equations and constants are enough to solve.
+		 * Check if component is defined and if num of varaibles, equations and
+		 * constants are enough to solve.
 		 */
 		boolean simulate = false;
 		if (isdefined) {
 			if (numvariables == totalequations && totalequations == (numequations + numconstants)) {
 				simulate = true;
+				// Put seed value
 			}
 		}
 
 		return simulate;
 	}
-	
-	public MatrixCollection Simulate(){
-		//crate matrix
-		
+
+	protected void putseed() {
+		// in this funcion you put the init value for variables to calculate.
+	}
+
+	public MatrixCollection Simulate() {
+		// crate matrix
+
 		return null;
 	}
 
+	
+	
+	
+	//***************************
 	// GETs and SETs
 
 	public MatrixCollection getMatrices() {

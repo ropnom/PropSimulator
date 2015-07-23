@@ -32,16 +32,125 @@ public class Compressor extends FlowWorkBlock {
 		// this.endnum = initnum + numvaribles;
 	}
 
-	// Genermos las matrices.
+	// Sobreescrivimos funciones
 
 	@Override
-	public MatrixCollection Simulate() {
-		
-		if (isBlockSimulated()) {
-			genMatrix();
+	protected double getvariable(int index) {
+		double variable = 0;
+
+		switch (index) {
+		case 1:
+			variable = this.Pin;
+			break;
+		case 2:
+			variable = this.Tin;
+			break;
+		case 3:
+			variable = this.MassFlow_in;
+			break;
+		case 4:
+			variable = this.Pout;
+			break;
+		case 5:
+			variable = this.Tout;
+			break;
+		case 6:
+			variable = this.MassFlow_out;
+			break;
+		case 7:
+			variable = this.Pi;
+			break;
+		case 8:
+			variable = this.Tau;
+			break;
+		case 9:
+			variable = work;
+			break;
+		case 10:
+			variable = this.n_i;
+			break;
+		case 11:
+			variable = this.n_p;
+			break;
+
+		default:
+			break;
 		}
+
+		return variable;
+	}
+
+	@Override
+	protected void setvariable(double variable, int index) {
 		
-		return this.matrices;
+		switch (index) {
+		case 1:
+			this.Pin = variable;
+			break;
+		case 2:
+			this.Tin = variable;
+			break;
+		case 3:
+			this.MassFlow_in = variable;
+			break;
+		case 4:
+			this.Pout = variable;
+			break;
+		case 5:
+			this.Tout = variable;
+			break;
+		case 6:
+			this.MassFlow_out = variable;
+			break;
+		case 7:
+			this.Pi = variable;
+			break;
+		case 8:
+			this.Tau = variable;
+			break;
+		case 9:
+			work = variable;
+			break;
+		case 10:
+			this.n_i = variable;
+			break;
+		case 11:
+			this.n_p = variable;
+			break;
+
+		default:
+			break;
+		}
+	}
+
+	@Override
+	protected double getFx(double[][] X, int equation) {
+		double fx = 0;
+
+		switch (equation) {
+		case 1:
+			fx = PressureRelations(X);
+			break;
+		case 2:
+			fx = TemperatureRelations(X);
+			break;
+		case 3:
+			fx = MassFlowRelations(X);
+			break;
+		case 4:
+			fx = PolitropicRelations(X);
+			break;
+		case 5:
+			fx = IsentropicRelations(X);
+			break;
+		case 6:
+			fx = WorkRelations(X);
+			break;
+
+		default:
+			break;
+		}
+		return fx;
 	}
 
 	@Override
@@ -61,7 +170,7 @@ public class Compressor extends FlowWorkBlock {
 		variable[10] = "Politropic_efficiency";
 
 		// GEN X vecto
-		double[][] X = new double[this.numvariables][];
+		double[][] X = new double[this.numvariables][0];
 		X[0][0] = this.Pin;
 		X[1][0] = this.Tin;
 		X[2][0] = this.MassFlow_in;
@@ -80,7 +189,7 @@ public class Compressor extends FlowWorkBlock {
 		if (isdefined) {
 
 			// Gen Fx vector
-			double[][] Fx = new double[this.totalequations][];
+			double[][] Fx = new double[this.totalequations][0];
 			// Fx[0][0] = PressureRelations(X);
 			// Fx[1][0] = TemperatureRelations(X);
 			// Fx[2][0] = MassFlowRelations(X);
@@ -136,36 +245,43 @@ public class Compressor extends FlowWorkBlock {
 
 	}
 
-	// GENERACION DE ECUACIONES
 	@Override
-	protected double getFx(double[][] X, int equation) {
-		double fx = 0;
+	public MatrixCollection Simulate() {
 
-		switch (equation) {
-		case 1:
-			fx = PressureRelations(X);
-			break;
-		case 2:
-			fx = TemperatureRelations(X);
-			break;
-		case 3:
-			fx = MassFlowRelations(X);
-			break;
-		case 4:
-			fx = PolitropicRelations(X);
-			break;
-		case 5:
-			fx = IsentropicRelations(X);
-			break;
-		case 6:
-			fx = WorkRelations(X);
-			break;
-
-		default:
-			break;
+		if (isBlockSimulated()) {
+			genMatrix();
 		}
-		return fx;
+
+		return this.matrices;
 	}
+
+	@Override
+	protected void putseed() {
+
+		// if()
+	}
+
+	@Override
+	protected void iteration(double[][] X) {
+
+		// Actulizar matriz X y re iterar
+		this.Pin = X[0][0];
+		this.Tin = X[1][0];
+		this.MassFlow_in = X[2][0];
+		this.Pout = X[3][0];
+		this.Tout = X[4][0];
+		this.MassFlow_out = X[5][0];
+		this.Pi = X[6][0];
+		this.Tau = X[7][0];
+		this.work = X[8][0];
+		this.n_i = X[9][0];
+		this.n_p = X[10][0];
+
+		genMatrix();
+
+	}
+
+	// GENERACION DE ECUACIONES
 
 	protected double PressureRelations(double[][] X) {
 		/*

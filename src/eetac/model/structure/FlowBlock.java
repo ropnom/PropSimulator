@@ -16,17 +16,17 @@ public abstract class  FlowBlock extends SimulationBlock {
 	 *  OTHER VARIABLES IN COMPLEX BLOCKS
 	 */
 
-	protected double Pin;
-	protected double Tin;
-	protected double MassFlow_in;
+	protected double Pin = -1;
+	protected double Tin = -1;
+	protected double MassFlow_in = -1;
 
-	protected double Pout;
-	protected double Tout;
-	protected double MassFlow_out;
+	protected double Pout = -1;
+	protected double Tout = -1;
+	protected double MassFlow_out = -1;
 
 	//AUX VARIABLES
-	protected double Pt_0;
-	protected double Tt_0;
+	protected double Pt_0 = -1;
+	protected double Tt_0 = -1;
 
 	public FlowBlock() {
 		super();
