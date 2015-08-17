@@ -1,4 +1,4 @@
-package eetac.model.component;
+package eetac.model.realcomponent;
 
 import eetac.model.basicstructure.BasicBlock;
 

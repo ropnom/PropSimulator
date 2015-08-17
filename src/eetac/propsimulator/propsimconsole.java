@@ -1,8 +1,8 @@
 package eetac.propsimulator;
 
 import eetac.model.MatrixCollection;
-import eetac.model.component.Compressor;
-import eetac.model.component.Diffuser;
+import eetac.model.realcomponent.Compressor;
+import eetac.model.realcomponent.Diffuser;
 
 public class propsimconsole {
 

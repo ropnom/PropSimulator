@@ -5,7 +5,7 @@ import static org.junit.Assert.*;
 import org.junit.Test;
 
 import eetac.model.MatrixCollection;
-import eetac.model.component.Compressor;
+import eetac.model.realcomponent.Compressor;
 
 public class Compressortest {
 
