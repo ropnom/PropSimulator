@@ -1,4 +1,4 @@
-package eetac.model.structure;
+package eetac.model.basicstructure;
 
 import eetac.model.GlobalConstants;
 import eetac.model.MatrixCollection;
@@ -75,10 +75,7 @@ public class SimulationBlock extends BasicBlock {
 		// Make df = (f(x+delta) - f(x))/delta
 		double df = (fx_delta - fx) / delta;
 
-		if (Math.abs(df) < GlobalConstants.getDerivate_min())
-			return 0;
-		else
-			return (df);
+		return (df);
 	}
 
 	protected void iteration(double[][] X) {
@@ -103,7 +100,6 @@ public class SimulationBlock extends BasicBlock {
 		return simulate;
 	}
 
-
 	public MatrixCollection Simulate() {
 		// crate matrix
 
@@ -122,7 +118,7 @@ public class SimulationBlock extends BasicBlock {
 	}
 
 	public void setMatrices(MatrixCollection matrices) {
-		this.matrices = matrices;		
+		this.matrices = matrices;
 		this.numconstants = matrices.getnumconstants();
 		this.totalequations = (short) (numequations + numconstants);
 		iteration(matrices.getX_equations());

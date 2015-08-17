@@ -1,4 +1,4 @@
-package eetac.model.structure;
+package eetac.model.component;
 
 public class AirPropierties {
 	

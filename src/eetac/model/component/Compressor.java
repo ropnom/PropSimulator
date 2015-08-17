@@ -3,8 +3,7 @@ package eetac.model.component;
 import eetac.model.AuxMethods;
 import eetac.model.GlobalConstants;
 import eetac.model.MatrixCollection;
-import eetac.model.structure.AirPropierties;
-import eetac.model.structure.FlowWorkBlock;
+import eetac.model.basicstructure.FlowWorkBlock;
 
 public class Compressor extends FlowWorkBlock {
 

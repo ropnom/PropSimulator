@@ -4,7 +4,7 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 
-import eetac.model.structure.SimulationBlock;
+import eetac.model.basicstructure.SimulationBlock;
 
 public class SimulationBlockTest {
 

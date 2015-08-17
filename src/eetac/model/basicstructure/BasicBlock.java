@@ -1,4 +1,4 @@
-package eetac.model.structure;
+package eetac.model.basicstructure;
 
 
 public abstract class BasicBlock {
