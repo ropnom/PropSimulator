@@ -45,8 +45,8 @@ public class SimulationBlock extends BasicBlock {
 
 	protected void setvariable(double variable, int index) {
 
-		//Set variable
-	}	
+		// Set variable
+	}
 
 	protected double getFx(double[][] X, int equation) {
 
@@ -69,7 +69,7 @@ public class SimulationBlock extends BasicBlock {
 		// double[][] Jx_equations = null;
 
 	}
-	
+
 	protected double getDifferencial(double fx, double fx_delta, double delta) {
 
 		// Make df = (f(x+delta) - f(x))/delta
@@ -103,9 +103,6 @@ public class SimulationBlock extends BasicBlock {
 		return simulate;
 	}
 
-	protected void putseed() {
-		// in this funcion you put the init value for variables to calculate.
-	}
 
 	public MatrixCollection Simulate() {
 		// crate matrix
@@ -113,10 +110,11 @@ public class SimulationBlock extends BasicBlock {
 		return null;
 	}
 
-	
-	
-	
-	//***************************
+	protected void initvalues() {
+
+	}
+
+	// ***************************
 	// GETs and SETs
 
 	public MatrixCollection getMatrices() {
@@ -124,7 +122,10 @@ public class SimulationBlock extends BasicBlock {
 	}
 
 	public void setMatrices(MatrixCollection matrices) {
-		this.matrices = matrices;
+		this.matrices = matrices;		
+		this.numconstants = matrices.getnumconstants();
+		this.totalequations = (short) (numequations + numconstants);
+		iteration(matrices.getX_equations());
 	}
 
 	public double getEpsilon() {

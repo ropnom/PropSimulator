@@ -39,23 +39,61 @@ public class propsimconsole {
 
 		Compressor compresor = new Compressor();
 
-		// Put variables
-
+		MatrixCollection matriz = compresor.getMatrices();
+		
+		//Ponemos el valor de la variables
+		double[][] X = matriz.getX_equations();
+		boolean[] constants = matriz.getConstants();
+		
+		X[0][0] = 97000;
+		constants[0] = true;
+		X[1][0] = 290;
+		constants[1] = true;
+		X[2][0] = 1000;
+		constants[2] = true;
+		X[3][0] = 1720000;
+		constants[3] = true;
+		X[4][0] = 755;
+		constants[4] = true;
+		
+		
+		matriz.setX_equations(X);
+		matriz.setConstants(constants);
+		
+		compresor.setMatrices(matriz);
 		compresor.setIsdefined(true);
+		
+		compresor.Simulate();
+
 		// Check equation and variables
 		if (compresor.isBlockSimulated()) {
 			System.out.println("Yes, we can simulate, with " + compresor.getNumequations() + " equations, " + compresor.getNumconstants() + " constants and a total of " + compresor.getNumvariables() + " varaibles.");
 
 		} else {
 			System.out.println("Fail, we have " + compresor.getNumequations() + " equations, " + compresor.getNumconstants() + " constants and a total of " + compresor.getNumvariables() + " varaibles.");
-			System.out.println(" We need:" + (compresor.getNumvariables()-compresor.getNumequations() - compresor.getNumconstants()) + " constants to define the system");
+			System.out.println(" We need:" + (compresor.getNumvariables() - compresor.getNumequations() - compresor.getNumconstants()) + " constants to define the system");
+		}
+
+		matriz = compresor.getMatrices();
+
+		for (int i = 0; i < compresor.getNumvariables(); i++) {
+			System.out.println(" X_" + i + ": " + matriz.getX_equations()[i][0]);
 		}
 		
-		MatrixCollection matrices = compresor.getMatrices();
-		
-		for ( int i = 0; i< compresor.getNumvariables();i++){
-			System.out.println(" X_"+i+": "+matrices.getX_equations()[i][0]);
-			//System.out.println(" Fx_"+i+": "+matrices.getFx_equations()[i][0]);
+		if (matriz.getFx_equations() != null) {
+			for (int l = 0; l < matriz.getFx_equations().length; l++) {
+				
+					System.out.println(" Fx_" + l + ": " + matriz.getFx_equations()[l][0]);
+				
+			}
+		}
+
+		if (matriz.getJx() != null) {
+			for (int l = 0; l < matriz.getJx().length; l++) {
+				for (int j = 0; j < matriz.getJx()[l].length; j++) {
+					System.out.println(" Jx_" + l + "_" + j + ": " + matriz.getJx()[l][j]);
+				}
+			}
 		}
 	}
 }

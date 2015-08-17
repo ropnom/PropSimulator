@@ -19,17 +19,38 @@ public class Compressor extends FlowWorkBlock {
 	}
 
 	// Descripcion e introduccion interna
-	private void GenCompressor_info() {
+	protected void GenCompressor_info() {
 		this.idnum = 200;
 		this.name = "Generic Compressor model 1";
 		this.description = "This component is a basic model of compresion with constant propierties for air";
 		this.reference = "Teorical Reference Termodinamics";
 		this.numequations = 6;
 		this.numvariables = 11;
+		initvalues();
 		genMatrix();
 
 		// this.initnum = initnum;
 		// this.endnum = initnum + numvaribles;
+	}
+
+	@Override
+	protected void initvalues() {
+		
+		this.Pin = 95000;
+		this.Tin = 290;		
+		this.MassFlow_in = 1000;
+		
+		this.Pout = 1800000;
+		this.Tout = 800;
+		this.MassFlow_out= 1000;
+		
+		this.Pi = 18;
+		this.Tau=2.7;
+		this.work = 450000000;	
+		this.n_i = 0.8;
+		this.n_p = 0.88;
+		
+
 	}
 
 	// Sobreescrivimos funciones
@@ -82,7 +103,7 @@ public class Compressor extends FlowWorkBlock {
 
 	@Override
 	protected void setvariable(double variable, int index) {
-		
+
 		switch (index) {
 		case 1:
 			this.Pin = variable;
@@ -128,22 +149,22 @@ public class Compressor extends FlowWorkBlock {
 		double fx = 0;
 
 		switch (equation) {
-		case 1:
+		case 0:
 			fx = PressureRelations(X);
 			break;
-		case 2:
+		case 1:
 			fx = TemperatureRelations(X);
 			break;
-		case 3:
+		case 2:
 			fx = MassFlowRelations(X);
 			break;
-		case 4:
+		case 3:
 			fx = PolitropicRelations(X);
 			break;
-		case 5:
+		case 4:
 			fx = IsentropicRelations(X);
 			break;
-		case 6:
+		case 5:
 			fx = WorkRelations(X);
 			break;
 
@@ -168,6 +189,7 @@ public class Compressor extends FlowWorkBlock {
 		variable[8] = "Work_compresor";
 		variable[9] = "Issentropic_efficiency";
 		variable[10] = "Politropic_efficiency";
+		
 
 		// GEN X vecto
 		double[][] X = new double[this.numvariables][1];
@@ -185,6 +207,7 @@ public class Compressor extends FlowWorkBlock {
 
 		this.matrices.setX_equations(X);
 		this.matrices.setVariable(variable);
+		
 
 		if (isdefined) {
 
@@ -199,7 +222,7 @@ public class Compressor extends FlowWorkBlock {
 
 			for (int i = 0; i < (this.totalequations); i++) {
 				// If is a known variable, X_i - cte = 0;
-				if (i < 6) {
+				if (i < numequations) {
 					Fx[i][0] = getFx(X, i);
 				} else {
 					Fx[i][0] = 0;
@@ -224,6 +247,7 @@ public class Compressor extends FlowWorkBlock {
 					} else {
 						// Constantes X_k - cte =0
 						// derivada 0, salvo sobre si mismas que es 1
+						Jx[j][i] = 0;
 
 					}
 				}
@@ -255,11 +279,6 @@ public class Compressor extends FlowWorkBlock {
 		return this.matrices;
 	}
 
-	@Override
-	protected void putseed() {
-
-		// if()
-	}
 
 	@Override
 	protected void iteration(double[][] X) {
@@ -309,22 +328,26 @@ public class Compressor extends FlowWorkBlock {
 
 	protected double PolitropicRelations(double[][] X) {
 		/*
-		 * Pi-Tau RELATION PI= TAU ^(GAMMA/(GAMA-1)*n_p) | Equation 4: PI - TAU
-		 * ^(GAMMA/(GAMA-1)*n_p) = 0
+		 * Pi-Tau RELATION TAU= PI ^(GAMMA/(GAMA-1)*n_p) | Equation 4: TAU - PI
+		 * ^(GAMMA/((GAMA-1)*1/n_p)) = 0
 		 */
 		// return (this.Pi - Math.pow(this.Tau,
-		// (AirPropierties.getGamma_politropic_air() * this.n_p)));
+		// (AirPropierties.getGamma_politropic_air() * this.n_p)));	
+		
+		
 		return (X[6][0] - Math.pow(X[7][0], (AirPropierties.getGamma_politropic_air() * X[10][0])));
 	}
 
 	protected double IsentropicRelations(double[][] X) {
 		/*
-		 * Pi-Tau RELATION PI= (1-n_i*(TAU-1)) ^GAMMA/(GAMA-1) | Equation 5: PI
-		 * - (1-n_i*(TAU-1)) ^(GAMMA/(GAMA-1)) = 0
+		 * Pi-Tau RELATION PI= (1+n_i*(TAU-1)) ^GAMMA/(GAMA-1) | Equation 5: PI
+		 * - (1+n_i*(TAU-1)) ^(GAMMA/(GAMA-1)) = 0
 		 */
-		// return (this.Pi - Math.pow((1 - this.n_i * (this.Tau - 1)),
+		// return (this.Tau - Math.pow((1 + this.n_i * (this.Tau - 1)),
 		// AirPropierties.getGamma_politropic_air()));
-		return (X[6][0] - Math.pow((1 - X[9][0] * (X[7][0] - 1)), AirPropierties.getGamma_politropic_air()));
+
+		
+		return (X[6][0] - Math.pow((1 + X[9][0] * (X[7][0] - 1)), AirPropierties.getGamma_politropic_air()));
 	}
 
 	protected double WorkRelations(double[][] X) {
