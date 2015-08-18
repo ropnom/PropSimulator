@@ -343,7 +343,7 @@ public class Compressor extends FlowWorkBlock {
 		 * Pi-Tau RELATION PI= (1+n_i*(TAU-1)) ^GAMMA/(GAMA-1) | Equation 5: PI
 		 * - (1+n_i*(TAU-1)) ^(GAMMA/(GAMA-1)) = 0
 		 */
-		// return (this.Tau - Math.pow((1 + this.n_i * (this.Tau - 1)),
+		// return (this.PI - Math.pow((1 + this.n_i * (this.Tau - 1)),
 		// AirPropierties.getGamma_politropic_air()));
 
 		
@@ -352,7 +352,7 @@ public class Compressor extends FlowWorkBlock {
 
 	protected double WorkRelations(double[][] X) {
 		/*
-		 * Work RELATION Work= CP | Equation 6: Work-Massflow*Cp(Tout-Tin) = 0
+		 * Work RELATION Work= CP | Equation 6: Work-Massflow*Cp(Tin-Tout) = 0
 		 */
 		return (X[8][0] - X[5][0] * AirPropierties.getCp_c() * (X[4][0] - X[1][0]));
 	}
