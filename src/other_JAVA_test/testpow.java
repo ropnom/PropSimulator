@@ -1,4 +1,4 @@
-package eetac.test;
+package other_JAVA_test;
 
 public class testpow {
 

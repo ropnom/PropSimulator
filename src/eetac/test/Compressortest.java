@@ -25,7 +25,7 @@ public class Compressortest {
 		compresor.setMassFlow_out(1000);
 		compresor.setPi(18);
 		compresor.setTau(2.7);
-		compresor.setWork(450000000);
+		compresor.setWork(-450000000);
 		compresor.setN_i(0.8);
 		compresor.setN_p(0.88);
 

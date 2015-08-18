@@ -8,17 +8,19 @@ public class SimulationBlock extends BasicBlock {
 
 	// math internal matrix
 	protected MatrixCollection matrices = new MatrixCollection();
+	
+	//relations with other blocks
 
-	//internal check of variables
+	// internal check of variables
 	protected short numequations = 0;
 	protected short numvariables = 0;
 	protected short numconstants = 0;
 	protected short numrelations = 0;
 
-	//for math arrays
+	// for math arrays
 	protected short initnum = -1;
 	protected short endnum = -1;
-	
+
 	protected boolean isdefined = false;
 
 	public SimulationBlock() {
@@ -141,7 +143,7 @@ public class SimulationBlock extends BasicBlock {
 
 	public void setInitnum(short initnum) {
 		this.initnum = initnum;
-		this.endnum = (short) (initnum+numvariables);
+		this.endnum = (short) (initnum + numvariables);
 	}
 
 	public short getEndnum() {
@@ -189,10 +191,19 @@ public class SimulationBlock extends BasicBlock {
 		// Comparator function for order in array
 		public int compare(SimulationBlock obj1, SimulationBlock obj2) {
 
+			//check id priority
 			if (obj1.getIdnum() > obj1.getIdnum()) {
 				return 1;
 			} else if (obj1.getIdnum() < obj1.getIdnum()) {
 				return -1;
+			} else {
+
+				//If there are two identical component order by adding.
+				if (obj1.getBlocknumber() > obj1.getBlocknumber()) {
+					return 1;
+				} else if (obj1.getBlocknumber() < obj1.getBlocknumber()) {
+					return -1;
+				}
 			}
 
 			return 0;

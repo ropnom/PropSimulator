@@ -9,30 +9,28 @@ import eetac.model.MatrixCollection;
 
 public class engine extends BasicBlock {
 
-	//Blocks
+	// Blocks
 	protected List<SimulationBlock> listblocks;
 	// Engine matrix
 	protected MatrixCollection matrixJet;
-	
-	
-	//Check math dimensions and solve
+
+	// Check math dimensions and solve
 	protected short numvariables = 0;
 	protected short numequations = 0;
 	protected short numconstants = 0;
 	protected short numrelations = 0;
 	protected boolean simulate = false;
 
-	//Contructors
+	// Contructors
 	public engine() {
 		super();
 		this.listblocks = new ArrayList<SimulationBlock>();
 		this.matrixJet = new MatrixCollection();
 	}
 
-	
-	//Important methods
+	// Important methods
 	public void addBlock(SimulationBlock a) {
-		
+
 		// add element and reorder
 		listblocks.add(a);
 		Collections.sort(listblocks, new SimulationBlock.Comparators());
@@ -50,10 +48,11 @@ public class engine extends BasicBlock {
 
 		// calculate total variables, equations, constants and relations.
 		for (int i = 0; i < listblocks.size(); i++) {
-			
-			//give init num to block
+
+			// give init num to block
 			listblocks.get(i).setInitnum(this.numvariables);
-			
+			listblocks.get(i).setBlocknumber((short) i);
+
 			this.numvariables += listblocks.get(i).getNumvariables();
 			this.numequations += listblocks.get(i).getNumequations();
 			this.numconstants += listblocks.get(i).getNumconstants();
@@ -71,35 +70,40 @@ public class engine extends BasicBlock {
 	public MatrixCollection getMathMatrix() {
 
 		NumEquaVariConts();
+		
 		if (simulate) {
-			double[][] X= new double[this.numvariables][1];
+			double[][] X = new double[this.numvariables][1];
 			double[][] Fx = new double[this.numvariables][1];
 			double[][] Jx = new double[this.numvariables][this.numvariables];
-			
+			String[] variable = new String[this.numvariables];
+			boolean[] constants = new boolean[this.numvariables];
+
 			MatrixCollection Block_matrix;
 			int init = 0;
 			int end = 0;
-			
+
 			// get diferent matrix of Simulationsblock
 			for (int i = 0; i < listblocks.size(); i++) {
 
 				Block_matrix = listblocks.get(i).getMatrices();
 				init = listblocks.get(i).getInitnum();
 				end = listblocks.get(i).getEndnum();
-				
+
 				// Get X equations
 				X = AuxMethods.Inset_in_matrix(X, Block_matrix.getX_equations(), 0, 0, init, end);
 				// Get Fx equations
 				Fx = AuxMethods.Inset_in_matrix(Fx, Block_matrix.getFx_equations(), 0, 0, init, end);
 				// Get Jx equations
 				Jx = AuxMethods.Inset_in_matrix(Jx, Block_matrix.getFx_equations(), init, end, init, end);
+				// Get varaible names
+				variable = AuxMethods.Inset_in_Stringvector(variable, Block_matrix.getVariable(), init, end);
+				// Get boolean constants
+				constants = AuxMethods.Inset_in_Booleanvector(constants, Block_matrix.getConstants(), init, end);
 
 			}
-			
 
 			return matrixJet;
-		}
-		else
+		} else
 			return null;
 
 	}

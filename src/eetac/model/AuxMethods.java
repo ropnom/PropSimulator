@@ -32,6 +32,26 @@ public class AuxMethods {
 
 	}
 
+	public static String[] Inset_in_Stringvector(String[] vector, String[] inserted, int initx, int endx) {
+
+		for (int j = initx; j < endx; j++) {
+			// Horizontal array j
+			vector[j] = inserted[j - initx];
+		}
+
+		return vector;
+	}
+	
+	public static boolean[] Inset_in_Booleanvector(boolean[] vector, boolean[] inserted, int initx, int endx) {
+
+		for (int j = initx; j < endx; j++) {
+			// Horizontal array j
+			vector[j] = inserted[j - initx];
+		}
+
+		return vector;
+	}
+
 	public static double[][] Extract_of_matrix(double[][] matrix, int inity, int endy) {
 
 		double[][] extract = new double[endy - inity][0];
