@@ -64,52 +64,92 @@ public class Compressortest {
 
 		// assert statements
 		System.out.println("Check Inputs...");
-		assertEquals("Pin must be 97000 PA in matrix", 97000.0, compresor.getMatrices().getX_equations()[0][0], 0.01);
-		assertEquals("Pin must be 97000 PA in variable", 97000.0, compresor.getPin(), 0.01);
+		assertEquals("Pin must be 97000 PA in matrix", 97000.0, compresor
+				.getMatrices().getX_equations()[0][0], 0.01);
+		assertEquals("Pin must be 97000 PA in variable", 97000.0,
+				compresor.getPin(), 0.01);
 
-		assertEquals("Tin must be 290 ºKin matrix", 290.0, compresor.getMatrices().getX_equations()[1][0], 0.01);
-		assertEquals("Tin must be 290 PA  in variable", 290.0, compresor.getTin(), 0.01);
+		assertEquals("Tin must be 290 ºKin matrix", 290.0, compresor
+				.getMatrices().getX_equations()[1][0], 0.01);
+		assertEquals("Tin must be 290 PA  in variable", 290.0,
+				compresor.getTin(), 0.01);
 
-		assertEquals("Min must be 1000 kg/seg in matrix", 1000.0, compresor.getMatrices().getX_equations()[2][0], 0.01);
-		assertEquals("Min must be 1000 kg/seg  in variable", 1000.0, compresor.getMassFlow_in(), 0.01);
+		assertEquals("Min must be 1000 kg/seg in matrix", 1000.0, compresor
+				.getMatrices().getX_equations()[2][0], 0.01);
+		assertEquals("Min must be 1000 kg/seg  in variable", 1000.0,
+				compresor.getMassFlow_in(), 0.01);
 
-		assertEquals("Pout must be 1720000 PA in matrix", 1720000.0, compresor.getMatrices().getX_equations()[3][0], 0.01);
-		assertEquals("Pout must be 1720000 PA  in variable", 1720000.0, compresor.getPout(), 0.01);
+		assertEquals("Pout must be 1720000 PA in matrix", 1720000.0, compresor
+				.getMatrices().getX_equations()[3][0], 0.01);
+		assertEquals("Pout must be 1720000 PA  in variable", 1720000.0,
+				compresor.getPout(), 0.01);
 
-		assertEquals("Tout must be 755 PA in matrix", 755.0, compresor.getMatrices().getX_equations()[4][0], 0.01);
-		assertEquals("Tout must be 755 PA  in variable", 755.0, compresor.getTout(), 0.01);
+		assertEquals("Tout must be 755 PA in matrix", 755.0, compresor
+				.getMatrices().getX_equations()[4][0], 0.01);
+		assertEquals("Tout must be 755 PA  in variable", 755.0,
+				compresor.getTout(), 0.01);
 
 	}
 
 	@Test
 	public void test_funciones() {
 
-		//Regenerate the matrix objet with the values of the last test (user values)
+		// Regenerate the matrix objet with the values of the last test (user
+		// values)
 		compresor.Simulate();
 		// assert functions
 		System.out.println("Functions Inputs...");
-		assertEquals("Funcion 0 must be", -26000.0, compresor.getMatrices().getFx_equations()[0][0], 0.01);
-		assertEquals("Funcion 1 must be", -28, compresor.getMatrices().getFx_equations()[1][0], 0.01);
-		assertEquals("Funcion 2 must be", 0, compresor.getMatrices().getFx_equations()[2][0], 0.01);
-		assertEquals("Funcion 3 must be", -3.31083, compresor.getMatrices().getFx_equations()[3][0], 0.01);
-		assertEquals("Funcion 4 must be", -2.192589, compresor.getMatrices().getFx_equations()[4][0], 0.01);
-		assertEquals("Funcion 5 must be", -17325000, compresor.getMatrices().getFx_equations()[5][0], 0.01);
+		assertEquals("Funcion 0 must be", -26000.0, compresor.getMatrices()
+				.getFx_equations()[0][0], 0.01);
+		assertEquals("Funcion 1 must be", -28, compresor.getMatrices()
+				.getFx_equations()[1][0], 0.01);
+		assertEquals("Funcion 2 must be", 0, compresor.getMatrices()
+				.getFx_equations()[2][0], 0.01);
+		assertEquals("Funcion 3 must be", -3.31083, compresor.getMatrices()
+				.getFx_equations()[3][0], 0.01);
+		assertEquals("Funcion 4 must be", -2.192589, compresor.getMatrices()
+				.getFx_equations()[4][0], 0.01);
+		assertEquals("Funcion 5 must be", -17325000, compresor.getMatrices()
+				.getFx_equations()[5][0], 0.01);
 	}
-	
+
 	@Test
 	public void test_jacobiano() {
 
-		//Regenerate the matrix objet with the values of the last test (user values)
+		// Regenerate the matrix objet with the values of the last test (user
+		// values)
 		compresor.Simulate();
-		// assert functions
-		System.out.println("Functions Inputs...");
-		assertEquals("Funcion 0 must be", -26000.0, compresor.getMatrices().getFx_equations()[0][0], 0.01);
-		assertEquals("Funcion 1 must be", -28, compresor.getMatrices().getFx_equations()[1][0], 0.01);
-		assertEquals("Funcion 2 must be", 0, compresor.getMatrices().getFx_equations()[2][0], 0.01);
-		assertEquals("Funcion 3 must be", -3.31083, compresor.getMatrices().getFx_equations()[3][0], 0.01);
-		assertEquals("Funcion 4 must be", -2.192589, compresor.getMatrices().getFx_equations()[4][0], 0.01);
-		assertEquals("Funcion 5 must be", -17325000, compresor.getMatrices().getFx_equations()[5][0], 0.01);
+		// create reference matrix
+
+		double[][] referencia = {
+				{ -18.0000020200000, 0, 0, 1.00000063000000, 0, 0, -97000, 0,
+						0, 0, 0 },
+				{ 0, -2.70000000000000, 0, 0, 1, 0, 0, -290, 0, 0, 0 },
+				{ 0, 0, 1, 0, 0, -1, 0, 0, 0, 0, 0 },
+				{ 0, 0, 0, 0, 0, 0, 1, -24.3110700200000, 0, 0,
+						-74.0974526300000 },
+				{ 0, 0, 0, 0, 0, 0, 1, -23.9583244000000, 0, -50.9138662900000,
+						0 },
+				{ 0, -1005000, 467324.999600000, 0, 1005000, 0, 0, 0,
+						1.00016593900000, 0, 0 },
+				{ 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+				{ 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+				{ 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0 },
+				{ 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0 },
+				{ 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0 } };
+		// assert Jx
+		System.out.println("JX...");
+		for (int i = 0; i < referencia.length; i++) {
+			for (int j = 0; j < referencia[i].length; j++) {
+				System.out.println("Jx_" + i + "_" + j + " must be "
+						+ referencia[i][j] + " is "
+						+ compresor.getMatrices().getJx()[i][j]);
+				// assertEquals("Jx_"+i+"_"+j+" must be", referencia[i][j],
+				// compresor.getMatrices().getJx()[i][j], 0.01);
+
+			}
+		}
+
 	}
-	
 
 }
