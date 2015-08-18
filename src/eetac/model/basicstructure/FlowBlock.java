@@ -34,7 +34,7 @@ public abstract class  FlowBlock extends SimulationBlock {
 
 
 	public FlowBlock(MatrixCollection matrices, double epsilon, short numequations, short initnum, short endnum) {
-		super(matrices, epsilon, numequations, initnum, endnum);
+		super(matrices, numequations, initnum, endnum);
 		// TODO Auto-generated constructor stub
 	}
 

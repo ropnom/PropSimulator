@@ -210,8 +210,9 @@ public class Compressor extends FlowWorkBlock {
 
 		if (isdefined) {
 
+			int totalequations = numequations + numconstants;
 			// Gen Fx vector
-			double[][] Fx = new double[this.totalequations][1];
+			double[][] Fx = new double[totalequations][1];
 			// Fx[0][0] = PressureRelations(X);
 			// Fx[1][0] = TemperatureRelations(X);
 			// Fx[2][0] = MassFlowRelations(X);
@@ -219,7 +220,7 @@ public class Compressor extends FlowWorkBlock {
 			// Fx[4][0] = IsentropicRelations(X);
 			// Fx[5][0] = WorkRelations(X);
 
-			for (int i = 0; i < (this.totalequations); i++) {
+			for (int i = 0; i < (totalequations); i++) {
 				// If is a known variable, X_i - cte = 0;
 				if (i < numequations) {
 					Fx[i][0] = getFx(X, i);
@@ -230,7 +231,7 @@ public class Compressor extends FlowWorkBlock {
 			}
 
 			// Gen Jx Matrix
-			double[][] Jx = new double[this.numvariables][this.totalequations];
+			double[][] Jx = new double[this.numvariables][totalequations];
 			double[][] X_delta = AuxMethods.Copy_matrix(X);
 
 			for (int i = 0; i < numvariables; i++) {

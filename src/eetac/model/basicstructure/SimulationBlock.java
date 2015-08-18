@@ -1,29 +1,33 @@
 package eetac.model.basicstructure;
 
-import eetac.model.GlobalConstants;
+import java.util.Comparator;
+
 import eetac.model.MatrixCollection;
 
 public class SimulationBlock extends BasicBlock {
 
 	// math internal matrix
 	protected MatrixCollection matrices = new MatrixCollection();
-	protected double epsilon = 0.001;
+
+	//internal check of variables
 	protected short numequations = 0;
 	protected short numvariables = 0;
 	protected short numconstants = 0;
-	protected short totalequations = 0;
+	protected short numrelations = 0;
+
+	//for math arrays
 	protected short initnum = -1;
 	protected short endnum = -1;
+	
 	protected boolean isdefined = false;
 
 	public SimulationBlock() {
 
 	}
 
-	public SimulationBlock(MatrixCollection matrices, double epsilon, short numequations, short initnum, short endnum) {
+	public SimulationBlock(MatrixCollection matrices, short numequations, short initnum, short endnum) {
 		super();
 		this.matrices = matrices;
-		this.epsilon = epsilon;
 		this.numequations = numequations;
 		this.initnum = initnum;
 		this.endnum = endnum;
@@ -91,7 +95,7 @@ public class SimulationBlock extends BasicBlock {
 		 */
 		boolean simulate = false;
 		if (isdefined) {
-			if (numvariables == totalequations && totalequations == (numequations + numconstants)) {
+			if (numvariables == (numequations + numconstants + numrelations)) {
 				simulate = true;
 				// Put seed value
 			}
@@ -120,16 +124,7 @@ public class SimulationBlock extends BasicBlock {
 	public void setMatrices(MatrixCollection matrices) {
 		this.matrices = matrices;
 		this.numconstants = matrices.getnumconstants();
-		this.totalequations = (short) (numequations + numconstants);
 		iteration(matrices.getX_equations());
-	}
-
-	public double getEpsilon() {
-		return epsilon;
-	}
-
-	public void setEpsilon(double epsilon) {
-		this.epsilon = epsilon;
 	}
 
 	public short getNumequations() {
@@ -146,6 +141,7 @@ public class SimulationBlock extends BasicBlock {
 
 	public void setInitnum(short initnum) {
 		this.initnum = initnum;
+		this.endnum = (short) (initnum+numvariables);
 	}
 
 	public short getEndnum() {
@@ -172,20 +168,37 @@ public class SimulationBlock extends BasicBlock {
 		this.numconstants = numconstants;
 	}
 
-	public short getTotalequations() {
-		return totalequations;
-	}
-
-	public void setTotalequations(short totalequations) {
-		this.totalequations = totalequations;
-	}
-
 	public boolean isIsdefined() {
 		return isdefined;
 	}
 
 	public void setIsdefined(boolean isdefined) {
 		this.isdefined = isdefined;
+	}
+
+	public short getNumrelations() {
+		return numrelations;
+	}
+
+	public void setNumrelations(short numrelations) {
+		this.numrelations = numrelations;
+	}
+
+	public static class Comparators implements Comparator<SimulationBlock> {
+
+		// Comparator function for order in array
+		public int compare(SimulationBlock obj1, SimulationBlock obj2) {
+
+			if (obj1.getIdnum() > obj1.getIdnum()) {
+				return 1;
+			} else if (obj1.getIdnum() < obj1.getIdnum()) {
+				return -1;
+			}
+
+			return 0;
+
+		}
+
 	}
 
 }
