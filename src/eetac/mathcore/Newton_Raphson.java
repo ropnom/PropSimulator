@@ -60,7 +60,7 @@ public class Newton_Raphson {
 
 		//X = new double[][] { { 5 }, { 5 } };
 		X = new double[2][1];
-		X[0][0] = 5;
+		X[0][0] = 2.5;
 		X[1][0] = 5;
 		Fx = new double[1][2];
 		Jx = new double[2][2];
