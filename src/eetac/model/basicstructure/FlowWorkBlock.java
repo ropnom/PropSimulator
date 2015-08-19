@@ -1,22 +1,12 @@
 package eetac.model.basicstructure;
 
 public abstract class FlowWorkBlock extends FlowBlock {
-
-	
-	/* THE ORDER OF MATH VARIABLES IS
-	 * 1º PIN
-	 * 2º TIN
-	 * 3º MASSFLOWIN
-	 * 4º POUT
-	 * 5º TOUT
-	 * 6º MASSFLOWOUT
-	 * 7º PI = POUT/PIN
-	 * 8º TAU = TOUT/TIN
-	 * 9º WORK
-	 * 10º ISENTROPIC EFFICENCY
-	 * 11º POLITROPIC EFFICENCY
+	/*
+	 * THE ORDER OF MATH VARIABLES IS 1º PIN 2º TIN 3º MASSFLOWIN 4º POUT 5º
+	 * TOUT 6º MASSFLOWOUT 7º PI = POUT/PIN 8º TAU = TOUT/TIN 9º WORK 10º
+	 * ISENTROPIC EFFICENCY 11º POLITROPIC EFFICENCY
 	 * 
-	 *  OTHER VARIABLES IN COMPLEX BLOCKS
+	 * OTHER VARIABLES IN COMPLEX BLOCKS
 	 */
 	protected double Pi = 1;
 	protected double Tau = 1;
@@ -26,9 +16,9 @@ public abstract class FlowWorkBlock extends FlowBlock {
 	protected double n_p = 1;
 
 	public FlowWorkBlock() {
+		super();
 
 	}
-	
 
 	public FlowWorkBlock(double pi, double tau, double work, double n_i, double n_p) {
 		super();
@@ -38,8 +28,16 @@ public abstract class FlowWorkBlock extends FlowBlock {
 		this.n_i = n_i;
 		this.n_p = n_p;
 	}
-	
 
+	// Copy contructor
+	public FlowWorkBlock(FlowWorkBlock a) {
+		super(a);
+		Pi = a.getPi();
+		Tau = a.getTau();
+		this.work = a.getWork();
+		this.n_i = a.getN_i();
+		this.n_p = a.getN_p();
+	}
 
 	public double getPi() {
 		return Pi;

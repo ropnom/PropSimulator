@@ -8,14 +8,11 @@ import eetac.model.basicstructure.FlowWorkBlock;
 public class Compressor extends FlowWorkBlock {
 
 	public Compressor() {
-		GenCompressor_info();
+		super();
+		//GenCompressor_info();
 	}
 
 	// Introduciomos los datos
-	public Compressor(double Pin, double Tin, double MassFlow_in, double Pout, double Tout, double MassFlow_out, double Pi, double Tau, double work, double n_i, double n_p) {
-
-		GenCompressor_info();
-	}
 
 	// Descripcion e introduccion interna
 	protected void GenCompressor_info() {
@@ -23,32 +20,61 @@ public class Compressor extends FlowWorkBlock {
 		this.name = "Generic Compressor model 1";
 		this.description = "This component is a basic model of compresion with constant propierties for air";
 		this.reference = "Teorical Reference Termodinamics";
+
+		initvalues();
 		this.numequations = 6;
 		this.numvariables = 11;
-		initvalues();
-		genMatrix();
 
-		// this.initnum = initnum;
-		// this.endnum = initnum + numvaribles;
+		// Gen variable names
+		String[] variable = new String[this.numvariables];
+		variable[0] = "P_compresor_in";
+		variable[1] = "T_compresor_in";
+		variable[2] = "Mass_compresor_in";
+		variable[3] = "P_compresor_out";
+		variable[4] = "T_compresor_out";
+		variable[5] = "Mass_compresor_out";
+		variable[6] = "Pressure_ratio";
+		variable[7] = "Temperature_ratio";
+		variable[8] = "Work_compresor";
+		variable[9] = "Issentropic_efficiency";
+		variable[10] = "Politropic_efficiency";
+
+		// GEN X vecto
+		double[][] X = new double[this.numvariables][1];
+		X[0][0] = this.Pin;
+		X[1][0] = this.Tin;
+		X[2][0] = this.MassFlow_in;
+		X[3][0] = this.Pout;
+		X[4][0] = this.Tout;
+		X[5][0] = this.MassFlow_out;
+		X[6][0] = this.Pi;
+		X[7][0] = this.Tau;
+		X[8][0] = this.work;
+		X[9][0] = this.n_i;
+		X[10][0] = this.n_p;
+
+		this.matrices.setX_equations(X);
+		this.matrices.setVariable(variable);
+
+		genMatrix();
 	}
 
 	@Override
 	protected void initvalues() {
-		
+
 		this.Pin = 95000;
-		this.Tin = 290;		
+		this.Tin = 290;
 		this.MassFlow_in = 1000;
-		
+
 		this.Pout = 1800000;
 		this.Tout = 800;
-		this.MassFlow_out= 1000;
-		
+		this.MassFlow_out = 1000;
+
 		this.Pi = 18;
-		this.Tau=2.7;
-		this.work = 450000000;	
+		this.Tau = 2.7;
+		this.work = 450000000;
 		this.n_i = 0.8;
 		this.n_p = 0.88;
-		
 
 	}
 
@@ -175,43 +201,12 @@ public class Compressor extends FlowWorkBlock {
 
 	@Override
 	protected void genMatrix() {
-		// Gen variable names
-		String[] variable = new String[this.numvariables];
-		variable[0] = "P_compresor_in";
-		variable[1] = "T_compresor_in";
-		variable[2] = "Mass_compresor_in";
-		variable[3] = "P_compresor_out";
-		variable[4] = "T_compresor_out";
-		variable[5] = "Mass_compresor_out";
-		variable[6] = "Pressure_ratio";
-		variable[7] = "Temperature_ratio";
-		variable[8] = "Work_compresor";
-		variable[9] = "Issentropic_efficiency";
-		variable[10] = "Politropic_efficiency";
-		
-
-		// GEN X vecto
-		double[][] X = new double[this.numvariables][1];
-		X[0][0] = this.Pin;
-		X[1][0] = this.Tin;
-		X[2][0] = this.MassFlow_in;
-		X[3][0] = this.Pout;
-		X[4][0] = this.Tout;
-		X[5][0] = this.MassFlow_out;
-		X[6][0] = this.Pi;
-		X[7][0] = this.Tau;
-		X[8][0] = this.work;
-		X[9][0] = this.n_i;
-		X[10][0] = this.n_p;
-
-		this.matrices.setX_equations(X);
-		this.matrices.setVariable(variable);
-		
 
 		if (isdefined) {
 
 			int totalequations = numequations + numconstants;
 			// Gen Fx vector
+			double[][] X = this.matrices.getX_equations();
 			double[][] Fx = new double[totalequations][1];
 			// Fx[0][0] = PressureRelations(X);
 			// Fx[1][0] = TemperatureRelations(X);
@@ -279,7 +274,6 @@ public class Compressor extends FlowWorkBlock {
 		return this.matrices;
 	}
 
-
 	@Override
 	protected void iteration(double[][] X) {
 
@@ -332,10 +326,9 @@ public class Compressor extends FlowWorkBlock {
 		 * ^(GAMMA/((GAMA-1)*1/n_p)) = 0
 		 */
 		// return (this.Pi - Math.pow(this.Tau,
-		// (AirPropierties.getGamma_politropic_air() * this.n_p)));	
-		
-		
-		return (X[6][0] - Math.pow(X[7][0], (AirPropierties.getGamma_politropic_air() * X[10][0])));
+		// (AirPropierties.getGamma_politropic_air() * this.n_p)));
+
+		return (X[6][0] - Math.pow(X[7][0], (AirPropierties.getGamma_1_gama_air() * X[10][0])));
 	}
 
 	protected double IsentropicRelations(double[][] X) {
@@ -346,8 +339,7 @@ public class Compressor extends FlowWorkBlock {
 		// return (this.PI - Math.pow((1 + this.n_i * (this.Tau - 1)),
 		// AirPropierties.getGamma_politropic_air()));
 
-		
-		return (X[6][0] - Math.pow((1 + X[9][0] * (X[7][0] - 1)), AirPropierties.getGamma_politropic_air()));
+		return (X[6][0] - Math.pow((1 + X[9][0] * (X[7][0] - 1)), AirPropierties.getGamma_1_gama_air()));
 	}
 
 	protected double WorkRelations(double[][] X) {

@@ -2,8 +2,9 @@ package eetac.model.basicstructure;
 
 
 public abstract class BasicBlock {
-
-	// Model identificator
+	/* This class provide the Basic information like identificator, order, name, description and original reference of element.
+	 * 
+	 */
 	protected short idnum = 0;
 	protected short blocknumber = 0;
 	protected String name = "Not defined";
@@ -12,7 +13,7 @@ public abstract class BasicBlock {
 	
 
 	public BasicBlock() {
-		// TODO Auto-generated constructor stub
+		GenCompressor_info();
 	}
 
 	public BasicBlock(short idnum, String name, String description, String reference) {
@@ -22,18 +23,24 @@ public abstract class BasicBlock {
 		this.description = description;
 		this.reference = reference;
 	}
+	
+	public BasicBlock(BasicBlock a) {
+		super();
+		this.idnum = a.getIdnum();
+		this.name = a.getName();
+		this.description = a.getDescription();
+		this.reference = a.getReference();
+	}
 
 	// GEneral Methods
-
-	public String GenDescripcion(){
-		String line = "";
+	protected void GenCompressor_info() {
+		/*
+		 * This method init the variables	
+		 */
 		
-		
-		return line;
 	}
 	
 	// GETs and SETs
-
 	public short getIdnum() {
 		return idnum;
 	}

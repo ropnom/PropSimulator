@@ -1,15 +1,29 @@
 package eetac.model;
 
+import java.util.Arrays;
+
 public class MatrixCollection {
 
+	// Math matrix using in math method
 	protected double[][] X_equations;
 	protected double[][] Fx_equations;
 	protected double[][] Jx;
 
+	//Aux matrix for define humaninterfice
 	protected String[] variable;
 	protected boolean[] constants;
 
 	public MatrixCollection() {
+
+	}
+	
+	//Copy contructor
+	public MatrixCollection(MatrixCollection a) {
+		this.X_equations = AuxMethods.Copy_matrix(a.getX_equations());
+		this.Fx_equations = AuxMethods.Copy_matrix(a.getFx_equations());
+		this.Jx = AuxMethods.Copy_matrix(a.getJx());
+		this.variable = Arrays.copyOf(a.getVariable(), a.getVariable().length);
+		this.constants = Arrays.copyOf(a.getConstants(),a.getConstants().length);
 
 	}
 
@@ -18,7 +32,11 @@ public class MatrixCollection {
 		this.Jx = Jx;
 	}
 
+	
 	public short getnumconstants() {
+		/* Return the number of constants define by user in the matrix
+		 */
+		
 		short i = 0;
 		for (int j = 0; j < constants.length; j++) {
 			if (constants[j])

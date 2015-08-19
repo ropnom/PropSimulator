@@ -49,6 +49,20 @@ public abstract class  FlowBlock extends SimulationBlock {
 		Pt_0 = pt_0;
 		Tt_0 = tt_0;
 	}
+	
+	//copy contructor
+	public FlowBlock(FlowBlock a) {
+		super(a);
+		Pin = a.getPin();
+		Tin = a.getTin();
+		MassFlow_in = a.getMassFlow_in();
+		Pout = a.getPout();
+		Tout = a.getTout();
+		MassFlow_out = a.getMassFlow_out();
+		Pt_0 = a.getPt_0();
+		Tt_0 = a.getTt_0();
+		
+	}
 
 
 	public double getPt_0() {

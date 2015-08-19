@@ -4,6 +4,7 @@ public class Objeto1 {
 
 	protected int idnum;
 	protected String campos;
+	protected double[][] cosas;
 
 	public Objeto1(int idnum, String campos) {
 
@@ -26,5 +27,15 @@ public class Objeto1 {
 	public void setCampos(String campos) {
 		this.campos = campos;
 	}
+
+	public double[][] getCosas() {
+		return cosas;
+	}
+
+	public void setCosas(double[][] cosas) {
+		this.cosas = cosas;
+	}
+	
+	
 
 }
