@@ -5,22 +5,21 @@ import eetac.model.GlobalConstants;
 import eetac.model.MatrixCollection;
 import eetac.model.basicstructure.FlowWorkBlock;
 
-public class Compressor extends FlowWorkBlock {
+public class Tubine extends FlowWorkBlock {
 
-	public Compressor() {
+	public Tubine() {
 		super();
-		Gen_info();
+		GenCompressor_info();
 	}
 
 	// Introduciomos los datos
 
 	// Descripcion e introduccion interna
-	@Override
-	protected void Gen_info() {
+	protected void GenCompressor_info() {
 
-		this.idnum = 200;
-		this.name = "Generic Compressor model 1";
-		this.description = "This component is a basic model of compresion with constant propierties for air";
+		this.idnum = 400;
+		this.name = "Generic Turbine model 1";
+		this.description = "This component is a basic model of turbine with constant propierties for air";
 		this.reference = "Teorical Reference Termodinamics";
 
 		initvalues();
@@ -29,17 +28,17 @@ public class Compressor extends FlowWorkBlock {
 
 		// Gen variable names
 		String[] variable = new String[this.numvariables];
-		variable[0] = "P_"+this.blocknumber+"_compresor_in";
-		variable[1] = "T_"+this.blocknumber+"_compresor_in";
-		variable[2] = "Mass_"+this.blocknumber+"_compresor_in";
-		variable[3] = "P_"+this.blocknumber+"_compresor_out";
-		variable[4] = "T_"+this.blocknumber+"_compresor_out";
-		variable[5] = "Mass_"+this.blocknumber+"_compresor_out";
-		variable[6] = "Pressure_ratio"+this.blocknumber+"_compresor";
-		variable[7] = "Temperature_ratio"+this.blocknumber+"_compresor";
+		variable[0] = "P_"+this.blocknumber+"_turbine_in";
+		variable[1] = "T_"+this.blocknumber+"_turbine_in";
+		variable[2] = "Mass_"+this.blocknumber+"_turbine_in";
+		variable[3] = "P_"+this.blocknumber+"_turbine_out";
+		variable[4] = "T_"+this.blocknumber+"_turbine_out";
+		variable[5] = "Mass_"+this.blocknumber+"_turbine_out";
+		variable[6] = "Pressure_ratio"+this.blocknumber+"_turbine";
+		variable[7] = "Temperature_ratio"+this.blocknumber+"_turbine";
 		variable[8] = "Work_"+this.blocknumber+"_compresor";
-		variable[9] = "Issentropic_efficiency_"+this.blocknumber+"_compressor";
-		variable[10] = "Politropic_efficiency_"+this.blocknumber+"_compressor";
+		variable[9] = "Issentropic_efficiency_"+this.blocknumber+"_turbine";
+		variable[10] = "Politropic_efficiency_"+this.blocknumber+"_turbine";
 
 		double[][] X = new double[this.numvariables][1];
 		// GEN X vecto

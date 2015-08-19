@@ -33,7 +33,7 @@ public abstract class BasicBlock {
 	}
 
 	// GEneral Methods
-	protected void GenCompressor_info() {
+	protected void Gen_info() {
 		/*
 		 * This method init the variables	
 		 */

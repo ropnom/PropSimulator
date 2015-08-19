@@ -114,7 +114,7 @@ public class Compressortest {
 			for (int j = 0; j < referencia[i].length; j++) {
 
 				System.out.println("Jx_" + i + "_" + j + " must be " + referencia[i][j] + " is " + compresor.getMatrices().getJx()[i][j]);
-				//assertEquals("Jx_" + i + "_" + j + " must be", referencia[i][j], compresor.getMatrices().getJx()[i][j], 0.01);
+				assertEquals("Jx_" + i + "_" + j + " must be", referencia[i][j], compresor.getMatrices().getJx()[i][j], 0.01);
 
 			}
 		}
