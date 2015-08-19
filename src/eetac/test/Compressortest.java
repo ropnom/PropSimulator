@@ -28,7 +28,7 @@ public class Compressortest {
 		compresor.setWork(-450000000);
 		compresor.setN_i(0.8);
 		compresor.setN_p(0.88);
-
+			
 		// get matrix objet inicializated by compresor
 		matriz = compresor.getMatrices();
 
@@ -53,8 +53,9 @@ public class Compressortest {
 		matriz.setConstants(constants);
 
 		// insert matrix in compresor
-		compresor.setMatrices(matriz);
 		compresor.setIsdefined(true);
+		compresor.setMatrices(matriz);
+		
 	}
 
 	@Test
@@ -94,7 +95,7 @@ public class Compressortest {
 		assertEquals("Funcion 2 must be", 0, compresor.getMatrices().getFx_equations()[2][0], 0.01);
 		assertEquals("Funcion 3 must be", -3.31083, compresor.getMatrices().getFx_equations()[3][0], 0.01);
 		assertEquals("Funcion 4 must be", -2.192589, compresor.getMatrices().getFx_equations()[4][0], 0.01);
-		assertEquals("Funcion 5 must be", -17325000, compresor.getMatrices().getFx_equations()[5][0], 0.01);
+		assertEquals("Funcion 5 must be", 17325000, compresor.getMatrices().getFx_equations()[5][0], 0.01);
 	}
 
 	@Test
@@ -105,24 +106,15 @@ public class Compressortest {
 		compresor.Simulate();
 		// create reference matrix
 
-		double[][] referencia = { { -18.0000020200000, 0, 0, 1.00000063000000, 0, 0, -97000, 0, 0, 0, 0 },
-				{ 0, -2.70000000000000, 0, 0, 1, 0, 0, -290, 0, 0, 0 }, { 0, 0, 1, 0, 0, -1, 0, 0, 0, 0, 0 },
-				{ 0, 0, 0, 0, 0, 0, 1, -24.3110700200000, 0, 0, -74.0974526300000 },
-				{ 0, 0, 0, 0, 0, 0, 1, -23.9583244000000, 0, -50.9138662900000, 0 },
-				{ 0, -1005000, 467324.999600000, 0, 1005000, 0, 0, 0, 1.00016593900000, 0, 0 }, 
-				{ 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 }, { 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
-				{ 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0 }, { 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0 }, 
-				{ 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0 } };
-		
+		double[][] referencia = { { -18.0000020200000, 0, 0, 1.00000063000000, 0, 0, -97000, 0, 0, 0, 0 }, { 0, -2.70000000000000, 0, 0, 1, 0, 0, -290, 0, 0, 0 }, { 0, 0, 1, 0, 0, -1, 0, 0, 0, 0, 0 }, { 0, 0, 0, 0, 0, 0, 1, -24.3110700200000, 0, 0, -74.0974526300000 }, { 0, 0, 0, 0, 0, 0, 1, -23.9583244000000, 0, -50.9138662900000, 0 }, { 0, -1005000, 467324.999600000, 0, 1005000, 467324.999600000, 0, 0, 1.00016593900000, 0, 0 }, { 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 }, { 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0 }, { 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0 }, { 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0 }, { 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0 } };
+
 		// assert Jx
 		System.out.println("JX...");
 		for (int i = 0; i < referencia.length; i++) {
 			for (int j = 0; j < referencia[i].length; j++) {
-				
+
 				System.out.println("Jx_" + i + "_" + j + " must be " + referencia[i][j] + " is " + compresor.getMatrices().getJx()[i][j]);
-				
-				// assertEquals("Jx_"+i+"_"+j+" must be", referencia[i][j],
-				// compresor.getMatrices().getJx()[i][j], 0.01);
+				//assertEquals("Jx_" + i + "_" + j + " must be", referencia[i][j], compresor.getMatrices().getJx()[i][j], 0.01);
 
 			}
 		}

@@ -73,7 +73,7 @@ public class Compressor extends FlowWorkBlock {
 
 		this.Pi = 18;
 		this.Tau = 2.7;
-		this.work = 450000000;
+		this.work = -450000000;
 		this.n_i = 0.8;
 		this.n_p = 0.88;
 
@@ -207,10 +207,12 @@ public class Compressor extends FlowWorkBlock {
 
 		double[][] Fx = new double[totalequations][1];
 		double[][] Jx = new double[this.numvariables][totalequations];
+		boolean[] constants;
 
 		if (isdefined) {
 
 			double[][] X = matrices.getX_equations();
+			constants = this.matrices.getConstants();
 			// Gen Fx vector
 
 			// Fx[0][0] = PressureRelations(X);
@@ -233,29 +235,39 @@ public class Compressor extends FlowWorkBlock {
 			// Gen Jx Matrix
 			double[][] X_delta = AuxMethods.Copy_matrix(X);
 
+			int contador1 = -1;
+			int contador2 = -1;
+
 			for (int i = 0; i < numvariables; i++) {
 				// iteracion por filas x1, x2 ..xn
 				X_delta[i][0] += GlobalConstants.getDelta();
 
-				for (int j = 0; j < totalequations; j++) {
-
-					if (j < numequations) {
-						// Calculate parcial derivate of f_j/x_i
-						Jx[j][i] = getDifferencial(Fx[j][0], getFx(X_delta, j), GlobalConstants.getDelta());
-
-					} else {
-						// Constantes X_k - cte =0
-						// derivada 0, salvo sobre si mismas que es 1
-						Jx[j][i] = 0;
-
-					}
+				for (int j = 0; j < numequations; j++) {
+					// Calculate parcial derivate of f_j/x_i
+					Jx[j][i] = getDifferencial(Fx[j][0], getFx(X_delta, j), GlobalConstants.getDelta());
 				}
 				X_delta[i][0] = X[i][0];
 			}
 
+			// Fix the ecuations generate by contansts.
+			boolean encontrado = false;
+			int i = 0;
+			for (int j = numequations; j < totalequations; j++) {
+
+				encontrado = false;
+				while (i < numvariables && !encontrado) {
+					if (constants[i]) {
+						Jx[j][i] = 1;
+						encontrado = true;
+					}
+					i++;
+
+				}
+			}
+
 		} else {
 			// Gen boolean constant know for init objet
-			boolean[] constants = new boolean[this.numvariables];
+			constants = new boolean[this.numvariables];
 			for (int l = 0; l < numvariables; l++) {
 				constants[l] = false;
 			}
@@ -350,6 +362,7 @@ public class Compressor extends FlowWorkBlock {
 		 * Work RELATION Work= CP | Equation 6: Work-Massflow*Cp(Tin-Tout) = 0
 		 */
 		if (X[2][0] >= X[5][0]) {
+
 			return (X[8][0] - X[2][0] * AirPropierties.getCp_c() * (X[1][0] - X[4][0]));
 		} else {
 			return (X[8][0] - X[5][0] * AirPropierties.getCp_c() * (X[1][0] - X[4][0]));

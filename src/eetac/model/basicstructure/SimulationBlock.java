@@ -140,6 +140,7 @@ public class SimulationBlock extends BasicBlock {
 	}
 
 	public void setMatrices(MatrixCollection matrices) {
+		
 		this.matrices = matrices;
 		this.numconstants = matrices.getnumconstants();
 		iteration(matrices.getX_equations());
