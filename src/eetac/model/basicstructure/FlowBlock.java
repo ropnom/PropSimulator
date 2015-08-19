@@ -29,7 +29,7 @@ public abstract class  FlowBlock extends SimulationBlock {
 	protected double Tt_0 = -1;
 
 	public FlowBlock() {
-		super();
+		super();		
 	}
 
 

@@ -9,13 +9,14 @@ public class Compressor extends FlowWorkBlock {
 
 	public Compressor() {
 		super();
-		//GenCompressor_info();
+		GenCompressor_info();
 	}
 
 	// Introduciomos los datos
 
 	// Descripcion e introduccion interna
 	protected void GenCompressor_info() {
+
 		this.idnum = 200;
 		this.name = "Generic Compressor model 1";
 		this.description = "This component is a basic model of compresion with constant propierties for air";
@@ -39,8 +40,8 @@ public class Compressor extends FlowWorkBlock {
 		variable[9] = "Issentropic_efficiency";
 		variable[10] = "Politropic_efficiency";
 
-		// GEN X vecto
 		double[][] X = new double[this.numvariables][1];
+		// GEN X vecto
 		X[0][0] = this.Pin;
 		X[1][0] = this.Tin;
 		X[2][0] = this.MassFlow_in;
@@ -202,12 +203,16 @@ public class Compressor extends FlowWorkBlock {
 	@Override
 	protected void genMatrix() {
 
+		int totalequations = numequations + numconstants;
+
+		double[][] Fx = new double[totalequations][1];
+		double[][] Jx = new double[this.numvariables][totalequations];
+
 		if (isdefined) {
 
-			int totalequations = numequations + numconstants;
+			double[][] X = matrices.getX_equations();
 			// Gen Fx vector
-			double[][] X = this.matrices.getX_equations();
-			double[][] Fx = new double[totalequations][1];
+
 			// Fx[0][0] = PressureRelations(X);
 			// Fx[1][0] = TemperatureRelations(X);
 			// Fx[2][0] = MassFlowRelations(X);
@@ -226,7 +231,6 @@ public class Compressor extends FlowWorkBlock {
 			}
 
 			// Gen Jx Matrix
-			double[][] Jx = new double[this.numvariables][totalequations];
 			double[][] X_delta = AuxMethods.Copy_matrix(X);
 
 			for (int i = 0; i < numvariables; i++) {
@@ -249,9 +253,6 @@ public class Compressor extends FlowWorkBlock {
 				X_delta[i][0] = X[i][0];
 			}
 
-			this.matrices.setFx_equations(Fx);
-			this.matrices.setJx(Jx);
-
 		} else {
 			// Gen boolean constant know for init objet
 			boolean[] constants = new boolean[this.numvariables];
@@ -261,6 +262,8 @@ public class Compressor extends FlowWorkBlock {
 
 			this.matrices.setConstants(constants);
 		}
+		this.matrices.setFx_equations(Fx);
+		this.matrices.setJx(Jx);
 
 	}
 
@@ -346,7 +349,11 @@ public class Compressor extends FlowWorkBlock {
 		/*
 		 * Work RELATION Work= CP | Equation 6: Work-Massflow*Cp(Tin-Tout) = 0
 		 */
-		return (X[8][0] - X[5][0] * AirPropierties.getCp_c() * (X[4][0] - X[1][0]));
+		if (X[2][0] >= X[5][0]) {
+			return (X[8][0] - X[2][0] * AirPropierties.getCp_c() * (X[1][0] - X[4][0]));
+		} else {
+			return (X[8][0] - X[5][0] * AirPropierties.getCp_c() * (X[1][0] - X[4][0]));
+		}
 	}
 
 }

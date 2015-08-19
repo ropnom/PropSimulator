@@ -31,6 +31,7 @@ public class SimulationBlock extends BasicBlock {
 
 	public SimulationBlock() {
 		super();
+
 	}
 
 	public SimulationBlock(MatrixCollection matrices, short numequations, short initnum, short endnum) {
@@ -46,8 +47,7 @@ public class SimulationBlock extends BasicBlock {
 		// TODO Auto-generated constructor stub
 	}
 
-
-	//copy contructor
+	// copy contructor
 	public SimulationBlock(SimulationBlock a) {
 		super(a);
 		this.matrices = new MatrixCollection(a.getMatrices());
@@ -56,7 +56,6 @@ public class SimulationBlock extends BasicBlock {
 		this.endnum = a.getEndnum();
 
 	}
-
 
 	// GEneral Methods
 	protected double getvariable(int index) {

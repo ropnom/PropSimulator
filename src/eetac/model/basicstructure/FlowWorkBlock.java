@@ -17,7 +17,6 @@ public abstract class FlowWorkBlock extends FlowBlock {
 
 	public FlowWorkBlock() {
 		super();
-
 	}
 
 	public FlowWorkBlock(double pi, double tau, double work, double n_i, double n_p) {

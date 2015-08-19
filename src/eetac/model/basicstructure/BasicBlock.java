@@ -13,7 +13,7 @@ public abstract class BasicBlock {
 	
 
 	public BasicBlock() {
-		GenCompressor_info();
+		
 	}
 
 	public BasicBlock(short idnum, String name, String description, String reference) {
