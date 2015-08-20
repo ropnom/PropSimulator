@@ -236,9 +236,6 @@ public class Compressor extends FlowWorkBlock {
 			// Gen Jx Matrix
 			double[][] X_delta = AuxMethods.Copy_matrix(X);
 
-			int contador1 = -1;
-			int contador2 = -1;
-
 			for (int i = 0; i < numvariables; i++) {
 				// iteracion por filas x1, x2 ..xn
 				X_delta[i][0] += GlobalConstants.getDelta();

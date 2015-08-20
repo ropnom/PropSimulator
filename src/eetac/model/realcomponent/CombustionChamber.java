@@ -170,15 +170,9 @@ public class CombustionChamber extends FlowBlock {
 			fx = MassFlowRelations(X);
 			break;
 		case 3:
-			fx = PolitropicRelations(X);
+			fx = HeatRelations(X);
 			break;
-		case 4:
-			fx = IsentropicRelations(X);
-			break;
-		case 5:
-			fx = WorkRelations(X);
-			break;
-
+		
 		default:
 			break;
 		}
@@ -219,9 +213,6 @@ public class CombustionChamber extends FlowBlock {
 
 			// Gen Jx Matrix
 			double[][] X_delta = AuxMethods.Copy_matrix(X);
-
-			int contador1 = -1;
-			int contador2 = -1;
 
 			for (int i = 0; i < numvariables; i++) {
 				// iteracion por filas x1, x2 ..xn

@@ -82,7 +82,7 @@ public class Engine extends BasicBlock {
 
 	}
 
-	public void PutComponentsRelations_X() {
+	protected void PutComponentsRelations_X() {
 
 		// This function change default values of componente by relations
 		for (int i = 0; i < listrelations.size(); i++) {
@@ -90,7 +90,7 @@ public class Engine extends BasicBlock {
 		}
 	}
 
-	public double[][] PutComponentsRelations_Jx(double[][] Jx) {
+	protected double[][] PutComponentsRelations_Jx(double[][] Jx) {
 
 		// This function change default values of componente by relations
 		for (int i = 0; i < listrelations.size(); i++) {
@@ -104,7 +104,7 @@ public class Engine extends BasicBlock {
 		return matrixJet;
 	}
 
-	public void BuildMatrix() {
+	protected void BuildMatrix() {
 
 		// check if the engine can be solve
 		NumEquaVariConts();
