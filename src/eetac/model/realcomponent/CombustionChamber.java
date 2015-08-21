@@ -22,7 +22,7 @@ public class CombustionChamber extends FlowBlock {
 	@Override
 	protected void Gen_info() {
 
-		this.idnum = 500;
+		this.idnum = (short) (GlobalConstants.getCombustionchamber() + 1) ;
 		this.name = "Generic Combustion Chamber model 1";
 		this.description = "This component is a basic model of Combustion Chamber with constant propierties for air";
 		this.reference = "Teorical Reference Termodinamics";

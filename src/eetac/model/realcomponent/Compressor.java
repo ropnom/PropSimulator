@@ -1,5 +1,6 @@
 package eetac.model.realcomponent;
 
+import eetac.model.GlobalConstants;
 import eetac.model.MatrixCollection;
 import eetac.model.basicstructure.FlowWorkBlock;
 
@@ -27,7 +28,7 @@ public class Compressor extends FlowWorkBlock {
 	@Override
 	protected void Gen_info() {
 
-		this.idnum = 200;
+		this.idnum = (short) (GlobalConstants.getCompresor()+1);
 		this.name = "Generic Compressor model 1";
 		this.description = "This component is a basic model of compresion with constant propierties for air";
 		this.reference = "Teorical Reference Termodinamics";
@@ -211,17 +212,6 @@ public class Compressor extends FlowWorkBlock {
 		return fx;
 	}
 
-
-	@Override
-	protected void iteration(double[][] X) {
-
-		for(int i = 0; i<this.numvariables; i++){
-			
-			setvariable(X[i+initnum][0], i);
-		}
-		genMatrix();
-
-	}
 
 	// GENERACION DE ECUACIONES
 	// Fx[0][0] = PressureRelations(X);

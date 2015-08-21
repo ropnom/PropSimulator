@@ -4,6 +4,7 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 
+import eetac.model.GlobalConstants;
 import eetac.model.MatrixCollection;
 import eetac.model.realcomponent.Compressor;
 
@@ -28,11 +29,11 @@ public class Compressortest {
 		compresor.setWork(-450000000);
 		compresor.setN_i(0.8);
 		compresor.setN_p(0.88);
-		
-		//reference plane
+
+		// reference plane
 		compresor.setInitnum((short) 0);
 		compresor.setEndnum(compresor.getNumvariables());
-			
+
 		// get matrix objet inicializated by compresor
 		matriz = compresor.getMatrices();
 
@@ -59,7 +60,7 @@ public class Compressortest {
 		// insert matrix in compresor
 		compresor.setIsdefined(true);
 		compresor.setMatrices(matriz);
-		
+
 	}
 
 	@Test
@@ -68,7 +69,15 @@ public class Compressortest {
 		CargarValores();
 
 		// assert statements
-		System.out.println("Check Inputs...");
+		System.out.print("Check Compresor parameters...");
+		assertEquals("Idnum mus be " + (GlobalConstants.getCompresor() + 1), (GlobalConstants.getCompresor() + 1), compresor.getIdnum());
+		assertEquals("Num equations must be 6", 6, compresor.getNumequations());
+		assertEquals("Num variables must be 11", 11, compresor.getNumvariables());
+		assertEquals("Num constants must be 5", 5, compresor.getNumconstants());
+		System.out.println(" OK");
+
+		// assert statements
+		System.out.print("Check Inputs...");
 		assertEquals("Pin must be 97000 PA in matrix", 97000.0, compresor.getMatrices().getX_equations()[0][0], 0.01);
 		assertEquals("Pin must be 97000 PA in variable", 97000.0, compresor.getPin(), 0.01);
 
@@ -83,6 +92,8 @@ public class Compressortest {
 
 		assertEquals("Tout must be 755 PA in matrix", 755.0, compresor.getMatrices().getX_equations()[4][0], 0.01);
 		assertEquals("Tout must be 755 PA  in variable", 755.0, compresor.getTout(), 0.01);
+		
+		System.out.println(" OK");
 
 	}
 
@@ -93,13 +104,14 @@ public class Compressortest {
 		// values)
 		compresor.Simulate();
 		// assert functions
-		System.out.println("Functions Inputs...");
+		System.out.print("Functions Inputs...");
 		assertEquals("Funcion 0 must be", -26000.0, compresor.getMatrices().getFx_equations()[0][0], 0.01);
 		assertEquals("Funcion 1 must be", -28, compresor.getMatrices().getFx_equations()[1][0], 0.01);
 		assertEquals("Funcion 2 must be", 0, compresor.getMatrices().getFx_equations()[2][0], 0.01);
 		assertEquals("Funcion 3 must be", -3.31083, compresor.getMatrices().getFx_equations()[3][0], 0.01);
 		assertEquals("Funcion 4 must be", -2.192589, compresor.getMatrices().getFx_equations()[4][0], 0.01);
 		assertEquals("Funcion 5 must be", 17325000, compresor.getMatrices().getFx_equations()[5][0], 0.01);
+		System.out.println(" OK");
 	}
 
 	@Test
@@ -110,29 +122,35 @@ public class Compressortest {
 		compresor.Simulate();
 		// create reference matrix
 
+		boolean showtest = false;
+
 		double[][] referencia = { { -18.0000020200000, 0, 0, 1.00000063000000, 0, 0, -97000, 0, 0, 0, 0 }, { 0, -2.70000000000000, 0, 0, 1, 0, 0, -290, 0, 0, 0 }, { 0, 0, 1, 0, 0, -1, 0, 0, 0, 0, 0 }, { 0, 0, 0, 0, 0, 0, 1, -24.3110700200000, 0, 0, -74.0974526300000 }, { 0, 0, 0, 0, 0, 0, 1, -23.9583244000000, 0, -50.9138662900000, 0 }, { 0, -1005000, 467324.999600000, 0, 1005000, 467324.999600000, 0, 0, 1.00016593900000, 0, 0 }, { 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 }, { 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0 }, { 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0 }, { 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0 }, { 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0 } };
 
 		// assert Jx
-		System.out.println("JX...");
+		System.out.print("JX...");
 		for (int i = 0; i < referencia.length; i++) {
 			for (int j = 0; j < referencia[i].length; j++) {
 
-				System.out.println("Jx_" + i + "_" + j + " must be " + referencia[i][j] + " is " + compresor.getMatrices().getJx()[i][j]);
+				if (showtest) {
+					System.out.println("Jx_" + i + "_" + j + " must be " + referencia[i][j] + " is " + compresor.getMatrices().getJx()[i][j]);
+				}
 				assertEquals("Jx_" + i + "_" + j + " must be", referencia[i][j], compresor.getMatrices().getJx()[i][j], 0.01);
 
 			}
 		}
+		
+		System.out.println(" OK");
 
 	}
-	
+
 	@Test
 	public void test_engine() {
-		
+
 	}
-	
+
 	@Test
 	public void test_math_core() {
-		
+
 	}
 
 }

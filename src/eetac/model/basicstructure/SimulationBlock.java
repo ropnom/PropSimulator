@@ -168,7 +168,11 @@ public class SimulationBlock extends BasicBlock {
 
 	protected void iteration(double[][] X) {
 
-		// Actulizar matriz X y re iterar
+		for (int i = 0; i < this.numvariables; i++) {
+
+			setvariable(X[i + initnum][0], i);
+		}
+		genMatrix();
 
 	}
 
@@ -189,7 +193,7 @@ public class SimulationBlock extends BasicBlock {
 	}
 
 	public MatrixCollection Simulate() {
-		
+
 		if (isBlockSimulated()) {
 			genMatrix();
 		}

@@ -5,6 +5,7 @@ import java.util.Collections;
 import java.util.List;
 
 import eetac.model.AuxMethods;
+import eetac.model.GlobalConstants;
 import eetac.model.MatrixCollection;
 
 public class Engine extends BasicBlock {
@@ -43,7 +44,15 @@ public class Engine extends BasicBlock {
 		this.simulate = a.isSimulate();
 	}
 
-	
+	@Override
+	protected void Gen_info() {
+
+		this.idnum = (short) (GlobalConstants.getEngine() +1);;
+		this.name = "Generic Engine 1";
+		this.description = "This a generic engine without restrictions";
+		this.reference = "Teorical Reference Termodinamics";
+	}
+
 	// Important methods
 	public void addBlock(SimulationBlock a) {
 
@@ -53,9 +62,9 @@ public class Engine extends BasicBlock {
 		NumEquaVariConts();
 
 	}
-	
-	public void deleteBlock(){
-		
+
+	public void deleteBlock() {
+
 	}
 
 	protected void NumEquaVariConts() {
@@ -108,8 +117,6 @@ public class Engine extends BasicBlock {
 		return Jx;
 	}
 
-	
-
 	protected void BuildMatrix() {
 
 		// check if the engine can be solve
@@ -157,26 +164,40 @@ public class Engine extends BasicBlock {
 		}
 
 	}
-	
-	public void UpdateMatrixinComponents(){
-		
-		int init = 0;
-		int end = 0;
+
+	public void UpdateMatrixinComponents() {
 
 		// get diferent matrix of Simulationsblock
 		for (int i = 0; i < listblocks.size(); i++) {
-
-			init = listblocks.get(i).getInitnum();
-			end = listblocks.get(i).getEndnum();
-
 			// Get X equations from block
-			//listblocks.get(i).setMatrices(matrices);
-			//X = AuxMethods.Inset_in_matrix(X, Block_matrix.getX_equations(), 0, 0, init, end);
-			
-
+			listblocks.get(i).iteration(matrixJet.getX_equations());
 		}
-		
-		
+
+	}
+
+	public void PrintMatrix() {
+
+		System.out.println(" X matrix:");
+		System.out.println();
+		for (int i = 0; i < matrixJet.getX_equations().length; i++) {
+			System.out.println("| " + matrixJet.getX_equations()[i][0] + " |");
+		}
+		System.out.println();
+		System.out.println(" Fx: ");
+		System.out.println();
+		for (int i = 0; i < matrixJet.getFx_equations().length; i++) {
+			System.out.println("| " + matrixJet.getFx_equations()[i][0] + " |");
+		}
+		System.out.println();
+		System.out.println(" Jx: ");
+		System.out.println();
+		for (int i = 0; i < matrixJet.getJx().length; i++) {
+			System.out.print("| ");
+			for (int j = 0; j < matrixJet.getJx()[i].length; j++) {
+				System.out.print(matrixJet.getFx_equations()[i][j] + " ");
+			}
+			System.out.print(" |");
+		}
 	}
 
 	public List<SimulationBlock> getListblocks() {
@@ -201,8 +222,8 @@ public class Engine extends BasicBlock {
 
 	public void setMatrixJet(MatrixCollection matrixJet) {
 		this.matrixJet = matrixJet;
-		
-		//reinsertar valores en componentes
+
+		// reinsertar valores en componentes
 		UpdateMatrixinComponents();
 	}
 

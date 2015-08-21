@@ -17,7 +17,7 @@ public class Tubine extends FlowWorkBlock {
 	// Descripcion e introduccion interna
 	protected void GenCompressor_info() {
 
-		this.idnum = 400;
+		this.idnum = (short) (GlobalConstants.getTurbine() + 1) ;
 		this.name = "Generic Turbine model 1";
 		this.description = "This component is a basic model of turbine with constant propierties for air";
 		this.reference = "Teorical Reference Termodinamics";
