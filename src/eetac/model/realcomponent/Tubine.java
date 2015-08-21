@@ -86,37 +86,37 @@ public class Tubine extends FlowWorkBlock {
 		double variable = 0;
 
 		switch (index) {
-		case 1:
+		case 0:
 			variable = this.Pin;
 			break;
-		case 2:
+		case 1:
 			variable = this.Tin;
 			break;
-		case 3:
+		case 2:
 			variable = this.MassFlow_in;
 			break;
-		case 4:
+		case 3:
 			variable = this.Pout;
 			break;
-		case 5:
+		case 4:
 			variable = this.Tout;
 			break;
-		case 6:
+		case 5:
 			variable = this.MassFlow_out;
 			break;
-		case 7:
+		case 6:
 			variable = this.Pi;
 			break;
-		case 8:
+		case 7:
 			variable = this.Tau;
 			break;
-		case 9:
+		case 8:
 			variable = work;
 			break;
-		case 10:
+		case 9:
 			variable = this.n_i;
 			break;
-		case 11:
+		case 10:
 			variable = this.n_p;
 			break;
 
@@ -131,37 +131,37 @@ public class Tubine extends FlowWorkBlock {
 	protected void setvariable(double variable, int index) {
 
 		switch (index) {
-		case 1:
+		case 0:
 			this.Pin = variable;
 			break;
-		case 2:
+		case 1:
 			this.Tin = variable;
 			break;
-		case 3:
+		case 2:
 			this.MassFlow_in = variable;
 			break;
-		case 4:
+		case 3:
 			this.Pout = variable;
 			break;
-		case 5:
+		case 4:
 			this.Tout = variable;
 			break;
-		case 6:
+		case 5:
 			this.MassFlow_out = variable;
 			break;
-		case 7:
+		case 6:
 			this.Pi = variable;
 			break;
-		case 8:
+		case 7:
 			this.Tau = variable;
 			break;
-		case 9:
+		case 8:
 			work = variable;
 			break;
-		case 10:
+		case 9:
 			this.n_i = variable;
 			break;
-		case 11:
+		case 10:
 			this.n_p = variable;
 			break;
 

@@ -83,31 +83,31 @@ public class CombustionChamber extends FlowBlock {
 		double variable = 0;
 
 		switch (index) {
-		case 1:
+		case 0:
 			variable = this.Pin;
 			break;
-		case 2:
+		case 1:
 			variable = this.Tin;
 			break;
-		case 3:
+		case 2:
 			variable = this.MassFlow_in;
 			break;
-		case 4:
+		case 3:
 			variable = this.Pout;
 			break;
-		case 5:
+		case 4:
 			variable = this.Tout;
 			break;
-		case 6:
+		case 5:
 			variable = this.MassFlow_out;
 			break;
-		case 7:
+		case 6:
 			variable = this.Massfuel;
 			break;
-		case 8:
+		case 7:
 			variable = this.n_fuel;
 			break;
-		case 9:
+		case 8:
 			variable = E_b;
 			break;
 
@@ -122,31 +122,31 @@ public class CombustionChamber extends FlowBlock {
 	protected void setvariable(double variable, int index) {
 
 		switch (index) {
-		case 1:
+		case 0:
 			this.Pin = variable;
 			break;
-		case 2:
+		case 1:
 			this.Tin = variable;
 			break;
-		case 3:
+		case 2:
 			this.MassFlow_in = variable;
 			break;
-		case 4:
+		case 3:
 			this.Pout = variable;
 			break;
-		case 5:
+		case 4:
 			this.Tout = variable;
 			break;
-		case 6:
+		case 5:
 			this.MassFlow_out = variable;
 			break;
-		case 7:
+		case 6:
 			this.Massfuel = variable;
 			break;
-		case 8:
+		case 7:
 			this.n_fuel = variable;
 			break;
-		case 9:
+		case 8:
 			E_b = variable;
 			break;
 
