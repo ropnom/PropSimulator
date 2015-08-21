@@ -117,7 +117,7 @@ public class Engine extends BasicBlock {
 		return Jx;
 	}
 
-	protected void BuildMatrix() {
+	public void BuildMatrix() {
 
 		// check if the engine can be solve
 		NumEquaVariConts();
