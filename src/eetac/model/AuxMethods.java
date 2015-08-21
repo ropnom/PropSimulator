@@ -41,7 +41,7 @@ public class AuxMethods {
 
 		return vector;
 	}
-	
+
 	public static boolean[] Inset_in_Booleanvector(boolean[] vector, boolean[] inserted, int initx, int endx) {
 
 		for (int j = initx; j < endx; j++) {
@@ -52,13 +52,30 @@ public class AuxMethods {
 		return vector;
 	}
 
-	public static double[][] Extract_of_matrix(double[][] matrix, int inity, int endy) {
+	/*
+	 * public static double[][] Extract_of_VerticalVector(double[][] matrix, int
+	 * inity, int endy) {
+	 * 
+	 * double[][] extract = new double[endy - inity][0];
+	 * 
+	 * for (int j = inity; j < endy; j++) { // Horizontal array j extract[j] =
+	 * Arrays.copyOf(matrix[j], matrix[j].length); }
+	 * 
+	 * return extract;
+	 * 
+	 * }
+	 */
 
-		double[][] extract = new double[endy - inity][0];
+	public static double[][] Extract_of_matrix(double[][] matrix, int initx, int endx, int inity, int endy) {
 
-		for (int j = inity; j < endy; j++) {
-			// Horizontal array j
-			extract[j] = Arrays.copyOf(matrix[j], matrix[j].length);
+		double[][] extract = new double[endy - inity][endx - initx];
+
+		for (int i = initx; i < endx; i++) {
+			// Vertical array i
+			for (int j = inity; j < endy; j++) {
+				// Horizontal array j
+				extract[j - inity][i - initx] = matrix[j][i];
+			}
 		}
 
 		return extract;

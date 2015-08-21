@@ -39,7 +39,7 @@ public class MathCore {
 
 	public void GetMatrixEngine() {
 		
-		X = eng.getMatrix().getX_equations();
+		X = eng.getMatrixJet().getX_equations();
 		
 	}
 

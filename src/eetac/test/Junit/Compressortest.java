@@ -1,4 +1,4 @@
-package eetac.test;
+package eetac.test.Junit;
 
 import static org.junit.Assert.*;
 
@@ -28,6 +28,10 @@ public class Compressortest {
 		compresor.setWork(-450000000);
 		compresor.setN_i(0.8);
 		compresor.setN_p(0.88);
+		
+		//reference plane
+		compresor.setInitnum((short) 0);
+		compresor.setEndnum(compresor.getNumvariables());
 			
 		// get matrix objet inicializated by compresor
 		matriz = compresor.getMatrices();

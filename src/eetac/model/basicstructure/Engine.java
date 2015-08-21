@@ -34,8 +34,8 @@ public class Engine extends BasicBlock {
 		super();
 		this.listblocks = new ArrayList<SimulationBlock>(a.getListblocks());
 		this.listrelations = new ArrayList<BlockRelations>(a.getListrelations());
-		this.matrixJet = new MatrixCollection(a.getMatrix());
-		
+		this.matrixJet = new MatrixCollection(a.getMatrixJet());
+
 		this.numvariables = a.getNumvariables();
 		this.numequations = a.getNumequations();
 		this.numconstants = a.getNumconstants();
@@ -43,6 +43,7 @@ public class Engine extends BasicBlock {
 		this.simulate = a.isSimulate();
 	}
 
+	
 	// Important methods
 	public void addBlock(SimulationBlock a) {
 
@@ -51,6 +52,10 @@ public class Engine extends BasicBlock {
 		Collections.sort(listblocks, new SimulationBlock.Comparators());
 		NumEquaVariConts();
 
+	}
+	
+	public void deleteBlock(){
+		
 	}
 
 	protected void NumEquaVariConts() {
@@ -84,25 +89,26 @@ public class Engine extends BasicBlock {
 
 	protected void PutComponentsRelations_X() {
 
-		// This function change default values of componente by relations
-		for (int i = 0; i < listrelations.size(); i++) {
-			listrelations.get(i).UpdateValues();
+		if (listrelations.size() > 0 && listblocks.size() > 1) {
+			// This function change default values of componente by relations
+			for (int i = 0; i < listrelations.size(); i++) {
+				listrelations.get(i).UpdateValues();
+			}
 		}
 	}
 
 	protected double[][] PutComponentsRelations_Jx(double[][] Jx) {
 
-		// This function change default values of componente by relations
-		for (int i = 0; i < listrelations.size(); i++) {
-			listrelations.get(i).UpdateValues();
+		if (listrelations.size() > 0 && listblocks.size() > 1) {
+			// This function change default values of componente by relations
+			for (int i = 0; i < listrelations.size(); i++) {
+				listrelations.get(i).UpdateValues();
+			}
 		}
 		return Jx;
 	}
 
-	public MatrixCollection getMatrix() {
-
-		return matrixJet;
-	}
+	
 
 	protected void BuildMatrix() {
 
@@ -151,6 +157,27 @@ public class Engine extends BasicBlock {
 		}
 
 	}
+	
+	public void UpdateMatrixinComponents(){
+		
+		int init = 0;
+		int end = 0;
+
+		// get diferent matrix of Simulationsblock
+		for (int i = 0; i < listblocks.size(); i++) {
+
+			init = listblocks.get(i).getInitnum();
+			end = listblocks.get(i).getEndnum();
+
+			// Get X equations from block
+			//listblocks.get(i).setMatrices(matrices);
+			//X = AuxMethods.Inset_in_matrix(X, Block_matrix.getX_equations(), 0, 0, init, end);
+			
+
+		}
+		
+		
+	}
 
 	public List<SimulationBlock> getListblocks() {
 		return listblocks;
@@ -174,6 +201,9 @@ public class Engine extends BasicBlock {
 
 	public void setMatrixJet(MatrixCollection matrixJet) {
 		this.matrixJet = matrixJet;
+		
+		//reinsertar valores en componentes
+		UpdateMatrixinComponents();
 	}
 
 	public short getNumvariables() {

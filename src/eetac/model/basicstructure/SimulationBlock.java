@@ -2,6 +2,8 @@ package eetac.model.basicstructure;
 
 import java.util.Comparator;
 
+import eetac.model.AuxMethods;
+import eetac.model.GlobalConstants;
 import eetac.model.MatrixCollection;
 
 public class SimulationBlock extends BasicBlock {
@@ -83,12 +85,76 @@ public class SimulationBlock extends BasicBlock {
 
 	protected void genMatrix() {
 
-		// Generar matriz de X
-		// double[][] X = null;
-		// String[] variable = null;
-		// boolean[] constants = null;
-		// double[][] Fx = null;
-		// double[][] Jx_equations = null;
+		int totalequations = numequations + numconstants;
+
+		double[][] Fx = new double[totalequations][1];
+		double[][] Jx = new double[this.numvariables][totalequations];
+		boolean[] constants;
+
+		if (isdefined) {
+
+			double[][] X = matrices.getX_equations();
+			constants = this.matrices.getConstants();
+			// Gen Fx vector
+
+			// Fx[0][0] = PressureRelations(X);
+			// Fx[1][0] = TemperatureRelations(X);
+			// Fx[2][0] = MassFlowRelations(X);
+			// Fx[3][0] = PolitropicRelations(X);
+			// Fx[4][0] = IsentropicRelations(X);
+			// Fx[5][0] = WorkRelations(X);
+
+			for (int i = 0; i < (totalequations); i++) {
+				// If is a known variable, X_i - cte = 0;
+				if (i < numequations) {
+					Fx[i][0] = getFx(X, i);
+				} else {
+					Fx[i][0] = 0;
+				}
+
+			}
+
+			// Gen Jx Matrix
+			double[][] X_delta = AuxMethods.Copy_matrix(X);
+
+			for (int i = 0; i < numvariables; i++) {
+				// iteracion por filas x1, x2 ..xn
+				X_delta[i][0] += GlobalConstants.getDelta();
+
+				for (int j = 0; j < numequations; j++) {
+					// Calculate parcial derivate of f_j/x_i
+					Jx[j][i] = getDifferencial(Fx[j][0], getFx(X_delta, j), GlobalConstants.getDelta());
+				}
+				X_delta[i][0] = X[i][0];
+			}
+
+			// Fix the ecuations generate by contansts.
+			boolean encontrado = false;
+			int i = 0;
+			for (int j = numequations; j < totalequations; j++) {
+
+				encontrado = false;
+				while (i < numvariables && !encontrado) {
+					if (constants[i]) {
+						Jx[j][i] = 1;
+						encontrado = true;
+					}
+					i++;
+
+				}
+			}
+
+		} else {
+			// Gen boolean constant know for init objet
+			constants = new boolean[this.numvariables];
+			for (int l = 0; l < numvariables; l++) {
+				constants[l] = false;
+			}
+
+			this.matrices.setConstants(constants);
+		}
+		this.matrices.setFx_equations(Fx);
+		this.matrices.setJx(Jx);
 
 	}
 
@@ -123,9 +189,12 @@ public class SimulationBlock extends BasicBlock {
 	}
 
 	public MatrixCollection Simulate() {
-		// crate matrix
+		
+		if (isBlockSimulated()) {
+			genMatrix();
+		}
 
-		return null;
+		return this.matrices;
 	}
 
 	protected void initvalues() {
@@ -140,7 +209,7 @@ public class SimulationBlock extends BasicBlock {
 	}
 
 	public void setMatrices(MatrixCollection matrices) {
-		
+
 		this.matrices = matrices;
 		this.numconstants = matrices.getnumconstants();
 		iteration(matrices.getX_equations());
