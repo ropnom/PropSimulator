@@ -25,8 +25,8 @@ public class SimulationBlock extends BasicBlock {
 	protected short numrelations = 0;
 
 	// reference for math arrays in engine
-	protected short initnum = -1;
-	protected short endnum = -1;
+	protected short initnum = 0;
+	protected short endnum = 0;
 
 	// Is this block full defined?
 	protected boolean isdefined = false;

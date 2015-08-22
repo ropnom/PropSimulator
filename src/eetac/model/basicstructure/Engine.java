@@ -147,11 +147,11 @@ public class Engine extends BasicBlock {
 				end = listblocks.get(i).getEndnum();
 
 				// Get X equations from block
-				X = AuxMethods.Inset_in_matrix(X, Block_matrix.getX_equations(), 0, 0, init, end);
+				X = AuxMethods.Inset_in_matrix(X, Block_matrix.getX_equations(), 0, 1, init, end);
 				// Get Fx equations from block
-				Fx = AuxMethods.Inset_in_matrix(Fx, Block_matrix.getFx_equations(), 0, 0, init, end);
+				Fx = AuxMethods.Inset_in_matrix(Fx, Block_matrix.getFx_equations(), 0, 1, init, end);
 				// Get Jx equations from block
-				Jx = AuxMethods.Inset_in_matrix(Jx, Block_matrix.getFx_equations(), init, end, init, end);
+				Jx = AuxMethods.Inset_in_matrix(Jx, Block_matrix.getJx(), init, end, init, end);
 				// Get varaible names from block
 				variable = AuxMethods.Inset_in_Stringvector(variable, Block_matrix.getVariable(), init, end);
 				// Get boolean constants from block
@@ -159,7 +159,13 @@ public class Engine extends BasicBlock {
 
 			}
 
-			PutComponentsRelations_Jx(Jx);
+			Jx = PutComponentsRelations_Jx(Jx);
+			
+			this.matrixJet.setX_equations(X);
+			this.matrixJet.setFx_equations(Fx);
+			this.matrixJet.setJx(Jx);
+			this.matrixJet.setVariable(variable);
+			this.matrixJet.setConstants(constants);
 
 		}
 
@@ -194,9 +200,9 @@ public class Engine extends BasicBlock {
 		for (int i = 0; i < matrixJet.getJx().length; i++) {
 			System.out.print("| ");
 			for (int j = 0; j < matrixJet.getJx()[i].length; j++) {
-				System.out.print(matrixJet.getFx_equations()[i][j] + " ");
+				System.out.print(matrixJet.getJx()[i][j] + " ");
 			}
-			System.out.print(" |");
+			System.out.println(" |");
 		}
 	}
 
