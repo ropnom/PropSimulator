@@ -47,7 +47,8 @@ public class Engine extends BasicBlock {
 	@Override
 	protected void Gen_info() {
 
-		this.idnum = (short) (GlobalConstants.getEngine() +1);;
+		this.idnum = (short) (GlobalConstants.getEngine() + 1);
+		;
 		this.name = "Generic Engine 1";
 		this.description = "This a generic engine without restrictions";
 		this.reference = "Teorical Reference Termodinamics";
@@ -65,6 +66,7 @@ public class Engine extends BasicBlock {
 
 	public void deleteBlock() {
 
+		// To Do
 	}
 
 	protected void NumEquaVariConts() {
@@ -123,61 +125,68 @@ public class Engine extends BasicBlock {
 		NumEquaVariConts();
 
 		if (simulate) {
-			// include relations in X matrix
-			PutComponentsRelations_X();
-			double[][] X = new double[this.numvariables][1];
-			double[][] Fx = new double[this.numvariables][1];
-			double[][] Jx = new double[this.numvariables][this.numvariables];
-			String[] variable = new String[this.numvariables];
-			boolean[] constants = new boolean[this.numvariables];
-
-			MatrixCollection Block_matrix;
-			int init = 0;
-			int end = 0;
-
-			// get diferent matrix of Simulationsblock
-			for (int i = 0; i < listblocks.size(); i++) {
-
-				// Calculate matrix of block component
-				listblocks.get(i).genMatrix();
-
-				// Auxiliary objet-values Block-to-engine
-				Block_matrix = listblocks.get(i).getMatrices();
-				init = listblocks.get(i).getInitnum();
-				end = listblocks.get(i).getEndnum();
-
-				// Get X equations from block
-				X = AuxMethods.Inset_in_matrix(X, Block_matrix.getX_equations(), 0, 1, init, end);
-				// Get Fx equations from block
-				Fx = AuxMethods.Inset_in_matrix(Fx, Block_matrix.getFx_equations(), 0, 1, init, end);
-				// Get Jx equations from block
-				Jx = AuxMethods.Inset_in_matrix(Jx, Block_matrix.getJx(), init, end, init, end);
-				// Get varaible names from block
-				variable = AuxMethods.Inset_in_Stringvector(variable, Block_matrix.getVariable(), init, end);
-				// Get boolean constants from block
-				constants = AuxMethods.Inset_in_Booleanvector(constants, Block_matrix.getConstants(), init, end);
-
-			}
-
-			Jx = PutComponentsRelations_Jx(Jx);
-			
-			this.matrixJet.setX_equations(X);
-			this.matrixJet.setFx_equations(Fx);
-			this.matrixJet.setJx(Jx);
-			this.matrixJet.setVariable(variable);
-			this.matrixJet.setConstants(constants);
-
+			//recal all matrix
+			iteration();
 		}
 
 	}
 
-	public void UpdateMatrixinComponents() {
+	public void iteration() {
+
+		// include relations in X matrix
+		PutComponentsRelations_X();
+		double[][] X = new double[this.numvariables][1];
+		double[][] Fx = new double[this.numvariables][1];
+		double[][] Jx = new double[this.numvariables][this.numvariables];
+		String[] variable = new String[this.numvariables];
+		boolean[] constants = new boolean[this.numvariables];
+
+		MatrixCollection Block_matrix;
+		int init = 0;
+		int end = 0;
+
+		// get diferent matrix of Simulationsblock
+		for (int i = 0; i < listblocks.size(); i++) {
+
+			// Calculate matrix of block component
+			listblocks.get(i).genMatrix();
+
+			// Auxiliary objet-values Block-to-engine
+			Block_matrix = listblocks.get(i).getMatrices();
+			init = listblocks.get(i).getInitnum();
+			end = listblocks.get(i).getEndnum();
+
+			// Get X equations from block
+			X = AuxMethods.Inset_in_matrix(X, Block_matrix.getX_equations(), 0, 1, init, end);
+			// Get Fx equations from block
+			Fx = AuxMethods.Inset_in_matrix(Fx, Block_matrix.getFx_equations(), 0, 1, init, end);
+			// Get Jx equations from block
+			Jx = AuxMethods.Inset_in_matrix(Jx, Block_matrix.getJx(), init, end, init, end);
+			// Get varaible names from block
+			variable = AuxMethods.Inset_in_Stringvector(variable, Block_matrix.getVariable(), init, end);
+			// Get boolean constants from block
+			constants = AuxMethods.Inset_in_Booleanvector(constants, Block_matrix.getConstants(), init, end);
+
+		}
+
+		Jx = PutComponentsRelations_Jx(Jx);
+
+		this.matrixJet.setX_equations(X);
+		this.matrixJet.setFx_equations(Fx);
+		this.matrixJet.setJx(Jx);
+		this.matrixJet.setVariable(variable);
+		this.matrixJet.setConstants(constants);
+
+	}
+
+	public void UpdateMatrixinComponents(double[][] X_new) {
 
 		// get diferent matrix of Simulationsblock
 		for (int i = 0; i < listblocks.size(); i++) {
 			// Get X equations from block
-			listblocks.get(i).iteration(matrixJet.getX_equations());
+			listblocks.get(i).iteration(X_new);
 		}
+		iteration();
 
 	}
 
@@ -230,7 +239,7 @@ public class Engine extends BasicBlock {
 		this.matrixJet = matrixJet;
 
 		// reinsertar valores en componentes
-		UpdateMatrixinComponents();
+		UpdateMatrixinComponents(matrixJet.getX_equations());
 	}
 
 	public short getNumvariables() {

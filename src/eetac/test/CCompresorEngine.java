@@ -1,5 +1,6 @@
 package eetac.test;
 
+import eetac.mathcore.MathCore;
 import eetac.model.MatrixCollection;
 import eetac.model.basicstructure.Engine;
 import eetac.model.realcomponent.Compressor;
@@ -11,6 +12,7 @@ public class CCompresorEngine {
 
 		System.out.println("init comrpesor in engine test");
 
+		MathCore core = new MathCore();
 		Engine engine = new Engine();
 		Compressor compressor = new Compressor();
 
@@ -44,6 +46,10 @@ public class CCompresorEngine {
 		engine.addBlock(compressor);
 		engine.BuildMatrix();
 		engine.PrintMatrix();
+		
+		core.setEng(engine);
+		
+		core.RunIteration();
 	}
 
 }

@@ -44,6 +44,8 @@ public class MathCore {
 	}
 
 	public void SetMatrixEngine() {
+		
+		eng.UpdateMatrixinComponents(X_new);
 
 	}
 
@@ -51,7 +53,7 @@ public class MathCore {
 
 		DoubleMatrix Functions;
 		DoubleMatrix Jacobian;
-		DoubleMatrix variables =  new DoubleMatrix(X);
+		DoubleMatrix variables = null;
 		DoubleMatrix Jacobian_inverse;
 
 		int i = 0;
@@ -76,5 +78,83 @@ public class MathCore {
 		System.out.println(variables.rows + "x" + variables.columns + ": " + variables);
 
 	}
+
+	
+	// SET and GETS
+	
+	public Engine getEng() {
+		return eng;
+	}
+
+	public void setEng(Engine eng) {
+		this.eng = eng;
+	}
+
+	public double[][] getX() {
+		return X;
+	}
+
+	public void setX(double[][] x) {
+		X = x;
+	}
+
+	public double[][] getFx() {
+		return Fx;
+	}
+
+	public void setFx(double[][] fx) {
+		Fx = fx;
+	}
+
+	public double[][] getJx() {
+		return Jx;
+	}
+
+	public void setJx(double[][] jx) {
+		Jx = jx;
+	}
+
+	public double[][] getX_new() {
+		return X_new;
+	}
+
+	public void setX_new(double[][] x_new) {
+		X_new = x_new;
+	}
+
+	public double getRelativetolerance() {
+		return relativetolerance;
+	}
+
+	public void setRelativetolerance(double relativetolerance) {
+		this.relativetolerance = relativetolerance;
+	}
+
+	public double getAbsoluttolerance() {
+		return absoluttolerance;
+	}
+
+	public void setAbsoluttolerance(double absoluttolerance) {
+		this.absoluttolerance = absoluttolerance;
+	}
+
+	public boolean isFinished() {
+		return finished;
+	}
+
+	public void setFinished(boolean finished) {
+		this.finished = finished;
+	}
+
+	public int getMax_iteration() {
+		return Max_iteration;
+	}
+
+	public void setMax_iteration(int max_iteration) {
+		Max_iteration = max_iteration;
+	}
+	
+	
+	
 
 }
