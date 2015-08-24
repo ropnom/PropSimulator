@@ -40,6 +40,8 @@ public class MathCore {
 	public void GetMatrixEngine() {
 		
 		X = eng.getMatrixJet().getX_equations();
+		Fx = eng.getMatrixJet().getFx_equations();
+		Jx = eng.getMatrixJet().getJx();
 		
 	}
 
@@ -54,7 +56,6 @@ public class MathCore {
 		DoubleMatrix Functions;
 		DoubleMatrix Jacobian;
 		DoubleMatrix variables = null;
-		DoubleMatrix Jacobian_inverse;
 
 		int i = 0;
 
@@ -65,12 +66,15 @@ public class MathCore {
 			Jacobian = new DoubleMatrix(Jx);
 			variables = new DoubleMatrix(X);
 
-			Jacobian_inverse = Solve.pinv(Jacobian);
-			variables = variables.sub((Functions.dot(Jacobian_inverse)));
+			variables = variables.sub(Solve.pinv(Jacobian).mmul(Functions));
+			
 
 			X_new = variables.toArray2();
 			SetMatrixEngine();
 
+			for(int m = 0;m<X_new.length;m++){
+				System.out.println("X_"+m+" "+X_new[m][0]);
+			}
 			this.finished = check_solve();
 
 		}
