@@ -1,4 +1,4 @@
-package eetac.gui;
+package eetac.gui.working;
 
 import javax.swing.JCheckBox;
 import javax.swing.JPanel;
