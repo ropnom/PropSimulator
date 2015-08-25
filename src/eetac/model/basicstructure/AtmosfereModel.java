@@ -1,6 +1,5 @@
-package eetac.model.realcomponent;
+package eetac.model.basicstructure;
 
-import eetac.model.basicstructure.BasicBlock;
 
 public class AtmosfereModel extends BasicBlock {
 

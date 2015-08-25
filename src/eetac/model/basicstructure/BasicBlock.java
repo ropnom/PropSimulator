@@ -7,6 +7,8 @@ public abstract class BasicBlock {
 	 */
 	protected short idnum = 0;
 	protected short blocknumber = 0;
+	protected short level = 0;
+	
 	protected String name = "Not defined";
 	protected String description = "Not defined";
 	protected String reference;
@@ -15,14 +17,6 @@ public abstract class BasicBlock {
 	public BasicBlock() {
 		
 	}
-
-	public BasicBlock(short idnum, String name, String description, String reference) {
-		super();
-		this.idnum = idnum;
-		this.name = name;
-		this.description = description;
-		this.reference = reference;
-	}
 	
 	public BasicBlock(BasicBlock a) {
 		super();
@@ -30,6 +24,7 @@ public abstract class BasicBlock {
 		this.name = a.getName();
 		this.description = a.getDescription();
 		this.reference = a.getReference();
+		this.level = a.getLevel();
 	}
 
 	// GEneral Methods
@@ -37,6 +32,14 @@ public abstract class BasicBlock {
 		/*
 		 * This method init the variables	
 		 */
+		
+		this.idnum = 0;//get from GlobalConstants
+		this.blocknumber = 0;// order in engine
+		this.level = 0;// type of element complexity
+		
+		this.name = "Not defined";
+		this.description = "Not defined";
+		this.reference = "Not reference";
 		
 	}
 	
@@ -79,6 +82,14 @@ public abstract class BasicBlock {
 
 	public void setBlocknumber(short blocknumber) {
 		this.blocknumber = blocknumber;
+	}
+
+	public short getLevel() {
+		return level;
+	}
+
+	public void setLevel(short level) {
+		this.level = level;
 	}
 	
 

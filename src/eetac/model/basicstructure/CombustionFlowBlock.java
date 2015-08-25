@@ -1,83 +1,40 @@
-package eetac.model.realcomponent;
+package eetac.model.basicstructure;
 
-import eetac.model.AuxMethods;
 import eetac.model.GlobalConstants;
-import eetac.model.MatrixCollection;
-import eetac.model.basicstructure.FlowBlock;
 
-public class CombustionChamber extends FlowBlock {
+public class CombustionFlowBlock extends FlowBlock {
 
+	/*
+	 * THE ORDER OF MATH VARIABLES ARE
+	 * 1º PIN 
+	 * 2º TIN 
+	 * 3º MASSFLOWIN 
+	 * 4º POUT 
+	 * 5º TOUT 
+	 * 6º MASSFLOWOUT 
+	 * 7º MASSFUEL 
+	 * 8º FUEL EFFICIENCY 
+	 * 9º PRESSURE EFFICIENCY 
+	 * RANGE 0-8
+	 * OTHER VARIABLES IN COMPLEX BLOCKS
+	 */
+	
 	protected double Massfuel;
 	protected double n_fuel;
 	protected double E_b;
 
-	public CombustionChamber() {
+	public CombustionFlowBlock() {
 		super();
-		Gen_info();
 	}
 
-	// Introduciomos los datos
-
-	// Descripcion e introduccion interna
-	@Override
-	protected void Gen_info() {
-
-		this.idnum = (short) (GlobalConstants.getCombustionchamber() + 1) ;
-		this.name = "Generic Combustion Chamber model 1";
-		this.description = "This component is a basic model of Combustion Chamber with constant propierties for air";
-		this.reference = "Teorical Reference Termodinamics";
-
-		initvalues();
-		this.numequations = 4;
-		this.numvariables = 9;
-
-		// Gen variable names
-		String[] variable = new String[this.numvariables];
-		variable[0] = "P_" + this.blocknumber + "_combustionchamber_in";
-		variable[1] = "T_" + this.blocknumber + "_combustionchamber_in";
-		variable[2] = "Mass_" + this.blocknumber + "_combustionchamber_in";
-		variable[3] = "P_" + this.blocknumber + "_combustionchamber_out";
-		variable[4] = "T_" + this.blocknumber + "_combustionchamber_out";
-		variable[5] = "Mass_" + this.blocknumber + "_combustionchamber_out";
-		variable[6] = "Massfuel" + this.blocknumber + "_combustionchamber";
-		variable[7] = "EfficiencyFuel" + this.blocknumber + "_combustionchamber";
-		variable[8] = "CombustionEfficiency_" + this.blocknumber + "_combustionchamber";
-
-		double[][] X = new double[this.numvariables][1];
-		// GEN X vecto
-		X[0][0] = this.Pin;
-		X[1][0] = this.Tin;
-		X[2][0] = this.MassFlow_in;
-		X[3][0] = this.Pout;
-		X[4][0] = this.Tout;
-		X[5][0] = this.MassFlow_out;
-		X[6][0] = this.Massfuel;
-		X[7][0] = this.n_fuel;
-		X[8][0] = this.E_b;
-
-		this.matrices.setX_equations(X);
-		this.matrices.setVariable(variable);
-
-		genMatrix();
+	public CombustionFlowBlock(CombustionFlowBlock a) {
+		super(a);
+		this.Massfuel = a.getMassfuel();
+		this.n_fuel = a.getN_fuel();
+		this.E_b = a.getE_b();
 	}
 
-	@Override
-	protected void initvalues() {
-
-		this.Pin = 95000;
-		this.Tin = 290;
-		this.MassFlow_in = 1000;
-
-		this.Pout = 1800000;
-		this.Tout = 800;
-		this.MassFlow_out = 1000;
-
-		// Propias
-
-	}
-
-	// Sobreescrivimos funciones
-
+	
 	@Override
 	protected double getvariable(int index) {
 		double variable = 0;
@@ -172,7 +129,7 @@ public class CombustionChamber extends FlowBlock {
 		case 3:
 			fx = HeatRelations(X);
 			break;
-		
+
 		default:
 			break;
 		}
@@ -183,7 +140,7 @@ public class CombustionChamber extends FlowBlock {
 
 	protected double PressureRelations(double[][] X) {
 		/*
-		 * PRESSURE RELATION POUT = PINT * PI | Equation 1: Pout-Pin*(1-eb) = 0
+		 * PRESSURE RELATION POUT = PINT * (1-E_b) | Equation 1: Pout-Pin*(1-eb) = 0
 		 */
 		// return (this.Pout - this.Pin * (1-eb));
 		return (X[3][0] - X[0][0] * (1 - X[8][0]));
@@ -205,7 +162,6 @@ public class CombustionChamber extends FlowBlock {
 		return (X[2][0] + X[6][0] - (X[5][0]));
 	}
 
-
 	protected double HeatRelations(double[][] X) {
 		/*
 		 * HEAT RELATION Work= CP | Equation 6: Work-Massflow*Cp(Tin-Tout) = 0
@@ -216,6 +172,32 @@ public class CombustionChamber extends FlowBlock {
 		} else {
 			return (X[8][0] - X[5][0] * AirPropierties.getCp_c() * (X[1][0] - X[4][0]));
 		}
+	}
+	
+	
+
+	public double getMassfuel() {
+		return Massfuel;
+	}
+
+	public void setMassfuel(double massfuel) {
+		Massfuel = massfuel;
+	}
+
+	public double getN_fuel() {
+		return n_fuel;
+	}
+
+	public void setN_fuel(double n_fuel) {
+		this.n_fuel = n_fuel;
+	}
+
+	public double getE_b() {
+		return E_b;
+	}
+
+	public void setE_b(double e_b) {
+		E_b = e_b;
 	}
 
 }

@@ -1,12 +1,11 @@
 package eetac.model.realcomponent;
 
 import eetac.model.GlobalConstants;
-import eetac.model.MatrixCollection;
-import eetac.model.basicstructure.FlowWorkBlock;
+import eetac.model.basicstructure.DinamicFlowBlock;
 
-public class Compressor extends FlowWorkBlock {
+public class Difusser extends DinamicFlowBlock {
 
-	public Compressor() {
+	public Difusser() {
 		super();
 		Gen_info();
 	}
@@ -30,8 +29,8 @@ public class Compressor extends FlowWorkBlock {
 
 		this.idnum = (short) (GlobalConstants.getCompresor()+1);
 		this.level = 1;
-		this.name = "Generic Compressor model  "+this.level;
-		this.description = "This component is a basic model of compresion with constant propierties for air";
+		this.name = "Generic Diffuser model  "+this.level;
+		this.description = "This component is a basic model of diffuser with constant propierties for air";
 		this.reference = "Teorical Reference Termodinamics";
 
 		initvalues();
@@ -40,17 +39,13 @@ public class Compressor extends FlowWorkBlock {
 
 		// Gen variable names
 		String[] variable = new String[this.numvariables];
-		variable[0] = "P_"+this.blocknumber+"_compresor_in";
-		variable[1] = "T_"+this.blocknumber+"_compresor_in";
-		variable[2] = "Mass_"+this.blocknumber+"_compresor_in";
-		variable[3] = "P_"+this.blocknumber+"_compresor_out";
-		variable[4] = "T_"+this.blocknumber+"_compresor_out";
-		variable[5] = "Mass_"+this.blocknumber+"_compresor_out";
-		variable[6] = "Pressure_ratio"+this.blocknumber+"_compresor";
-		variable[7] = "Temperature_ratio"+this.blocknumber+"_compresor";
-		variable[8] = "Work_"+this.blocknumber+"_compresor";
-		variable[9] = "Issentropic_efficiency_"+this.blocknumber+"_compressor";
-		variable[10] = "Politropic_efficiency_"+this.blocknumber+"_compressor";
+		variable[0] = "P_"+this.blocknumber+"_diffuser_in";
+		variable[1] = "T_"+this.blocknumber+"_diffuser_in";
+		variable[2] = "Mass_"+this.blocknumber+"_diffuser_in";
+		variable[3] = "P_"+this.blocknumber+"_diffuser_out";
+		variable[4] = "T_"+this.blocknumber+"_diffuser_out";
+		variable[5] = "Mass_"+this.blocknumber+"_diffuser_out";
+		
 
 		double[][] X = new double[this.numvariables][1];
 		// GEN X vecto
@@ -60,12 +55,7 @@ public class Compressor extends FlowWorkBlock {
 		X[3][0] = this.Pout;
 		X[4][0] = this.Tout;
 		X[5][0] = this.MassFlow_out;
-		X[6][0] = this.Pi;
-		X[7][0] = this.Tau;
-		X[8][0] = this.work;
-		X[9][0] = this.n_i;
-		X[10][0] = this.n_p;
-
+		
 		this.matrices.setX_equations(X);
 		this.matrices.setVariable(variable);
 
@@ -83,11 +73,6 @@ public class Compressor extends FlowWorkBlock {
 		this.Tout = 800;
 		this.MassFlow_out = 1000;
 
-		this.Pi = 18;
-		this.Tau = 2.7;
-		this.work = -450000000;
-		this.n_i = 0.8;
-		this.n_p = 0.88;
 
 	}
 

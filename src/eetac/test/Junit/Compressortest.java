@@ -4,8 +4,10 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 
+import eetac.mathcore.MathCore;
 import eetac.model.GlobalConstants;
 import eetac.model.MatrixCollection;
+import eetac.model.basicstructure.Engine;
 import eetac.model.realcomponent.Compressor;
 
 public class Compressortest {
@@ -14,6 +16,9 @@ public class Compressortest {
 	protected static MatrixCollection matriz;
 	protected static double[][] X;
 	protected static boolean[] constants;
+
+	protected static MathCore core;
+	protected static Engine engine;
 
 	public void CargarValores() {
 		compressor = new Compressor();
@@ -92,7 +97,7 @@ public class Compressortest {
 
 		assertEquals("Tout must be 755 PA in matrix", 755.0, compressor.getMatrices().getX_equations()[4][0], 0.01);
 		assertEquals("Tout must be 755 PA  in variable", 755.0, compressor.getTout(), 0.01);
-		
+
 		System.out.println(" OK");
 
 	}
@@ -138,18 +143,32 @@ public class Compressortest {
 
 			}
 		}
-		
+
 		System.out.println(" OK");
 
 	}
 
 	@Test
 	public void test_engine() {
+		
+		System.out.println("init comrpesor in engine test");
+		engine = new Engine();
+		engine.addBlock(compressor);
+		engine.BuildMatrix();
+		engine.PrintMatrix();
+		
+		// TODO: Miquel aqui hay que testear que las ecuaciones del engien son las mismas que el comrpesor
 
 	}
 
 	@Test
 	public void test_math_core() {
+
+		core = new MathCore();
+		core.setEng(engine);
+		core.RunIteration();
+		
+		// aqui hay que hacer correr el core y ver que el resultado es el que tenemso en excel.
 
 	}
 

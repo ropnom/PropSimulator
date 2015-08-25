@@ -2,11 +2,12 @@ package eetac.model.realcomponent;
 
 import eetac.model.GlobalConstants;
 import eetac.model.MatrixCollection;
+import eetac.model.basicstructure.CombustionFlowBlock;
 import eetac.model.basicstructure.FlowWorkBlock;
 
-public class Compressor extends FlowWorkBlock {
+public class PostCombustor extends CombustionFlowBlock {
 
-	public Compressor() {
+	public PostCombustor() {
 		super();
 		Gen_info();
 	}
@@ -28,29 +29,27 @@ public class Compressor extends FlowWorkBlock {
 	@Override
 	protected void Gen_info() {
 
-		this.idnum = (short) (GlobalConstants.getCompresor()+1);
+		this.idnum = (short) (GlobalConstants.getCombustionchamber() + 1) ;
 		this.level = 1;
-		this.name = "Generic Compressor model  "+this.level;
-		this.description = "This component is a basic model of compresion with constant propierties for air";
+		this.name = "Generic Post Combustion Chamber model "+this.level;
+		this.description = "This component is a basic model of Post Combustion Chamber with constant propierties for air";
 		this.reference = "Teorical Reference Termodinamics";
 
 		initvalues();
-		this.numequations = 6;
-		this.numvariables = 11;
+		this.numequations = 4;
+		this.numvariables = 9;
 
 		// Gen variable names
 		String[] variable = new String[this.numvariables];
-		variable[0] = "P_"+this.blocknumber+"_compresor_in";
-		variable[1] = "T_"+this.blocknumber+"_compresor_in";
-		variable[2] = "Mass_"+this.blocknumber+"_compresor_in";
-		variable[3] = "P_"+this.blocknumber+"_compresor_out";
-		variable[4] = "T_"+this.blocknumber+"_compresor_out";
-		variable[5] = "Mass_"+this.blocknumber+"_compresor_out";
-		variable[6] = "Pressure_ratio"+this.blocknumber+"_compresor";
-		variable[7] = "Temperature_ratio"+this.blocknumber+"_compresor";
-		variable[8] = "Work_"+this.blocknumber+"_compresor";
-		variable[9] = "Issentropic_efficiency_"+this.blocknumber+"_compressor";
-		variable[10] = "Politropic_efficiency_"+this.blocknumber+"_compressor";
+		variable[0] = "P_" + this.blocknumber + "_postcombustionchamber_in";
+		variable[1] = "T_" + this.blocknumber + "_postcombustionchamber_in";
+		variable[2] = "Mass_" + this.blocknumber + "_postcombustionchamber_in";
+		variable[3] = "P_" + this.blocknumber + "_postcombustionchamber_out";
+		variable[4] = "T_" + this.blocknumber + "_postcombustionchamber_out";
+		variable[5] = "Mass_" + this.blocknumber + "_postcombustionchamber_out";
+		variable[6] = "Massfuel" + this.blocknumber + "_postcombustionchamber";
+		variable[7] = "EfficiencyFuel" + this.blocknumber + "_postcombustionchamber";
+		variable[8] = "CombustionEfficiency_" + this.blocknumber + "_postcombustionchamber";
 
 		double[][] X = new double[this.numvariables][1];
 		// GEN X vecto
@@ -60,11 +59,9 @@ public class Compressor extends FlowWorkBlock {
 		X[3][0] = this.Pout;
 		X[4][0] = this.Tout;
 		X[5][0] = this.MassFlow_out;
-		X[6][0] = this.Pi;
-		X[7][0] = this.Tau;
-		X[8][0] = this.work;
-		X[9][0] = this.n_i;
-		X[10][0] = this.n_p;
+		X[6][0] = this.Massfuel;
+		X[7][0] = this.n_fuel;
+		X[8][0] = this.E_b;
 
 		this.matrices.setX_equations(X);
 		this.matrices.setVariable(variable);
@@ -75,6 +72,7 @@ public class Compressor extends FlowWorkBlock {
 	@Override
 	protected void initvalues() {
 
+		// TODO: Miquel poner aqui valores del excel
 		this.Pin = 95000;
 		this.Tin = 290;
 		this.MassFlow_in = 1000;
@@ -83,11 +81,9 @@ public class Compressor extends FlowWorkBlock {
 		this.Tout = 800;
 		this.MassFlow_out = 1000;
 
-		this.Pi = 18;
-		this.Tau = 2.7;
-		this.work = -450000000;
-		this.n_i = 0.8;
-		this.n_p = 0.88;
+		this.Massfuel = 1000;
+		this.n_fuel = 0.9;
+		this.E_b = 0.95;
 
 	}
 

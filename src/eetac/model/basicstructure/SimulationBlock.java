@@ -44,10 +44,6 @@ public class SimulationBlock extends BasicBlock {
 		this.endnum = endnum;
 	}
 
-	public SimulationBlock(short idnum, String name, String description, String reference) {
-		super(idnum, name, description, reference);
-		// TODO Auto-generated constructor stub
-	}
 
 	// copy contructor
 	public SimulationBlock(SimulationBlock a) {

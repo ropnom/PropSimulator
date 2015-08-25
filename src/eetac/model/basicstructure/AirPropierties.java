@@ -1,4 +1,4 @@
-package eetac.model.realcomponent;
+package eetac.model.basicstructure;
 
 public class AirPropierties {
 	
