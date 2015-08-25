@@ -1,5 +1,7 @@
 package eetac.mathcore;
 
+import javax.xml.crypto.dsig.spec.XSLTTransformParameterSpec;
+
 import org.jblas.DoubleMatrix;
 import org.jblas.Solve;
 
@@ -11,11 +13,12 @@ public class MathCore {
 	protected double[][] X;
 	protected double[][] Fx;
 	protected double[][] Jx;
+	protected boolean[] constants;
 
 	protected double[][] X_new;
 
-	protected double relativetolerance;
-	protected double absoluttolerance;
+	protected double relativetolerance=0.01;
+	protected double absoluttolerance=0.01;
 
 	protected boolean finished = false;
 	protected int Max_iteration = 100;
@@ -24,7 +27,8 @@ public class MathCore {
 
 		boolean cumple = false;
 		for (int i = 0; ((i < X.length) && !finished); i++) {
-			if ((Math.abs(X_new[i][0] - X[i][0]) < absoluttolerance) || Math.abs(X_new[i][0] / X[i][0] - 1) < relativetolerance) {
+			
+			if ((Math.abs(X_new[i][0] - X[i][0]) < absoluttolerance) || (Math.abs(X_new[i][0] / X[i][0] - 1) < relativetolerance) || (Fx[i][0]<absoluttolerance)) {
 				cumple = true;
 			} else {
 				cumple = false;
@@ -42,6 +46,19 @@ public class MathCore {
 		X = eng.getMatrixJet().getX_equations();
 		Fx = eng.getMatrixJet().getFx_equations();
 		Jx = eng.getMatrixJet().getJx();
+		constants = eng.getMatrixJet().getConstants();
+		
+	}
+	
+	public void ConstantsValues(){
+		
+		for(int m = 0;m<X_new.length;m++){
+			if(constants[m]){
+				X_new[m][0] = X[m][0];
+				
+			}
+			System.out.println("X_"+m+" "+X_new[m][0]);
+		}
 		
 	}
 
@@ -68,13 +85,15 @@ public class MathCore {
 
 			variables = variables.sub(Solve.pinv(Jacobian).mmul(Functions));
 			
-
 			X_new = variables.toArray2();
-			SetMatrixEngine();
+			
+			System.out.println();
+			ConstantsValues();
+			System.out.println();
 
-			for(int m = 0;m<X_new.length;m++){
-				System.out.println("X_"+m+" "+X_new[m][0]);
-			}
+			
+			SetMatrixEngine();			
+			
 			this.finished = check_solve();
 
 		}
