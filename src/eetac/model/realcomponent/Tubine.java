@@ -1,8 +1,8 @@
 package eetac.model.realcomponent;
 
 import eetac.model.GlobalConstants;
-import eetac.model.basicstructure.AirPropierties;
 import eetac.model.basicstructure.FlowWorkBlock;
+import eetac.model.propierties.AirPropierties;
 
 public class Tubine extends FlowWorkBlock {
 

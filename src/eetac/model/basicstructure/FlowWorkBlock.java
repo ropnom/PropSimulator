@@ -1,5 +1,7 @@
 package eetac.model.basicstructure;
 
+import eetac.model.propierties.AirPropierties;
+
 
 public abstract class FlowWorkBlock extends FlowBlock {
 	/*
@@ -51,7 +53,7 @@ public abstract class FlowWorkBlock extends FlowBlock {
 
 	// get generic variable of component by number order
 	@Override
-	protected double getvariable(int index) {
+	public double getvariable(int index) {
 		double variable = 0;
 
 		switch (index) {
@@ -98,7 +100,7 @@ public abstract class FlowWorkBlock extends FlowBlock {
 
 	// Set a generic variable by num order
 	@Override
-	protected void setvariable(double variable, int index) {
+	public void setvariable(double variable, int index) {
 
 		switch (index) {
 		case 0:

@@ -30,6 +30,8 @@ public class SimulationBlock extends BasicBlock {
 
 	// Is this block full defined?
 	protected boolean isdefined = false;
+	
+	protected static int[] type;
 
 	public SimulationBlock() {
 		super();
@@ -56,14 +58,14 @@ public class SimulationBlock extends BasicBlock {
 	}
 
 	// GEneral Methods
-	protected double getvariable(int index) {
+	public double getvariable(int index) {
 
 		double variable = 0;
 		// switch
 		return variable;
 	}
 
-	protected void setvariable(double variable, int index) {
+	public void setvariable(double variable, int index) {
 
 		// Set variable
 	}
@@ -199,6 +201,12 @@ public class SimulationBlock extends BasicBlock {
 
 	protected void initvalues() {
 
+	}
+	
+	public int getType(int num){
+		
+		return(type[num]);
+		
 	}
 
 	// ***************************

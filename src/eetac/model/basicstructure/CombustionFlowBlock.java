@@ -1,6 +1,7 @@
 package eetac.model.basicstructure;
 
 import eetac.model.GlobalConstants;
+import eetac.model.propierties.AirPropierties;
 
 public class CombustionFlowBlock extends FlowBlock {
 
@@ -22,6 +23,9 @@ public class CombustionFlowBlock extends FlowBlock {
 	protected double Massfuel;
 	protected double n_fuel;
 	protected double E_b;
+	
+	//Aux variable
+	protected int fueltype = 0;
 
 	public CombustionFlowBlock() {
 		super();
@@ -36,7 +40,7 @@ public class CombustionFlowBlock extends FlowBlock {
 
 	
 	@Override
-	protected double getvariable(int index) {
+	public double getvariable(int index) {
 		double variable = 0;
 
 		switch (index) {
@@ -76,7 +80,7 @@ public class CombustionFlowBlock extends FlowBlock {
 	}
 
 	@Override
-	protected void setvariable(double variable, int index) {
+	public void setvariable(double variable, int index) {
 
 		switch (index) {
 		case 0:
@@ -199,5 +203,14 @@ public class CombustionFlowBlock extends FlowBlock {
 	public void setE_b(double e_b) {
 		E_b = e_b;
 	}
+
+	public int getFueltype() {
+		return fueltype;
+	}
+
+	public void setFueltype(int fueltype) {
+		this.fueltype = fueltype;
+	}
+	
 
 }

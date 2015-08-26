@@ -1,7 +1,8 @@
-package eetac.model.basicstructure;
+package eetac.model.propierties;
 
 public class AirPropierties {
 	
+	// Constant air propierties Gamma
 	protected static double gamma_c_air = 1.3; 
 	protected static double gamma_c_airfuel = 1.4;	
 	protected static double gamma_1_gama_air = 3.5;
@@ -9,7 +10,7 @@ public class AirPropierties {
 	protected static double cp_c = 1005;
 	
 	
-	//Funciones dinamicas
+	//Table Air propierties
 	
 	
 	//Gets y Sets
