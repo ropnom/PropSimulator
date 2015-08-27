@@ -2,7 +2,7 @@ package eetac.model.basicstructure;
 
 import eetac.model.propierties.AirPropierties;
 
-public class CombustionFlowBlock extends FlowBlock {
+public class AxisBlock extends FlowBlock {
 
 	/*
 	 * THE ORDER OF MATH VARIABLES ARE
@@ -19,22 +19,20 @@ public class CombustionFlowBlock extends FlowBlock {
 	 * OTHER VARIABLES IN COMPLEX BLOCKS
 	 */
 	
-	protected double Massfuel;
-	protected double n_fuel;
-	protected double E_b;
+	protected double Work_in;
+	protected double Work_out;
+	protected double n_axis;
 	
-	//Aux variable
-	protected int fueltype = 0;
-
-	public CombustionFlowBlock() {
+	
+	public AxisBlock() {
 		super();
 	}
 
-	public CombustionFlowBlock(CombustionFlowBlock a) {
+	public AxisBlock(AxisBlock a) {
 		super(a);
-		this.Massfuel = a.getMassfuel();
-		this.n_fuel = a.getN_fuel();
-		this.E_b = a.getE_b();
+		this.Work_in = a.getWork_in();
+		this.Work_out = a.getWork_out();
+		this.n_axis = a.getN_axis();
 	}
 
 	
@@ -62,13 +60,13 @@ public class CombustionFlowBlock extends FlowBlock {
 			variable = this.MassFlow_out;
 			break;
 		case 6:
-			variable = this.Massfuel;
+			variable = this.Work_in;
 			break;
 		case 7:
-			variable = this.n_fuel;
+			variable = this.Work_out;
 			break;
 		case 8:
-			variable = E_b;
+			variable = this.n_axis;
 			break;
 
 		default:
@@ -101,13 +99,13 @@ public class CombustionFlowBlock extends FlowBlock {
 			this.MassFlow_out = variable;
 			break;
 		case 6:
-			this.Massfuel = variable;
+			variable = this.Work_in;
 			break;
 		case 7:
-			this.n_fuel = variable;
+			variable = this.Work_out;
 			break;
 		case 8:
-			E_b = variable;
+			variable = this.n_axis;
 			break;
 
 		default:
@@ -176,40 +174,33 @@ public class CombustionFlowBlock extends FlowBlock {
 			return (X[8][0] - X[5][0] * AirPropierties.getCp_c() * (X[1][0] - X[4][0]));
 		}
 	}
-	
-	
 
-	public double getMassfuel() {
-		return Massfuel;
+	public double getWork_in() {
+		return Work_in;
 	}
 
-	public void setMassfuel(double massfuel) {
-		Massfuel = massfuel;
+	public void setWork_in(double work_in) {
+		Work_in = work_in;
 	}
 
-	public double getN_fuel() {
-		return n_fuel;
+	public double getWork_out() {
+		return Work_out;
 	}
 
-	public void setN_fuel(double n_fuel) {
-		this.n_fuel = n_fuel;
+	public void setWork_out(double work_out) {
+		Work_out = work_out;
 	}
 
-	public double getE_b() {
-		return E_b;
+	public double getN_axis() {
+		return n_axis;
 	}
 
-	public void setE_b(double e_b) {
-		E_b = e_b;
-	}
-
-	public int getFueltype() {
-		return fueltype;
-	}
-
-	public void setFueltype(int fueltype) {
-		this.fueltype = fueltype;
+	public void setN_axis(double n_axis) {
+		this.n_axis = n_axis;
 	}
 	
+
+
+
 
 }
