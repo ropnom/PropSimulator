@@ -36,7 +36,7 @@ public class ChamberComb extends CombustionFlowBlock {
 		this.reference = "Teorical Reference Termodinamics";
 
 		initvalues();
-		this.numequations = 4;
+		this.numequations = 3;
 		this.numvariables = 9;
 
 		// Gen variable names
