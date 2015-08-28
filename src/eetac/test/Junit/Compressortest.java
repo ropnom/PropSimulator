@@ -87,7 +87,7 @@ public class Compressortest {
 		assertEquals("Pin must be 97000 PA in variable", 97000.0, compressor.getPin(), 0.01);
 
 		assertEquals("Tin must be 290 ºKin matrix", 290.0, compressor.getMatrices().getX_equations()[1][0], 0.01);
-		assertEquals("Tin must be 290 PA  in variable", 290.0, compressor.getTin(), 0.01);
+		assertEquals("Tin must be 290 ºK  in variable", 290.0, compressor.getTin(), 0.01);
 
 		assertEquals("Min must be 1000 kg/seg in matrix", 1000.0, compressor.getMatrices().getX_equations()[2][0], 0.01);
 		assertEquals("Min must be 1000 kg/seg  in variable", 1000.0, compressor.getMassFlow_in(), 0.01);

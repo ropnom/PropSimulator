@@ -19,12 +19,10 @@ public class ChamberComb extends CombustionFlowBlock {
 	// this.Pout = X[3][0];
 	// this.Tout = X[4][0];
 	// this.MassFlow_out = X[5][0];
-	// this.Pi = X[6][0];
-	// this.Tau = X[7][0];
-	// this.work = X[8][0];
-	// this.n_i = X[9][0];
-	// this.n_p = X[10][0];
-
+	// this.Massfuel = X[6][0];
+	// this.n_fuel = X[7][0];
+	// this.E_b = X[8][0];
+	
 	// Init basic information od basicblock, description reference etc...
 	@Override
 	protected void Gen_info() {
