@@ -1,29 +1,21 @@
 package eetac.model.basicstructure;
 
 import eetac.model.propierties.AirPropierties;
+import eetac.model.propierties.FuelPropierties;
 
 public class CombustionFlowBlock extends FlowBlock {
 
 	/*
-	 * THE ORDER OF MATH VARIABLES ARE
-	 * 1º PIN 
-	 * 2º TIN 
-	 * 3º MASSFLOWIN 
-	 * 4º POUT 
-	 * 5º TOUT 
-	 * 6º MASSFLOWOUT 
-	 * 7º MASSFUEL 
-	 * 8º FUEL EFFICIENCY 
-	 * 9º PRESSURE EFFICIENCY 
-	 * RANGE 0-8
-	 * OTHER VARIABLES IN COMPLEX BLOCKS
+	 * THE ORDER OF MATH VARIABLES ARE 1º PIN 2º TIN 3º MASSFLOWIN 4º POUT 5º
+	 * TOUT 6º MASSFLOWOUT 7º MASSFUEL 8º FUEL EFFICIENCY 9º PRESSURE EFFICIENCY
+	 * RANGE 0-8 OTHER VARIABLES IN COMPLEX BLOCKS
 	 */
-	
+
 	protected double Massfuel;
 	protected double n_fuel;
 	protected double E_b;
-	
-	//Aux variable
+
+	// Aux variable
 	protected int fueltype = 0;
 
 	public CombustionFlowBlock() {
@@ -37,7 +29,6 @@ public class CombustionFlowBlock extends FlowBlock {
 		this.E_b = a.getE_b();
 	}
 
-	
 	@Override
 	public double getvariable(int index) {
 		double variable = 0;
@@ -129,9 +120,6 @@ public class CombustionFlowBlock extends FlowBlock {
 		case 2:
 			fx = MassFlowRelations(X);
 			break;
-		case 3:
-			fx = HeatRelations(X);
-			break;
 
 		default:
 			break;
@@ -143,7 +131,8 @@ public class CombustionFlowBlock extends FlowBlock {
 
 	protected double PressureRelations(double[][] X) {
 		/*
-		 * PRESSURE RELATION POUT = PINT * (1-E_b) | Equation 1: Pout-Pin*(1-eb) = 0
+		 * PRESSURE RELATION POUT = PINT * (1-E_b) | Equation 1: Pout-Pin*(1-eb)
+		 * = 0
 		 */
 		// return (this.Pout - this.Pin * (1-eb));
 		return (X[3][0] - X[0][0] * (1 - X[8][0]));
@@ -154,7 +143,7 @@ public class CombustionFlowBlock extends FlowBlock {
 		 * TEMPERATURE RELATION Tout = Tin * TAU | Equation 2: Tout-Tin*Tau = 0
 		 */
 		// return (this.Tout - this.Tin * this.Tau);
-		return (X[4][0] - (X[1][0] + (X[7][0] * (X[5][0] / X[2][0] - 1) * 55555)) / 1005);
+		return (X[4][0] - (X[2][0] / X[5][0]) * (X[1][0] + (X[7][0] * (X[6][0] / X[2][0] * FuelPropierties.getFuel(fueltype).getHf() / AirPropierties.getCp_c()))));
 	}
 
 	protected double MassFlowRelations(double[][] X) {
@@ -162,22 +151,8 @@ public class CombustionFlowBlock extends FlowBlock {
 		 * MASS RELATION MASSin = MASSout | Equation 3: MASSout-MASSin = 0
 		 */
 		// return (this.MassFlow_in - this.MassFlow_out);
-		return (X[2][0] + X[6][0] - (X[5][0]));
+		return (X[2][0] + X[6][0] - X[5][0]);
 	}
-
-	protected double HeatRelations(double[][] X) {
-		/*
-		 * HEAT RELATION Work= CP | Equation 6: Work-Massflow*Cp(Tin-Tout) = 0
-		 */
-		if (X[2][0] >= X[5][0]) {
-
-			return (X[8][0] - X[2][0] * AirPropierties.getCp_c() * (X[1][0] - X[4][0]));
-		} else {
-			return (X[8][0] - X[5][0] * AirPropierties.getCp_c() * (X[1][0] - X[4][0]));
-		}
-	}
-	
-	
 
 	public double getMassfuel() {
 		return Massfuel;
@@ -210,6 +185,5 @@ public class CombustionFlowBlock extends FlowBlock {
 	public void setFueltype(int fueltype) {
 		this.fueltype = fueltype;
 	}
-	
 
 }
