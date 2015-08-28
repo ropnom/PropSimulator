@@ -143,14 +143,7 @@ public class CombustionFlowBlock extends FlowBlock {
 		 * TEMPERATURE RELATION Tout = Tin * TAU | Equation 2: Tout-Tin*Tau = 0
 		 */
 		// return (this.Tout - (this.Tin+((this.Mfuel*N_fuel*hfuel)/(Min*cp))*(Min/Mout) );
-		System.out.println(X[4][0]);
-		System.out.println(X[1][0]);
-		System.out.println(X[6][0]);
-		System.out.println(X[7][0]);
-		System.out.println(FuelPropierties.getFuel(this.fueltype).getHf());
-		System.out.println(X[2][0]);
-		System.out.println(X[5][0]);
-		System.out.println(AirPropierties.getCp_c());
+	
 		return (X[4][0] - (X[1][0]+((X[6][0]*X[7][0]*FuelPropierties.getFuel(this.fueltype).getHf())/(X[2][0]*AirPropierties.getCp_c())))*(X[2][0]/X[5][0]));
 	}
 
