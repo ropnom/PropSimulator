@@ -34,6 +34,7 @@ public class Compressortest {
 		compressor.setWork(-450000000);
 		compressor.setN_i(0.8);
 		compressor.setN_p(0.88);
+		compressor.genX();
 
 		// reference plane
 		compressor.setInitnum((short) 0);

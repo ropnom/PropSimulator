@@ -171,6 +171,14 @@ public class SimulationBlock extends BasicBlock {
 		genMatrix();
 
 	}
+	
+	public void genX() {
+
+		for (int i = 0; i < this.numvariables; i++) {
+			this.matrices.getX_equations()[i][0] = getvariable(i);
+		}
+		
+	}
 
 	public boolean isBlockSimulated() {
 		/*

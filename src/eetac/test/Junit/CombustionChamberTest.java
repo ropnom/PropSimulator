@@ -32,7 +32,10 @@ public class CombustionChamberTest {
 		chamber.setMassFlow_out(1016);
 		chamber.setMassfuel(16);;
 		chamber.setN_fuel(0.98);
-		chamber.setE_b(0.04);;
+		chamber.setE_b(0.04);
+		chamber.genX();
+		
+		
 		
 
 		// reference plane
@@ -98,10 +101,10 @@ public class CombustionChamberTest {
 		assertEquals("Tout must be 1373 PA  in variable", 1373.0, chamber.getTout(), 0.01);
 		
 		assertEquals("n_fuel must be 0.98 PA in matrix", 0.98, chamber.getMatrices().getX_equations()[7][0], 0.01);
-		assertEquals("n_fuel must be 0.98 PA  in variable", 0.98, chamber.getTout(), 0.01);
+		assertEquals("n_fuel must be 0.98 PA  in variable", 0.98, chamber.getN_fuel(), 0.01);
 		
 		assertEquals("E_b must be 0.04 PA in matrix", 0.04, chamber.getMatrices().getX_equations()[8][0], 0.01);
-		assertEquals("E_b must be 0.04 PA  in variable", 0.04, chamber.getTout(), 0.01);
+		assertEquals("E_b must be 0.04 PA  in variable", 0.04, chamber.getE_b(), 0.01);
 
 		System.out.println(" OK");
 
