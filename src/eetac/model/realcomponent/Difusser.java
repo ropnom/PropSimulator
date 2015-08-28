@@ -17,25 +17,22 @@ public class Difusser extends DinamicFlowBlock {
 	// this.Pout = X[3][0];
 	// this.Tout = X[4][0];
 	// this.MassFlow_out = X[5][0];
-	// this.Pi = X[6][0];
-	// this.Tau = X[7][0];
-	// this.work = X[8][0];
-	// this.n_i = X[9][0];
-	// this.n_p = X[10][0];
+	// this.velocity = X[6][0];
+
 
 	// Init basic information od basicblock, description reference etc...
 	@Override
 	protected void Gen_info() {
 
-		this.idnum = (short) (GlobalConstants.getCompresor()+1);
+		this.idnum = (short) (GlobalConstants.getDifusser()+1);
 		this.level = 1;
 		this.name = "Generic Diffuser model  "+this.level;
 		this.description = "This component is a basic model of diffuser with constant propierties for air";
 		this.reference = "Teorical Reference Termodinamics";
 
 		initvalues();
-		this.numequations = 6;
-		this.numvariables = 11;
+		this.numequations = 3;
+		this.numvariables = 7;
 
 		// Gen variable names
 		String[] variable = new String[this.numvariables];
@@ -45,6 +42,7 @@ public class Difusser extends DinamicFlowBlock {
 		variable[3] = "P_"+this.blocknumber+"_diffuser_out";
 		variable[4] = "T_"+this.blocknumber+"_diffuser_out";
 		variable[5] = "Mass_"+this.blocknumber+"_diffuser_out";
+		variable[6] = "Velocity_"+this.blocknumber+"_diffuser_in";
 		
 
 		double[][] X = new double[this.numvariables][1];
@@ -55,6 +53,7 @@ public class Difusser extends DinamicFlowBlock {
 		X[3][0] = this.Pout;
 		X[4][0] = this.Tout;
 		X[5][0] = this.MassFlow_out;
+		X[6][0] = this.velocity;
 		
 		this.matrices.setX_equations(X);
 		this.matrices.setVariable(variable);
@@ -65,12 +64,13 @@ public class Difusser extends DinamicFlowBlock {
 	@Override
 	protected void initvalues() {
 
-		this.Pin = 95000;
-		this.Tin = 290;
+		this.Pin = 22657;
+		this.Tin = 216;
 		this.MassFlow_in = 1000;
+		this.velocity = 1;
 
-		this.Pout = 1800000;
-		this.Tout = 800;
+		this.Pout = 120000;
+		this.Tout = 390;
 		this.MassFlow_out = 1000;
 
 

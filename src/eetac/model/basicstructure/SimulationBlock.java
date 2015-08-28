@@ -98,9 +98,7 @@ public class SimulationBlock extends BasicBlock {
 			// Fx[0][0] = PressureRelations(X);
 			// Fx[1][0] = TemperatureRelations(X);
 			// Fx[2][0] = MassFlowRelations(X);
-			// Fx[3][0] = PolitropicRelations(X);
-			// Fx[4][0] = IsentropicRelations(X);
-			// Fx[5][0] = WorkRelations(X);
+			// Other
 
 			for (int i = 0; i < (totalequations); i++) {
 				// If is a known variable, X_i - cte = 0;

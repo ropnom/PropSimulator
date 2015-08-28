@@ -7,7 +7,7 @@ public  class GlobalConstants {
 	
 	//Reference number
 	protected static short engine = 0;	
-	protected static short difusor = 200;
+	protected static short difusser = 200;
 	protected static short compresor = 300;
 	protected static short combustionchamber = 500;
 	protected static short turbine = 700;
@@ -34,12 +34,12 @@ public  class GlobalConstants {
 		GlobalConstants.engine = engine;
 	}
 
-	public static short getDifusor() {
-		return difusor;
+	public static short getDifusser() {
+		return difusser;
 	}
 
-	public static void setDifusor(short difusor) {
-		GlobalConstants.difusor = difusor;
+	public static void setDifusser(short difusor) {
+		GlobalConstants.difusser = difusor;
 	}
 
 	public static short getCompresor() {

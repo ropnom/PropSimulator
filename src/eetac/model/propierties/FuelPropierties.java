@@ -13,8 +13,11 @@ public class FuelPropierties {
 	public void Load() {
 		
 		//Crear Fuel default
-		
+		Fuel fuel = new Fuel("Generic fuel", 0, 40078000.0);
 		//Cargar desde archivo
+		
+		
+		listfuel.add(fuel);
 
 	}
 	
