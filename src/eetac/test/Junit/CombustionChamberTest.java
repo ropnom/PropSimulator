@@ -119,7 +119,7 @@ public class CombustionChamberTest {
 		// assert functions
 		System.out.print("Functions Inputs...");
 		assertEquals("Funcion 0 must be", 88.0, chamber.getMatrices().getFx_equations()[0][0], 0.01);
-		assertEquals("Funcion 1 must be", 0.2209, chamber.getMatrices().getFx_equations()[1][0], 0.01);
+		assertEquals("Funcion 1 must be", -8.1974, chamber.getMatrices().getFx_equations()[1][0], 0.01);
 		assertEquals("Funcion 2 must be", 0, chamber.getMatrices().getFx_equations()[2][0], 0.01);
 		
 		System.out.println(" OK");
@@ -135,7 +135,7 @@ public class CombustionChamberTest {
 
 		boolean showtest = false;
 
-		double[][] referencia = {{-0.960000325000000,0,0,1.00000063000000,0,0,0,0,1487825},{0,0.0265195470000000,-0.0157791300000000,0,-0.0269380020000000,0,1,16.6856534400000,0},{0,0,-1,0,0,1,-1,0,0},{1.00000063000000,0,0,0,0,0,0,0,0},{0,1,0,0,0,0,0,0,0},{0,0,1,0,0,0,0,0,0},{0,0,0,0,1,0,0,0,0},{0,0,0,0,0,0,0,1,0},{0,0,0,0,0,0,0,0,1}};
+		double[][] referencia = {{-0.960000325000000,0,0,1.00000063000000,0,0,0,0,1487825},{0,-0.984251969000000,-0.765748030000000,0,1,1.35944612300000,-38.4655854600000,-628.009558500000,0},{0,0,-1,0,0,1,-1,0,0},{1.00000063000000,0,0,0,0,0,0,0,0},{0,1,0,0,0,0,0,0,0},{0,0,1,0,0,0,0,0,0},{0,0,0,0,1,0,0,0,0},{0,0,0,0,0,0,0,1,0},{0,0,0,0,0,0,0,0,1}};
 		// assert Jx
 		System.out.print("JX...");
 		for (int i = 0; i < referencia.length; i++) {
