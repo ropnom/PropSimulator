@@ -78,6 +78,49 @@ public class DinamicFlowBlock extends FlowBlock {
 			break;
 		}
 	}
+	
+	@Override
+	protected double getFx(double[][] X, int equation) {
+		double fx = 0;
+
+		switch (equation) {
+		case 0:
+			fx = PressureRelations(X);
+			break;
+		case 1:
+			fx = TemperatureRelations(X);
+			break;
+		case 2:
+			fx = MassFlowRelations(X);
+			break;
+		case 3:
+			fx = VelocityRelations(X);
+			break;
+
+		default:
+			break;
+		}
+		return fx;
+	}
+	
+	protected double PressureRelations(double[][] X) {
+		// To implement
+		return 0;
+	}
+
+	protected double TemperatureRelations(double[][] X) {
+		// To implement
+		return 0;
+	}
+
+	protected double MassFlowRelations(double[][] X) {
+		// To implement
+		return 0;
+	}
+	protected double VelocityRelations(double[][] X) {
+		// To implement
+		return 0;
+	}
 
 	public double getVelocity() {
 		return velocity;

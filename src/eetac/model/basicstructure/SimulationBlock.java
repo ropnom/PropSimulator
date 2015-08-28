@@ -56,6 +56,10 @@ public class SimulationBlock extends BasicBlock {
 		this.endnum = a.getEndnum();
 
 	}
+	
+	public void GenAuxvariables(){
+		
+	}
 
 	// GEneral Methods
 	public double getvariable(int index) {

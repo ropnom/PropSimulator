@@ -8,6 +8,7 @@ public class AirPropierties {
 	protected static double gamma_1_gama_air = 3.5;
 	protected static double gamma_1_gama_airfuel = 3.3333;
 	protected static double cp_c = 1005;
+	protected static double R = 8.3144621;
 	
 	
 	//Table Air propierties
@@ -43,6 +44,12 @@ public class AirPropierties {
 	}
 	public static void setCp_c(double cp_c) {
 		AirPropierties.cp_c = cp_c;
+	}
+	public static double getR() {
+		return R;
+	}
+	public static void setR(double r) {
+		R = r;
 	} 
 	
 
