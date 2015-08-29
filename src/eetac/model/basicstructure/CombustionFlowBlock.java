@@ -28,6 +28,13 @@ public class CombustionFlowBlock extends FlowBlock {
 		this.n_fuel = a.getN_fuel();
 		this.E_b = a.getE_b();
 	}
+	
+	@Override
+	public void GenAuxvariables() {
+		super.GenAuxvariables();
+		
+		//Show variables
+	}
 
 	@Override
 	public double getvariable(int index) {

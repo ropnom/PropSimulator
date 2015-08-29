@@ -10,6 +10,12 @@ public class Compressor extends FlowWorkBlock {
 		super();
 		Gen_info();
 	}
+	
+	public Compressor(Compressor a) {
+		super(a);
+		// TODO Auto-generated constructor stub
+	}
+	
 
 	// Order of variable in vector
 	// this.Pin = X[0][0];
@@ -24,6 +30,7 @@ public class Compressor extends FlowWorkBlock {
 	// this.n_i = X[9][0];
 	// this.n_p = X[10][0];
 
+	
 	// Init basic information od basicblock, description reference etc...
 	@Override
 	protected void Gen_info() {

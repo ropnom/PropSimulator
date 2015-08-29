@@ -3,6 +3,10 @@ package eetac.model.basicstructure;
 public class DinamicFlowBlock extends FlowBlock {
 
 	protected double velocity;
+	
+	// Aux variables
+	protected double sound_velocity;
+	protected double mach_number;
 
 	public DinamicFlowBlock() {
 
@@ -11,9 +15,12 @@ public class DinamicFlowBlock extends FlowBlock {
 	public DinamicFlowBlock(DinamicFlowBlock a) {
 		super(a);
 		this.velocity = a.getVelocity();
+		this.sound_velocity = a.getSound_velocity();
+		this.mach_number = a.getMach_number();
 
 	}
 	
+		
 	@Override
 	public double getvariable(int index) {
 		double variable = 0;
@@ -77,50 +84,9 @@ public class DinamicFlowBlock extends FlowBlock {
 		default:
 			break;
 		}
-	}
+	}	
 	
-	@Override
-	protected double getFx(double[][] X, int equation) {
-		double fx = 0;
-
-		switch (equation) {
-		case 0:
-			fx = PressureRelations(X);
-			break;
-		case 1:
-			fx = TemperatureRelations(X);
-			break;
-		case 2:
-			fx = MassFlowRelations(X);
-			break;
-		case 3:
-			fx = VelocityRelations(X);
-			break;
-
-		default:
-			break;
-		}
-		return fx;
-	}
 	
-	protected double PressureRelations(double[][] X) {
-		// To implement
-		return 0;
-	}
-
-	protected double TemperatureRelations(double[][] X) {
-		// To implement
-		return 0;
-	}
-
-	protected double MassFlowRelations(double[][] X) {
-		// To implement
-		return 0;
-	}
-	protected double VelocityRelations(double[][] X) {
-		// To implement
-		return 0;
-	}
 
 	public double getVelocity() {
 		return velocity;
@@ -129,5 +95,23 @@ public class DinamicFlowBlock extends FlowBlock {
 	public void setVelocity(double velocity) {
 		this.velocity = velocity;
 	}
+
+	public double getSound_velocity() {
+		return sound_velocity;
+	}
+
+	public void setSound_velocity(double sound_velocity) {
+		this.sound_velocity = sound_velocity;
+	}
+
+	public double getMach_number() {
+		return mach_number;
+	}
+
+	public void setMach_number(double mach_number) {
+		this.mach_number = mach_number;
+	}
+	
+	
 
 }

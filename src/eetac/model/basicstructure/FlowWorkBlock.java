@@ -50,6 +50,13 @@ public abstract class FlowWorkBlock extends FlowBlock {
 		this.n_i = a.getN_i();
 		this.n_p = a.getN_p();
 	}
+	
+	@Override
+	public void GenAuxvariables() {
+		super.GenAuxvariables();
+		
+		//Show variables
+	}
 
 	// get generic variable of component by number order
 	@Override

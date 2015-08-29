@@ -4,11 +4,16 @@ import eetac.model.GlobalConstants;
 import eetac.model.basicstructure.FlowWorkBlock;
 import eetac.model.propierties.AirPropierties;
 
-public class Tubine extends FlowWorkBlock {
+public class Turbine extends FlowWorkBlock {
 
-	public Tubine() {
+	public Turbine() {
 		super();
 		Gen_info();
+	}
+	
+	public Turbine(Turbine a) {
+		super(a);
+		
 	}
 
 	// Order of variable in vector

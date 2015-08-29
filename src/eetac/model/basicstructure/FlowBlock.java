@@ -1,6 +1,7 @@
 package eetac.model.basicstructure;
 
 import eetac.model.MatrixCollection;
+import eetac.model.propierties.AirPropierties;
 
 public abstract class FlowBlock extends SimulationBlock {
 
@@ -43,6 +44,13 @@ public abstract class FlowBlock extends SimulationBlock {
 		this.A_in = a.getA_in();
 		this.A_out = a.getA_out();
 
+	}
+	
+	@Override
+	public void GenAuxvariables() {
+		super.GenAuxvariables();
+		
+		//Show variables
 	}
 
 	@Override
@@ -102,6 +110,42 @@ public abstract class FlowBlock extends SimulationBlock {
 		default:
 			break;
 		}
+	}
+	
+	@Override
+	protected double getFx(double[][] X, int equation) {
+		double fx = 0;
+
+		switch (equation) {
+		case 0:
+			fx = PressureRelations(X);
+			break;
+		case 1:
+			fx = TemperatureRelations(X);
+			break;
+		case 2:
+			fx = MassFlowRelations(X);
+			break;
+		
+		default:
+			break;
+		}
+		return fx;
+	}
+	
+	protected double PressureRelations(double[][] X) {
+		// To implement
+		return 0;
+	}
+
+	protected double TemperatureRelations(double[][] X) {
+		// To implement
+		return 0;
+	}
+
+	protected double MassFlowRelations(double[][] X) {
+		// To implement
+		return 0;
 	}
 
 	public double getPt_0() {
