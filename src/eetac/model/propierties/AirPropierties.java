@@ -3,12 +3,12 @@ package eetac.model.propierties;
 public class AirPropierties {
 
 	// Constant air propierties Gamma
-	protected static double gamma_c_air = 1.3;
-	protected static double gamma_c_airfuel = 1.4;
+	protected static double gamma_c_air = 1.4;
+	protected static double gamma_c_airfuel = 1.333;
 
 	// These variables are (gamma/(gamma-1)
 	protected static double gamma_gamma_1_air = 3.5;
-	protected static double gamma_gamma_1_airfuel = 3.3333;
+	protected static double gamma_gamma_1_airfuel = 4.003003;
 
 	// Air propierties
 	protected static double cp_c = 1005;
@@ -18,8 +18,11 @@ public class AirPropierties {
 	protected static double cp_c_fuel = 1005;
 	protected static double R_c_fuel = 8.3144621;
 
+	// Nozzle Critic Pressure Ratio
+	// (2/(gamma+1)^(gama/(gama-1)
+	protected static double CPRR_air_fuel = 0.53983392;
+
 	// Table Air propierties
-	
 
 	// Gets y Sets
 	public static double getGamma_c_air() {
@@ -69,5 +72,31 @@ public class AirPropierties {
 	public static void setR_c(double r) {
 		R_c = r;
 	}
+
+	public static double getCp_c_fuel() {
+		return cp_c_fuel;
+	}
+
+	public static void setCp_c_fuel(double cp_c_fuel) {
+		AirPropierties.cp_c_fuel = cp_c_fuel;
+	}
+
+	public static double getR_c_fuel() {
+		return R_c_fuel;
+	}
+
+	public static void setR_c_fuel(double r_c_fuel) {
+		R_c_fuel = r_c_fuel;
+	}
+
+	public static double getCPRR_air_fuel() {
+		return CPRR_air_fuel;
+	}
+
+	public static void setCPRR_air_fuel(double cPRR_air_fuel) {
+		CPRR_air_fuel = cPRR_air_fuel;
+	}
+	
+	
 
 }

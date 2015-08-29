@@ -10,10 +10,10 @@ public class Turbine extends FlowWorkBlock {
 		super();
 		Gen_info();
 	}
-	
+
 	public Turbine(Turbine a) {
 		super(a);
-		
+
 	}
 
 	// Order of variable in vector
@@ -34,7 +34,7 @@ public class Turbine extends FlowWorkBlock {
 
 		this.idnum = (short) (GlobalConstants.getTurbine() + 1);
 		this.level = 1;
-		this.name = "Generic Turbine model  "+this.level;
+		this.name = "Generic Turbine model  " + this.level;
 		this.description = "This component is a basic model of turbine with constant propierties for air";
 		this.reference = "Teorical Reference Termodinamics";
 
@@ -97,8 +97,9 @@ public class Turbine extends FlowWorkBlock {
 	}
 
 	// A turbine works equal toa compresor because is a descompresor.
-	// Efficiencia is the inverse of the compressor ... so we need to overray equations
-	
+	// Efficiencia is the inverse of the compressor ... so we need to overray
+	// equations
+
 	@Override
 	protected double PolitropicRelations(double[][] X) {
 		/*
@@ -108,7 +109,7 @@ public class Turbine extends FlowWorkBlock {
 		// return (this.Pi - Math.pow(this.Tau,
 		// (AirPropierties.getGamma_politropic_air() / this.n_p)));
 
-		return (X[6][0] - Math.pow(X[7][0], (AirPropierties.getGamma_gamma_1_air() / X[10][0])));
+		return (X[6][0] - Math.pow(X[7][0], (AirPropierties.getGamma_gamma_1_airfuel() / X[10][0])));
 	}
 
 	@Override
@@ -120,8 +121,7 @@ public class Turbine extends FlowWorkBlock {
 		// return (this.PI - Math.pow((1 + (this.Tau - 1)/this.n_i ),
 		// AirPropierties.getGamma_politropic_air()));
 
-		return (X[6][0] - Math.pow((1 + (X[7][0] - 1)/X[9][0] ), AirPropierties.getGamma_gamma_1_air()));
+		return (X[6][0] - Math.pow((1 + (X[7][0] - 1) / X[9][0]), AirPropierties.getGamma_gamma_1_airfuel()));
 	}
-
 
 }

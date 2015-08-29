@@ -80,7 +80,7 @@ public class Nozzle extends DinamicFlowBlock {
 	public void GenAuxvariables() {
 		super.GenAuxvariables();
 		
-		this.sound_velocity = Math.sqrt(AirPropierties.getGamma_c_air() * AirPropierties.getR_c() * this.Tout);
+		this.sound_velocity = Math.sqrt(AirPropierties.getGamma_c_airfuel() * AirPropierties.getR_c_fuel() * this.Tout);
 		this.mach_number = this.velocity / this.sound_velocity;
 		
 		/*
@@ -88,7 +88,7 @@ public class Nozzle extends DinamicFlowBlock {
 		 *  CPR is the fluid relation inside a nozzle where P* / Pin = (2/(gamma+1)^(gama/(gama-1))
 		 */
 		this.PR = this.Patmosfere/this.Pin;
-		//this.CPR = 
+		this.CPR = AirPropierties.getCPRR_air_fuel();
 	}
 
 	@Override
