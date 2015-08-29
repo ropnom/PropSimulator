@@ -220,7 +220,7 @@ public abstract class FlowWorkBlock extends FlowBlock {
 		// return (this.Pi - Math.pow(this.Tau,
 		// (AirPropierties.getGamma_politropic_air() * this.n_p)));
 
-		return (X[6][0] - Math.pow(X[7][0], (AirPropierties.getGamma_1_gama_air() * X[10][0])));
+		return (X[6][0] - Math.pow(X[7][0], (AirPropierties.getGamma_gamma_1_air() * X[10][0])));
 	}
 
 	protected double IsentropicRelations(double[][] X) {
@@ -231,7 +231,7 @@ public abstract class FlowWorkBlock extends FlowBlock {
 		// return (this.PI - Math.pow((1 + this.n_i * (this.Tau - 1)),
 		// AirPropierties.getGamma_politropic_air()));
 
-		return (X[6][0] - Math.pow((1 + X[9][0] * (X[7][0] - 1)), AirPropierties.getGamma_1_gama_air()));
+		return (X[6][0] - Math.pow((1 + X[9][0] * (X[7][0] - 1)), AirPropierties.getGamma_gamma_1_air()));
 	}
 
 	protected double WorkRelations(double[][] X) {

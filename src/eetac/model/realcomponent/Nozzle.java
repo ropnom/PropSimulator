@@ -10,6 +10,7 @@ public class Nozzle extends DinamicFlowBlock {
 	//Aux variables
 	protected double CPR;
 	protected double PR;
+
 	
 	public Nozzle() {
 		super();
@@ -78,8 +79,16 @@ public class Nozzle extends DinamicFlowBlock {
 	@Override
 	public void GenAuxvariables() {
 		super.GenAuxvariables();
-		this.sound_velocity = Math.sqrt(AirPropierties.getGamma_c_air() * AirPropierties.getR() * this.Tout);
+		
+		this.sound_velocity = Math.sqrt(AirPropierties.getGamma_c_air() * AirPropierties.getR_c() * this.Tout);
 		this.mach_number = this.velocity / this.sound_velocity;
+		
+		/*
+		 *  PR is the relation between Pressure after turbine and atmosfere pressure
+		 *  CPR is the fluid relation inside a nozzle where P* / Pin = (2/(gamma+1)^(gama/(gama-1))
+		 */
+		this.PR = this.Patmosfere/this.Pin;
+		//this.CPR = 
 	}
 
 	@Override
@@ -128,9 +137,9 @@ public class Nozzle extends DinamicFlowBlock {
 		 * PRESSURE RELATION POUT = PINT * (1 + (gama-1)/2 Ma)^(gamma/(gama-1))
 		 */
 
-		double estancamiento = (1 + (AirPropierties.getGamma_c_air() - 1) / 2 * (X[6][0] / Math.sqrt(AirPropierties.getGamma_c_air() * AirPropierties.getR() * X[1][0])));
+		double estancamiento = (1 + (AirPropierties.getGamma_c_air() - 1) / 2 * (X[6][0] / Math.sqrt(AirPropierties.getGamma_c_air() * AirPropierties.getR_c() * X[1][0])));
 
-		return (X[3][0] - X[0][0] * Math.pow(estancamiento, AirPropierties.getGamma_1_gama_air()));
+		return (X[3][0] - X[0][0] * Math.pow(estancamiento, AirPropierties.getGamma_gamma_1_air()));
 	}
 
 	@Override
@@ -139,7 +148,7 @@ public class Nozzle extends DinamicFlowBlock {
 		 * TEMPERATURE RELATION Tout = Tin * (1 + (gama-1)/2 Ma)
 		 */
 
-		double estancamiento = (1 + (AirPropierties.getGamma_c_air() - 1) / 2 * (X[6][0] / Math.sqrt(AirPropierties.getGamma_c_air() * AirPropierties.getR() * X[1][0])));
+		double estancamiento = (1 + (AirPropierties.getGamma_c_air() - 1) / 2 * (X[6][0] / Math.sqrt(AirPropierties.getGamma_c_air() * AirPropierties.getR_c() * X[1][0])));
 
 		return (X[4][0] - X[1][0] * estancamiento);
 	}

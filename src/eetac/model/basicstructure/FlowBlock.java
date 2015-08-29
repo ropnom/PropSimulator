@@ -23,6 +23,8 @@ public abstract class FlowBlock extends SimulationBlock {
 	// AUX VARIABLES
 	protected double Pt_0 = -1;
 	protected double Tt_0 = -1;
+	protected double Patmosfere = -1;
+	protected double Tatmosfere = -1;
 	protected double A_in = -0;
 	protected double A_out = -0;
 
@@ -43,6 +45,8 @@ public abstract class FlowBlock extends SimulationBlock {
 		this.Tt_0 = a.getTt_0();
 		this.A_in = a.getA_in();
 		this.A_out = a.getA_out();
+		this.Patmosfere = a.getPatmosfere();
+		this.Tatmosfere = a.getTatmosfere();
 
 	}
 	
@@ -227,5 +231,22 @@ public abstract class FlowBlock extends SimulationBlock {
 	public void setA_out(double a_out) {
 		A_out = a_out;
 	}
+
+	public double getPatmosfere() {
+		return Patmosfere;
+	}
+
+	public void setPatmosfere(double patmosfere) {
+		Patmosfere = patmosfere;
+	}
+
+	public double getTatmosfere() {
+		return Tatmosfere;
+	}
+
+	public void setTatmosfere(double tatmosfere) {
+		Tatmosfere = tatmosfere;
+	}
+	
 
 }
