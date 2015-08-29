@@ -204,13 +204,6 @@ public abstract class FlowWorkBlock extends FlowBlock {
 		return (X[4][0] - X[1][0] * X[7][0]);
 	}
 
-	protected double MassFlowRelations(double[][] X) {
-		/*
-		 * MASS RELATION MASSin = MASSout | Equation 3: MASSout-MASSin = 0
-		 */
-		// return (this.MassFlow_in - this.MassFlow_out);
-		return (X[2][0] - X[5][0]);
-	}
 
 	protected double PolitropicRelations(double[][] X) {
 		/*

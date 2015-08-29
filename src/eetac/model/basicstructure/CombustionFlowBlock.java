@@ -159,7 +159,7 @@ public class CombustionFlowBlock extends FlowBlock {
 		 * MASS RELATION MASSin = MASSout | Equation 3: MASSout-MASSin = 0
 		 */
 		// return (this.MassFlow_in - this.MassFlow_out);
-		return (X[2][0] + X[6][0] - X[5][0]);
+		return (X[5][0] - X[2][0] - X[6][0]);
 	}
 
 	public double getMassfuel() {

@@ -19,37 +19,35 @@ public class PostCombustor extends CombustionFlowBlock {
 	// this.Pout = X[3][0];
 	// this.Tout = X[4][0];
 	// this.MassFlow_out = X[5][0];
-	// this.Pi = X[6][0];
-	// this.Tau = X[7][0];
-	// this.work = X[8][0];
-	// this.n_i = X[9][0];
-	// this.n_p = X[10][0];
-
+	// this.Massfuel = X[6][0];
+	// this.n_fuel = X[7][0];
+	// this.E_b = X[8][0];
+	
 	// Init basic information od basicblock, description reference etc...
 	@Override
 	protected void Gen_info() {
 
 		this.idnum = (short) (GlobalConstants.getCombustionchamber() + 1) ;
 		this.level = 1;
-		this.name = "Generic Post Combustion Chamber model "+this.level;
-		this.description = "This component is a basic model of Post Combustion Chamber with constant propierties for air";
+		this.name = "Generic Combustion Chamber model  "+this.level;
+		this.description = "This component is a basic model of Combustion Chamber with constant propierties for air";
 		this.reference = "Teorical Reference Termodinamics";
 
 		initvalues();
-		this.numequations = 4;
+		this.numequations = 3;
 		this.numvariables = 9;
 
 		// Gen variable names
 		String[] variable = new String[this.numvariables];
-		variable[0] = "P_" + this.blocknumber + "_postcombustionchamber_in";
-		variable[1] = "T_" + this.blocknumber + "_postcombustionchamber_in";
-		variable[2] = "Mass_" + this.blocknumber + "_postcombustionchamber_in";
-		variable[3] = "P_" + this.blocknumber + "_postcombustionchamber_out";
-		variable[4] = "T_" + this.blocknumber + "_postcombustionchamber_out";
-		variable[5] = "Mass_" + this.blocknumber + "_postcombustionchamber_out";
-		variable[6] = "Massfuel" + this.blocknumber + "_postcombustionchamber";
-		variable[7] = "EfficiencyFuel" + this.blocknumber + "_postcombustionchamber";
-		variable[8] = "CombustionEfficiency_" + this.blocknumber + "_postcombustionchamber";
+		variable[0] = "P_" + this.blocknumber + "_combustionchamber_in";
+		variable[1] = "T_" + this.blocknumber + "_combustionchamber_in";
+		variable[2] = "Mass_" + this.blocknumber + "_combustionchamber_in";
+		variable[3] = "P_" + this.blocknumber + "_combustionchamber_out";
+		variable[4] = "T_" + this.blocknumber + "_combustionchamber_out";
+		variable[5] = "Mass_" + this.blocknumber + "_combustionchamber_out";
+		variable[6] = "Massfuel" + this.blocknumber + "_combustionchamber";
+		variable[7] = "EfficiencyFuel" + this.blocknumber + "_combustionchamber";
+		variable[8] = "CombustionEfficiency_" + this.blocknumber + "_combustionchamber";
 
 		double[][] X = new double[this.numvariables][1];
 		// GEN X vecto

@@ -6,21 +6,19 @@ import eetac.model.propierties.AirPropierties;
 
 public class Nozzle extends DinamicFlowBlock {
 
-	
-	//Aux variables
+	// Aux variables
 	protected double CPR;
 	protected double PR;
 
-	
 	public Nozzle() {
 		super();
 		Gen_info();
 	}
-	
-	public Nozzle(Nozzle a ) {
+
+	public Nozzle(Nozzle a) {
 		super(a);
 		this.CPR = a.getCPR();
-		this.PR = a.getPR();		
+		this.PR = a.getPR();
 	}
 
 	// Order of variable in vector
@@ -74,20 +72,19 @@ public class Nozzle extends DinamicFlowBlock {
 		genMatrix();
 	}
 
-
-
 	@Override
 	public void GenAuxvariables() {
 		super.GenAuxvariables();
-		
+
 		this.sound_velocity = Math.sqrt(AirPropierties.getGamma_c_airfuel() * AirPropierties.getR_c_fuel() * this.Tout);
 		this.mach_number = this.velocity / this.sound_velocity;
-		
+
 		/*
-		 *  PR is the relation between Pressure after turbine and atmosfere pressure
-		 *  CPR is the fluid relation inside a nozzle where P* / Pin = (2/(gamma+1)^(gama/(gama-1))
+		 * PR is the relation between Pressure after turbine and atmosfere
+		 * pressure CPR is the fluid relation inside a nozzle where P* / Pin =
+		 * (2/(gamma+1)^(gama/(gama-1))
 		 */
-		this.PR = this.Patmosfere/this.Pin;
+		this.PR = this.Patmosfere / this.Pin;
 		this.CPR = AirPropierties.getCPRR_air_fuel();
 	}
 
@@ -134,33 +131,26 @@ public class Nozzle extends DinamicFlowBlock {
 	@Override
 	protected double PressureRelations(double[][] X) {
 		/*
-		 * PRESSURE RELATION POUT = PINT * (1 + (gama-1)/2 Ma)^(gamma/(gama-1))
+		 * PRESSURE RELATION POUT = PINT * CPR or POUT = Patmosfere
 		 */
 
-		double estancamiento = (1 + (AirPropierties.getGamma_c_air() - 1) / 2 * (X[6][0] / Math.sqrt(AirPropierties.getGamma_c_air() * AirPropierties.getR_c() * X[1][0])));
+		if (AirPropierties.getCPRR_air_fuel() > (this.Patmosfere /X[0][0])) {
+			return (X[3][0] - X[0][0] * AirPropierties.getCPRR_air_fuel());
+		} else {
+			return (X[3][0] - this.Patmosfere);
+		}
 
-		return (X[3][0] - X[0][0] * Math.pow(estancamiento, AirPropierties.getGamma_gamma_1_air()));
 	}
 
 	@Override
 	protected double TemperatureRelations(double[][] X) {
 		/*
-		 * TEMPERATURE RELATION Tout = Tin * (1 + (gama-1)/2 Ma)
+		 * TEMPERATURE RELATION Tout = Tin * (Pout/Pin)^((gamma-1)/gamma)
 		 */
-
-		double estancamiento = (1 + (AirPropierties.getGamma_c_air() - 1) / 2 * (X[6][0] / Math.sqrt(AirPropierties.getGamma_c_air() * AirPropierties.getR_c() * X[1][0])));
-
-		return (X[4][0] - X[1][0] * estancamiento);
+		
+		return (X[4][0] - X[1][0] * Math.pow((X[3][0]/X[0][0]), 1/AirPropierties.getGamma_gamma_1_airfuel()));
 	}
 
-	@Override
-	protected double MassFlowRelations(double[][] X) {
-		/*
-		 * MASS RELATION MASSin = MASSout | Equation 3: MASSout-MASSin = 0
-		 */
-		// return (this.MassFlow_in - this.MassFlow_out);
-		return (X[2][0] - X[5][0]);
-	}
 
 	protected double VelocityRelations(double[][] X) {
 		/*
@@ -186,7 +176,5 @@ public class Nozzle extends DinamicFlowBlock {
 	public void setPR(double pR) {
 		PR = pR;
 	}
-	
-	
 
 }

@@ -148,8 +148,11 @@ public abstract class FlowBlock extends SimulationBlock {
 	}
 
 	protected double MassFlowRelations(double[][] X) {
-		// To implement
-		return 0;
+		/*
+		 * MASS RELATION MASSin = MASSout | Equation 3: MASSout-MASSin = 0
+		 */
+		// return (this.MassFlow_in - this.MassFlow_out);
+		return (X[5][0] - X[2][0]);
 	}
 
 	public double getPt_0() {
