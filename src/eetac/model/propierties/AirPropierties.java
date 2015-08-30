@@ -11,18 +11,20 @@ public class AirPropierties {
 	// These variables are (gamma/(gamma-1)
 	protected static double gamma_gamma_1_air = 3.5;
 	protected static double gamma_gamma_1_airfuel = 4.003003;
+	
+	protected static double R_gas = 8.3144621; //General gases
 
 	// Air propierties
 	protected static double cp_c = 1005;
-	protected static double R_c = 8.3144621;
+	protected static double R_c = 287.15;
 
 	// Air fuel propierties
 	protected static double cp_c_fuel = 1005;
-	protected static double R_c_fuel = 8.3144621;
+	protected static double R_c_fuel = 289.033;
 
 	// Nozzle Critic Pressure Ratio
 	// (2/(gamma+1)^(gama/(gama-1)
-	protected static double CPRR_air_fuel = 0.53983392;
+	protected static double CPR_air_fuel = 0.53983392;
 
 	// Table Air propierties
 	protected List<Fluid> listfluids;
@@ -93,11 +95,11 @@ public class AirPropierties {
 	}
 
 	public static double getCPRR_air_fuel() {
-		return CPRR_air_fuel;
+		return CPR_air_fuel;
 	}
 
 	public static void setCPRR_air_fuel(double cPRR_air_fuel) {
-		CPRR_air_fuel = cPRR_air_fuel;
+		CPR_air_fuel = cPRR_air_fuel;
 	}
 	
 	
