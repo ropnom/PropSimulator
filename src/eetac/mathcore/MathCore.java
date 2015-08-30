@@ -9,26 +9,34 @@ import eetac.model.basicstructure.Engine;
 
 public class MathCore {
 
+	// DEfines variables of problem
 	protected Engine eng;
 	protected double[][] X;
 	protected double[][] Fx;
 	protected double[][] Jx;
 	protected boolean[] constants;
 
+	// Iteration and results
 	protected double[][] X_new;
 
-	protected double relativetolerance=0.01;
-	protected double absoluttolerance=0.01;
+	// AuxVariables
+	protected double relativetolerance = 0.01;
+	protected double absoluttolerance = 0.01;
 
+	// Iteration Finished
 	protected boolean finished = false;
 	protected int Max_iteration = 100;
+
+	// Propierties of Iteration
+	protected int numiteration = 0;
+	protected long time = 0;
 
 	public boolean check_solve() {
 
 		boolean cumple = false;
 		for (int i = 0; ((i < X.length) && !finished); i++) {
-			
-			if ((Math.abs(X_new[i][0] - X[i][0]) < absoluttolerance) || (Math.abs(X_new[i][0] / X[i][0] - 1) < relativetolerance) || (Fx[i][0]<absoluttolerance)) {
+
+			if ((Math.abs(X_new[i][0] - X[i][0]) < absoluttolerance) || (Math.abs(X_new[i][0] / X[i][0] - 1) < relativetolerance) || (Fx[i][0] < absoluttolerance)) {
 				cumple = true;
 			} else {
 				cumple = false;
@@ -42,28 +50,28 @@ public class MathCore {
 	}
 
 	public void GetMatrixEngine() {
-		
+
 		X = eng.getMatrixJet().getX_equations();
 		Fx = eng.getMatrixJet().getFx_equations();
 		Jx = eng.getMatrixJet().getJx();
 		constants = eng.getMatrixJet().getConstants();
-		
+
 	}
-	
-	public void ConstantsValues(){
-		
-		for(int m = 0;m<X_new.length;m++){
-			if(constants[m]){
+
+	public void ConstantsValues() {
+
+		for (int m = 0; m < X_new.length; m++) {
+			if (constants[m]) {
 				X_new[m][0] = X[m][0];
-				
+
 			}
-			System.out.println("X_"+m+" "+X_new[m][0]);
+			System.out.println("X_" + m + " " + X_new[m][0]);
 		}
-		
+
 	}
 
 	public void SetMatrixEngine() {
-		
+
 		eng.UpdateMatrixinComponents(X_new);
 
 	}
@@ -74,9 +82,9 @@ public class MathCore {
 		DoubleMatrix Jacobian;
 		DoubleMatrix variables = null;
 
-		int i = 0;
-
-		while (i < Max_iteration && !finished) {
+		this.numiteration = 0;
+		this.time = System.currentTimeMillis();
+		while (this.numiteration < Max_iteration && !finished) {
 
 			GetMatrixEngine();
 			Functions = new DoubleMatrix(Fx);
@@ -84,27 +92,29 @@ public class MathCore {
 			variables = new DoubleMatrix(X);
 
 			variables = variables.sub(Solve.pinv(Jacobian).mmul(Functions));
-			
+
 			X_new = variables.toArray2();
-			
+
 			System.out.println();
 			ConstantsValues();
 			System.out.println();
 
-			
-			SetMatrixEngine();			
-			
+			SetMatrixEngine();
+
 			this.finished = check_solve();
+
+			this.numiteration++;
 
 		}
 
+		this.time = System.currentTimeMillis() - this.time;
+		
 		System.out.println(variables.rows + "x" + variables.columns + ": " + variables);
 
 	}
 
-	
 	// SET and GETS
-	
+
 	public Engine getEng() {
 		return eng;
 	}
@@ -176,8 +186,29 @@ public class MathCore {
 	public void setMax_iteration(int max_iteration) {
 		Max_iteration = max_iteration;
 	}
-	
-	
-	
+
+	public boolean[] getConstants() {
+		return constants;
+	}
+
+	public void setConstants(boolean[] constants) {
+		this.constants = constants;
+	}
+
+	public int getNumiteration() {
+		return numiteration;
+	}
+
+	public void setNumiteration(int numiteration) {
+		this.numiteration = numiteration;
+	}
+
+	public long getTime() {
+		return time;
+	}
+
+	public void setTime(long time) {
+		this.time = time;
+	}
 
 }

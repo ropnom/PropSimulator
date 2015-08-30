@@ -1,5 +1,7 @@
 package eetac.model.propierties;
 
+import java.util.List;
+
 public class AirPropierties {
 
 	// Constant air propierties Gamma
@@ -23,6 +25,7 @@ public class AirPropierties {
 	protected static double CPRR_air_fuel = 0.53983392;
 
 	// Table Air propierties
+	protected List<Fluid> listfluids;
 
 	// Gets y Sets
 	public static double getGamma_c_air() {

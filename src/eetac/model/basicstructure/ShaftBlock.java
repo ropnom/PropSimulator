@@ -1,23 +1,21 @@
 package eetac.model.basicstructure;
 
+public class ShaftBlock extends SimulationBlock {
 
-public class AxisBlock extends SimulationBlock {
-
-	/*
-	 * THE ORDER OF MATH VARIABLES ARE 1º PIN 2º TIN 3º MASSFLOWIN 4º POUT 5º
-	 * TOUT 6º MASSFLOWOUT 7º MASSFUEL 8º FUEL EFFICIENCY 9º PRESSURE EFFICIENCY
-	 * RANGE 0-8 OTHER VARIABLES IN COMPLEX BLOCKS
-	 */
+	// Order of variable in vector
+	// this.Win = X[0][0];
+	// this.Wout = X[1][0];
+	// this.N_axis = X[2][0];
 
 	protected double Work_in;
 	protected double Work_out;
 	protected double n_axis;
 
-	public AxisBlock() {
+	public ShaftBlock() {
 		super();
 	}
 
-	public AxisBlock(AxisBlock a) {
+	public ShaftBlock(ShaftBlock a) {
 		super(a);
 		this.Work_in = a.getWork_in();
 		this.Work_out = a.getWork_out();
@@ -80,7 +78,7 @@ public class AxisBlock extends SimulationBlock {
 		case 0:
 			fx = WorkRelations(X);
 			break;
-	
+
 		default:
 			break;
 		}
@@ -91,14 +89,11 @@ public class AxisBlock extends SimulationBlock {
 
 	protected double WorkRelations(double[][] X) {
 		/*
-		 * PRESSURE RELATION POUT = PINT * (1-E_b) | Equation 1: Pout-Pin*(1-eb)
-		 * = 0
+		 * WORK RELATION WOUT = WINT * (1-N_AXIS)
 		 */
-		// return (this.Pout - this.Pin * (1-eb));
-		return (X[3][0] - X[0][0] * (1 - X[8][0]));
+		return (X[1][0] - X[0][0] * (1 - X[2][0]));
 	}
 
-	
 	public double getWork_in() {
 		return Work_in;
 	}

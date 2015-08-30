@@ -50,6 +50,9 @@ public class CCompresorEngine {
 		core.setEng(engine);
 		
 		core.RunIteration();
+		
+		System.out.println("Num the iterations was: "+core.getNumiteration());
+		System.out.println("Timing was: "+core.getTime()+" milisecons");
 	}
 
 }

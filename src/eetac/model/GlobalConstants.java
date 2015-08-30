@@ -15,6 +15,8 @@ public  class GlobalConstants {
 	protected static short nozzle = 1000;
 	protected static short axes = 1200;
 	protected static short axes_box = 1400;
+	protected static short fueltype = 2000;
+	protected static short fluidtype = 3000;
 	
 	
 	
@@ -98,6 +100,23 @@ public  class GlobalConstants {
 		GlobalConstants.axes_box = axes_box;
 	}
 
+	public static short getFueltype() {
+		return fueltype;
+	}
+
+	public static void setFueltype(short fueltype) {
+		GlobalConstants.fueltype = fueltype;
+	}
+
+	public static short getFluidtype() {
+		return fluidtype;
+	}
+
+	public static void setFluidtype(short fluidtype) {
+		GlobalConstants.fluidtype = fluidtype;
+	}
+
+	
 		
 	
 
