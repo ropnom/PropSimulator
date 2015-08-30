@@ -156,9 +156,8 @@ public class Nozzle extends DinamicFlowBlock {
 		/*
 		 * VELOCITY RELATION Vin = MASSout | Equation 3: MASSout-MASSin = 0
 		 */
-		// return (this.MassFlow_in - this.MassFlow_out);
 
-		return (X[6][0] - 2 * AirPropierties.getCp_c() * (X[1][0] - X[4][0]));
+		return (X[6][0] - 2/X[2][0] * AirPropierties.getCp_c() * (X[1][0] - X[4][0]));
 	}
 
 	public double getCPR() {
