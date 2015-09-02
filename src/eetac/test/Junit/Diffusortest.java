@@ -144,7 +144,7 @@ public class Diffusortest {
 	@Test
 	public void test_engine() {
 
-		System.out.println("init comrpesor in engine test");
+		System.out.println("init diffuser in engine test");
 		engine = new Engine();
 		engine.addBlock(diffusor);
 		engine.BuildMatrix();
