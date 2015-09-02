@@ -134,9 +134,15 @@ public class Nozzle extends DinamicFlowBlock {
 		 * PRESSURE RELATION POUT = PINT * CPR or POUT = Patmosfere
 		 */
 
+		System.out.println("El PR es: "+this.Patmosfere /X[0][0]);
+		System.out.println(" El CPPR es: "+AirPropierties.getCPRR_air_fuel() );
+		
 		if (AirPropierties.getCPRR_air_fuel() > (this.Patmosfere /X[0][0])) {
+			
 			return (X[3][0] - X[0][0] * AirPropierties.getCPRR_air_fuel());
+			
 		} else {
+			
 			return (X[3][0] - this.Patmosfere);
 		}
 
