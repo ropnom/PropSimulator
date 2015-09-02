@@ -161,6 +161,8 @@ public class Diffusortest {
 		core = new MathCore();
 		core.setEng(engine);
 		core.RunIteration();
+		System.out.println("Num the iterations was: "+core.getNumiteration());
+		System.out.println("Timing was: "+core.getTime()+" milisecons");
 
 		// aqui hay que hacer correr el core y ver que el resultado es el que
 		// tenemso en excel.

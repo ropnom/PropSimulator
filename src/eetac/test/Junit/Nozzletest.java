@@ -24,14 +24,14 @@ public class Nozzletest {
 	public void CargarValores() {
 		nozzle = new Nozzle();
 		// init values of test
-		nozzle.setPin(398000);
+		nozzle.setPin(40000);
 		nozzle.setTin(984);
 		nozzle.setMassFlow_in(1000);
-		nozzle.setPout(22000);
-		nozzle.setTout(480.903976);
+		nozzle.setPout(22500);
+		nozzle.setTout(800);
 		nozzle.setMassFlow_out(1000);
-		nozzle.setVelocity(1200);
-		nozzle.setPatmosfere(22657);
+		nozzle.setVelocity(300);
+		nozzle.setPatmosfere(22500);
 
 		nozzle.genX();
 
@@ -47,7 +47,7 @@ public class Nozzletest {
 		boolean[] constants = matriz.getConstants();
 
 		// Change constants introduced by user
-		X[0][0] = 398000;
+		X[0][0] = 40000;
 		constants[0] = true;
 		X[1][0] = 984;
 		constants[1] = true;
@@ -79,8 +79,8 @@ public class Nozzletest {
 
 		// assert statements
 		System.out.print("Check Inputs...");
-		assertEquals("Pin must be 398000 PA in matrix", 398000, nozzle.getMatrices().getX_equations()[0][0], 0.01);
-		assertEquals("Pin must be 398000 PA in variable", 398000, nozzle.getPin(), 0.01);
+		assertEquals("Pin must be 40000 PA in matrix", 40000, nozzle.getMatrices().getX_equations()[0][0], 0.01);
+		assertEquals("Pin must be 40000 PA in variable", 40000, nozzle.getPin(), 0.01);
 
 		assertEquals("Tin must be 984 ºKin matrix", 984, nozzle.getMatrices().getX_equations()[1][0], 0.01);
 		assertEquals("Tin must be 984 ºK  in variable", 984, nozzle.getTin(), 0.01);
@@ -100,10 +100,10 @@ public class Nozzletest {
 		nozzle.Simulate();
 		// assert functions
 		System.out.print("Functions Inputs...");
-		assertEquals("Funcion 0 must be", -657, nozzle.getMatrices().getFx_equations()[0][0], 0.01);
-		assertEquals("Funcion 1 must be", 22.618, nozzle.getMatrices().getFx_equations()[1][0], 0.01);
+		assertEquals("Funcion 0 must be", 0, nozzle.getMatrices().getFx_equations()[0][0], 0.01);
+		assertEquals("Funcion 1 must be", -52.261, nozzle.getMatrices().getFx_equations()[1][0], 0.01);
 		assertEquals("Funcion 2 must be", 0, nozzle.getMatrices().getFx_equations()[2][0], 0.01);
-		assertEquals("Funcion 3 must be", 80.024, nozzle.getMatrices().getFx_equations()[3][0], 0.01);
+		assertEquals("Funcion 3 must be", -125.776, nozzle.getMatrices().getFx_equations()[3][0], 0.01);
 
 		System.out.println(" OK");
 	}
@@ -118,8 +118,8 @@ public class Nozzletest {
 
 		boolean showtest = false;
 
-		double[][] referencia = { { 0, 0, 0, 1.00000001100000, 0, 0, 0 }, { 0.000299639000000000, -0.485144079000000, 0, -0.00542072300000000, 1, 0, 0 }, { 0, 0, -1, 0, 0, 1, 0 }, { 0, -2.31399999800000, 1.11997588900000, 0, 2.31400000100000, 0, 1 }, { 1.00000004700000, 0, 0, 0, 0, 0, 0 }, { 0, 1, 0, 0, 0, 0, 0 }, { 0, 0, 1, 0, 0, 0, 0 } };
-
+		double[][] referencia = {{0,0,0,1.00000001100000,0,0,0},{0.00532263500000000,-0.866118860000000,0,-0.00946246200000000,1,0,0},{0,0,-1,0,0,1,0},{0,-2.31400000000000,0.425775958000000,0,2.31400000000000,0,1},{0.999999975000000,0,0,0,0,0,0},{0,1,0,0,0,0,0},{0,0,1,0,0,0,0}};
+		
 		// assert Jx
 		System.out.print("JX...");
 		for (int i = 0; i < referencia.length; i++) {
@@ -157,6 +157,8 @@ public class Nozzletest {
 		core = new MathCore();
 		core.setEng(engine);
 		core.RunIteration();
+		System.out.println("Num the iterations was: "+core.getNumiteration());
+		System.out.println("Timing was: "+core.getTime()+" milisecons");
 
 		// aqui hay que hacer correr el core y ver que el resultado es el que
 		// tenemso en excel.

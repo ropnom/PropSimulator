@@ -134,15 +134,12 @@ public class Nozzle extends DinamicFlowBlock {
 		 * PRESSURE RELATION POUT = PINT * CPR or POUT = Patmosfere
 		 */
 
-		System.out.println("El PR es: "+this.Patmosfere /X[0][0]);
-		System.out.println(" El CPPR es: "+AirPropierties.getCPRR_air_fuel() );
-		
-		if (AirPropierties.getCPRR_air_fuel() > (this.Patmosfere /X[0][0])) {
-			
+		if (AirPropierties.getCPRR_air_fuel() > (this.Patmosfere / X[0][0])) {
+
 			return (X[3][0] - X[0][0] * AirPropierties.getCPRR_air_fuel());
-			
+
 		} else {
-			
+
 			return (X[3][0] - this.Patmosfere);
 		}
 
@@ -153,17 +150,22 @@ public class Nozzle extends DinamicFlowBlock {
 		/*
 		 * TEMPERATURE RELATION Tout = Tin * (Pout/Pin)^((gamma-1)/gamma)
 		 */
-		
-		return (X[4][0] - X[1][0] * Math.pow((X[3][0]/X[0][0]), 1/AirPropierties.getGamma_gamma_1_airfuel()));
-	}
 
+		return (X[4][0] - X[1][0] * Math.pow((X[3][0] / X[0][0]), 1 / AirPropierties.getGamma_gamma_1_airfuel()));
+	}
 
 	protected double VelocityRelations(double[][] X) {
 		/*
 		 * VELOCITY RELATION Vin = MASSout | Equation 3: MASSout-MASSin = 0
 		 */
-
-		return (X[6][0] - 2/X[2][0] * AirPropierties.getCp_c() * (X[1][0] - X[4][0]));
+		System.out.println(X[6][0]);
+		System.out.println(2 / X[2][0] * AirPropierties.getCp_c_fuel() * (X[1][0] - X[4][0]));
+		System.out.println(AirPropierties.getCp_c_fuel());
+		
+		System.out.println(X[1][0] - X[4][0]);
+		System.out.println(X[2][0]);
+		
+		return (X[6][0] - 2 / X[2][0] * AirPropierties.getCp_c_fuel() * (X[1][0] - X[4][0]));
 	}
 
 	public double getCPR() {

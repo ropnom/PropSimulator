@@ -19,7 +19,7 @@ public class AirPropierties {
 	protected static double R_c = 287.15;
 
 	// Air fuel propierties
-	protected static double cp_c_fuel = 1005;
+	protected static double cp_c_fuel = 1157;
 	protected static double R_c_fuel = 289.033;
 
 	// Nozzle Critic Pressure Ratio
