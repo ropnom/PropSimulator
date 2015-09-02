@@ -94,7 +94,7 @@ public class Difusser extends DinamicFlowBlock {
 		 */
 
 		// mac^2
-		double macx_2 = (X[6][0] * X[6][0] / AirPropierties.getGamma_c_air() * AirPropierties.getR_c() * X[1][0]);
+		double macx_2 = (X[6][0] * X[6][0] / (AirPropierties.getGamma_c_air() * AirPropierties.getR_c() * X[1][0]));
 		double estancamiento = (1 + (AirPropierties.getGamma_c_air() - 1) / 2 * macx_2);
 
 		return (X[3][0] - X[0][0] * Math.pow(estancamiento, AirPropierties.getGamma_gamma_1_air()));
@@ -106,7 +106,7 @@ public class Difusser extends DinamicFlowBlock {
 		 * TEMPERATURE RELATION Tout = Tin * (1 + (gama-1)/2 Ma)
 		 */
 		// mac^2
-		double macx_2 = (X[6][0] * X[6][0] / AirPropierties.getGamma_c_air() * AirPropierties.getR_c() * X[1][0]);
+		double macx_2 = (X[6][0] * X[6][0] / (AirPropierties.getGamma_c_air() * AirPropierties.getR_c() * X[1][0]));
 		double estancamiento = (1 + (AirPropierties.getGamma_c_air() - 1) / 2 * macx_2);
 
 		return (X[4][0] - X[1][0] * estancamiento);
