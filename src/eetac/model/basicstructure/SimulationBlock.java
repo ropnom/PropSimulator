@@ -30,7 +30,7 @@ public class SimulationBlock extends BasicBlock {
 
 	// Is this block full defined?
 	protected boolean isdefined = false;
-	
+
 	protected static int[] type;
 
 	public SimulationBlock() {
@@ -46,7 +46,6 @@ public class SimulationBlock extends BasicBlock {
 		this.endnum = endnum;
 	}
 
-
 	// copy contructor
 	public SimulationBlock(SimulationBlock a) {
 		super(a);
@@ -56,9 +55,9 @@ public class SimulationBlock extends BasicBlock {
 		this.endnum = a.getEndnum();
 
 	}
-	
-	public void GenAuxvariables(){
-		
+
+	public void GenAuxvariables() {
+
 	}
 
 	// GEneral Methods
@@ -95,7 +94,7 @@ public class SimulationBlock extends BasicBlock {
 
 		if (isdefined) {
 
-			double[][] X = matrices.getX_equations();
+			double[][] X = matrices.getX_equations();			
 			constants = this.matrices.getConstants();
 			// Gen Fx vector
 
@@ -113,36 +112,8 @@ public class SimulationBlock extends BasicBlock {
 				}
 
 			}
-
-			// Gen Jx Matrix
-			double[][] X_delta = AuxMethods.Copy_matrix(X);
-
-			for (int i = 0; i < numvariables; i++) {
-				// iteracion por filas x1, x2 ..xn
-				X_delta[i][0] += GlobalConstants.getDelta();
-
-				for (int j = 0; j < numequations; j++) {
-					// Calculate parcial derivate of f_j/x_i
-					Jx[j][i] = getDifferencial(Fx[j][0], getFx(X_delta, j), GlobalConstants.getDelta());
-				}
-				X_delta[i][0] = X[i][0];
-			}
-
-			// Fix the ecuations generate by contansts.
-			boolean encontrado = false;
-			int i = 0;
-			for (int j = numequations; j < totalequations; j++) {
-
-				encontrado = false;
-				while (i < numvariables && !encontrado) {
-					if (constants[i]) {
-						Jx[j][i] = 1;
-						encontrado = true;
-					}
-					i++;
-
-				}
-			}
+			
+			Jx = GenJacobian(X,Fx,constants,totalequations);
 
 		} else {
 			// Gen boolean constant know for init objet
@@ -156,6 +127,41 @@ public class SimulationBlock extends BasicBlock {
 		this.matrices.setFx_equations(Fx);
 		this.matrices.setJx(Jx);
 
+	}
+
+	protected double[][] GenJacobian(double[][] X, double[][] Fx, boolean[] constants, int totalequations) {
+		// Gen Jx Matrix
+		double[][] Jx = new double[this.numvariables][totalequations];
+		double[][] X_delta = AuxMethods.Copy_matrix(X);
+
+		for (int i = 0; i < numvariables; i++) {
+			// iteracion por filas x1, x2 ..xn
+			X_delta[i][0] += GlobalConstants.getDelta();
+
+			for (int j = 0; j < numequations; j++) {
+				// Calculate parcial derivate of f_j/x_i
+				Jx[j][i] = getDifferencial(Fx[j][0], getFx(X_delta, j), GlobalConstants.getDelta());
+			}
+			X_delta[i][0] = X[i][0];
+		}
+
+		// Fix the ecuations generate by contansts.
+		boolean encontrado = false;
+		int i = 0;
+		for (int j = numequations; j < totalequations; j++) {
+
+			encontrado = false;
+			while (i < numvariables && !encontrado) {
+				if (constants[i]) {
+					Jx[j][i] = 1;
+					encontrado = true;
+				}
+				i++;
+
+			}
+		}
+		
+		return(Jx);
 	}
 
 	protected double getDifferencial(double fx, double fx_delta, double delta) {
@@ -175,13 +181,13 @@ public class SimulationBlock extends BasicBlock {
 		genMatrix();
 
 	}
-	
+
 	public void genX() {
 
 		for (int i = 0; i < this.numvariables; i++) {
 			this.matrices.getX_equations()[i][0] = getvariable(i);
 		}
-		
+
 	}
 
 	public boolean isBlockSimulated() {
@@ -212,11 +218,11 @@ public class SimulationBlock extends BasicBlock {
 	protected void initvalues() {
 
 	}
-	
-	public int getType(int num){
-		
-		return(type[num]);
-		
+
+	public int getType(int num) {
+
+		return (type[num]);
+
 	}
 
 	// ***************************
