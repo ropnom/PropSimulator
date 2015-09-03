@@ -3,7 +3,7 @@ package eetac.model.basicstructure;
 import eetac.model.GlobalConstants;
 import eetac.model.MatrixCollection;
 
-public class SimulationProyect extends BasicBlock {
+public class SimulationProject extends BasicBlock {
 
 	// Engine matrix
 	protected MatrixCollection matrixProyect;
@@ -18,11 +18,11 @@ public class SimulationProyect extends BasicBlock {
 	// cosas
 	private SimulationBlock block;
 
-	public SimulationProyect() {
+	public SimulationProject() {
 		this.matrixProyect = new MatrixCollection();
 	}
 
-	public SimulationProyect(SimulationProyect a) {
+	public SimulationProject(SimulationProject a) {
 		super(a);
 		this.matrixProyect = new MatrixCollection(a.getMatrixProyect());
 
@@ -47,19 +47,16 @@ public class SimulationProyect extends BasicBlock {
 	protected void NumEquaVariConts() {
 
 		// reset values
-		this.numvariables = 0;
-		this.numequations = 0;
-		this.numconstants = 0;
+		this.numvariables = block.getNumvariables();
+		this.numequations = block.getNumequations();
+		this.numconstants = block.getNumconstants();
 		this.numrelations = 0;
 
-		// TODO
-
-		// TODO:
-		// Check if the system can be solve
 		if (numvariables == (numequations + numconstants + numrelations))
 			simulate = true;
 		else
 			simulate = false;
+
 	}
 
 	public void BuildMatrix() {
@@ -76,9 +73,42 @@ public class SimulationProyect extends BasicBlock {
 
 	public void iteration() {
 
+		// include relations in X matrix
+		double[][] X = new double[this.numvariables][1];
+		double[][] Fx = new double[this.numvariables][1];
+		double[][] Jx = new double[this.numvariables][this.numvariables];
+		String[] variable = new String[this.numvariables];
+		boolean[] constants = new boolean[this.numvariables];
+
+		// Calculate matrix of block component
+		this.block.genMatrix();
+
+		// Auxiliary objet-values Block-to-engine
+		this.block.getMatrices();
+
+		// Get X equations from block
+		X = this.block.getMatrices().getX_equations();
+		// Get Fx equations from block
+		Fx = this.block.getMatrices().getFx_equations();
+		// Get Jx equations from block
+		Jx = this.block.getMatrices().getJx();
+		// Get varaible names from block
+		variable = this.block.getMatrices().getVariable();
+		// Get boolean constants from block
+		constants = this.block.getMatrices().getConstants();
+
+		this.matrixProyect.setX_equations(X);
+		this.matrixProyect.setFx_equations(Fx);
+		this.matrixProyect.setJx(Jx);
+		this.matrixProyect.setVariable(variable);
+		this.matrixProyect.setConstants(constants);
+
 	}
 
 	public void UpdateMatrixinComponents(double[][] X_new) {
+
+		this.block.iteration(X_new);
+		iteration();
 
 	}
 

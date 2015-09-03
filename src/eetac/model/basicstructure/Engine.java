@@ -8,7 +8,7 @@ import eetac.model.AuxMethods;
 import eetac.model.GlobalConstants;
 import eetac.model.MatrixCollection;
 
-public class Engine extends SimulationProyect {
+public class Engine extends SimulationProject {
 
 	// Blocks
 	protected List<SimulationBlock> listblocks;
