@@ -28,7 +28,7 @@ public class CombustionChamberTest {
 		chamber.setTin(778);
 		chamber.setMassFlow_in(1000);
 		chamber.setPout(1428400);
-		chamber.setTout(1373);
+		chamber.setTout(1293.2446);
 		chamber.setMassFlow_out(1016);
 		chamber.setMassfuel(16);;
 		chamber.setN_fuel(0.98);
@@ -56,7 +56,7 @@ public class CombustionChamberTest {
 		constants[1] = true;
 		X[2][0] = 1000;
 		constants[2] = true;
-		X[4][0] = 1373;
+		X[4][0] = 1293.2446;
 		constants[4] = true;
 		X[7][0] = 0.98;
 		constants[7] = true;
@@ -97,8 +97,8 @@ public class CombustionChamberTest {
 		assertEquals("Min must be 1000 kg/seg in matrix", 1000.0, chamber.getMatrices().getX_equations()[2][0], 0.01);
 		assertEquals("Min must be 1000 kg/seg  in variable", 1000.0, chamber.getMassFlow_in(), 0.01);
 
-		assertEquals("Tout must be 1373 PA in matrix", 1373.0, chamber.getMatrices().getX_equations()[4][0], 0.01);
-		assertEquals("Tout must be 1373 PA  in variable", 1373.0, chamber.getTout(), 0.01);
+		assertEquals("Tout must be 1293.244 PA in matrix", 1293.2446, chamber.getMatrices().getX_equations()[4][0], 0.01);
+		assertEquals("Tout must be 1293.244 PA  in variable", 1293.2446, chamber.getTout(), 0.01);
 		
 		assertEquals("n_fuel must be 0.98 PA in matrix", 0.98, chamber.getMatrices().getX_equations()[7][0], 0.01);
 		assertEquals("n_fuel must be 0.98 PA  in variable", 0.98, chamber.getN_fuel(), 0.01);
