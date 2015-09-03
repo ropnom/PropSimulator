@@ -51,10 +51,10 @@ public class MathCore {
 
 	public void GetMatrixEngine() {
 
-		X = eng.getMatrixJet().getX_equations();
-		Fx = eng.getMatrixJet().getFx_equations();
-		Jx = eng.getMatrixJet().getJx();
-		constants = eng.getMatrixJet().getConstants();
+		X = eng.getMatrixProyect().getX_equations();
+		Fx = eng.getMatrixProyect().getFx_equations();
+		Jx = eng.getMatrixProyect().getJx();
+		constants = eng.getMatrixProyect().getConstants();
 
 	}
 

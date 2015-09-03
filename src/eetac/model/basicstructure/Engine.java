@@ -8,40 +8,26 @@ import eetac.model.AuxMethods;
 import eetac.model.GlobalConstants;
 import eetac.model.MatrixCollection;
 
-public class Engine extends BasicBlock {
+public class Engine extends SimulationProyect {
 
 	// Blocks
 	protected List<SimulationBlock> listblocks;
 	protected List<BlockRelations> listrelations;
-	// Engine matrix
-	protected MatrixCollection matrixJet;
-
-	// Check math dimensions and solve
-	protected short numvariables = 0;
-	protected short numequations = 0;
-	protected short numconstants = 0;
-	protected short numrelations = 0;
-	protected boolean simulate = false;
+	
 
 	// Contructors
 	public Engine() {
 		super();
 		this.listblocks = new ArrayList<SimulationBlock>();
 		this.listrelations = new ArrayList<BlockRelations>();
-		this.matrixJet = new MatrixCollection();
+		this.matrixProyect = new MatrixCollection();
 	}
 
 	public Engine(Engine a) {
-		super();
+		super(a);
 		this.listblocks = new ArrayList<SimulationBlock>(a.getListblocks());
 		this.listrelations = new ArrayList<BlockRelations>(a.getListrelations());
-		this.matrixJet = new MatrixCollection(a.getMatrixJet());
-
-		this.numvariables = a.getNumvariables();
-		this.numequations = a.getNumequations();
-		this.numconstants = a.getNumconstants();
-		this.numrelations = a.getNumrelations();
-		this.simulate = a.isSimulate();
+		
 	}
 
 	@Override
@@ -69,6 +55,7 @@ public class Engine extends BasicBlock {
 		// To Do
 	}
 
+	@Override
 	protected void NumEquaVariConts() {
 
 		// reset values
@@ -108,6 +95,7 @@ public class Engine extends BasicBlock {
 		}
 	}
 
+	
 	protected double[][] PutComponentsRelations_Jx(double[][] Jx) {
 
 		if (listrelations.size() > 0 && listblocks.size() > 1) {
@@ -119,18 +107,8 @@ public class Engine extends BasicBlock {
 		return Jx;
 	}
 
-	public void BuildMatrix() {
 
-		// check if the engine can be solve
-		NumEquaVariConts();
-
-		if (simulate) {
-			//recal all matrix
-			iteration();
-		}
-
-	}
-
+	@Override
 	public void iteration() {
 
 		// include relations in X matrix
@@ -171,14 +149,15 @@ public class Engine extends BasicBlock {
 
 		Jx = PutComponentsRelations_Jx(Jx);
 
-		this.matrixJet.setX_equations(X);
-		this.matrixJet.setFx_equations(Fx);
-		this.matrixJet.setJx(Jx);
-		this.matrixJet.setVariable(variable);
-		this.matrixJet.setConstants(constants);
+		this.matrixProyect.setX_equations(X);
+		this.matrixProyect.setFx_equations(Fx);
+		this.matrixProyect.setJx(Jx);
+		this.matrixProyect.setVariable(variable);
+		this.matrixProyect.setConstants(constants);
 
 	}
 
+	@Override
 	public void UpdateMatrixinComponents(double[][] X_new) {
 
 		// get diferent matrix of Simulationsblock
@@ -194,22 +173,22 @@ public class Engine extends BasicBlock {
 
 		System.out.println(" X matrix:");
 		System.out.println();
-		for (int i = 0; i < matrixJet.getX_equations().length; i++) {
-			System.out.println("| " + matrixJet.getX_equations()[i][0] + " |");
+		for (int i = 0; i < matrixProyect.getX_equations().length; i++) {
+			System.out.println("| " + matrixProyect.getX_equations()[i][0] + " |");
 		}
 		System.out.println();
 		System.out.println(" Fx: ");
 		System.out.println();
-		for (int i = 0; i < matrixJet.getFx_equations().length; i++) {
-			System.out.println("| " + matrixJet.getFx_equations()[i][0] + " |");
+		for (int i = 0; i < matrixProyect.getFx_equations().length; i++) {
+			System.out.println("| " + matrixProyect.getFx_equations()[i][0] + " |");
 		}
 		System.out.println();
 		System.out.println(" Jx: ");
 		System.out.println();
-		for (int i = 0; i < matrixJet.getJx().length; i++) {
+		for (int i = 0; i < matrixProyect.getJx().length; i++) {
 			System.out.print("| ");
-			for (int j = 0; j < matrixJet.getJx()[i].length; j++) {
-				System.out.print(matrixJet.getJx()[i][j] + " ");
+			for (int j = 0; j < matrixProyect.getJx()[i].length; j++) {
+				System.out.print(matrixProyect.getJx()[i][j] + " ");
 			}
 			System.out.println(" |");
 		}
@@ -230,56 +209,10 @@ public class Engine extends BasicBlock {
 	public void setListrelations(List<BlockRelations> listrelations) {
 		this.listrelations = listrelations;
 	}
+	
+	
+	
 
-	public MatrixCollection getMatrixJet() {
-		return matrixJet;
-	}
 
-	public void setMatrixJet(MatrixCollection matrixJet) {
-		this.matrixJet = matrixJet;
-
-		// reinsertar valores en componentes
-		UpdateMatrixinComponents(matrixJet.getX_equations());
-	}
-
-	public short getNumvariables() {
-		return numvariables;
-	}
-
-	public void setNumvariables(short numvariables) {
-		this.numvariables = numvariables;
-	}
-
-	public short getNumequations() {
-		return numequations;
-	}
-
-	public void setNumequations(short numequations) {
-		this.numequations = numequations;
-	}
-
-	public short getNumconstants() {
-		return numconstants;
-	}
-
-	public void setNumconstants(short numconstants) {
-		this.numconstants = numconstants;
-	}
-
-	public short getNumrelations() {
-		return numrelations;
-	}
-
-	public void setNumrelations(short numrelations) {
-		this.numrelations = numrelations;
-	}
-
-	public boolean isSimulate() {
-		return simulate;
-	}
-
-	public void setSimulate(boolean simulate) {
-		this.simulate = simulate;
-	}
 
 }
