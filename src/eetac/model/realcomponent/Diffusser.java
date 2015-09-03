@@ -4,14 +4,14 @@ import eetac.model.GlobalConstants;
 import eetac.model.basicstructure.DinamicFlowBlock;
 import eetac.model.propierties.AirPropierties;
 
-public class Difusser extends DinamicFlowBlock {
+public class Diffusser extends DinamicFlowBlock {
 
-	public Difusser() {
+	public Diffusser() {
 		super();
 		Gen_info();
 	}
 
-	public Difusser(Difusser a) {
+	public Diffusser(Diffusser a) {
 		super(a);
 	}
 

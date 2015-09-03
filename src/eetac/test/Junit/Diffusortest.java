@@ -9,11 +9,11 @@ import eetac.model.GlobalConstants;
 import eetac.model.MatrixCollection;
 import eetac.model.basicstructure.Engine;
 import eetac.model.realcomponent.Compressor;
-import eetac.model.realcomponent.Difusser;
+import eetac.model.realcomponent.Diffusser;
 
 public class Diffusortest {
 
-	protected static Difusser diffusor;
+	protected static Diffusser diffusor;
 	protected static MatrixCollection matriz;
 	protected static double[][] X;
 	protected static boolean[] constants;
@@ -22,7 +22,7 @@ public class Diffusortest {
 	protected static Engine engine;
 
 	public void CargarValores() {
-		diffusor = new Difusser();
+		diffusor = new Diffusser();
 		// init values of test
 		diffusor.setPin(26500);
 		diffusor.setTin(223.1);

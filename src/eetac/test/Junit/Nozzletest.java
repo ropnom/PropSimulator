@@ -8,7 +8,7 @@ import eetac.mathcore.MathCore;
 import eetac.model.GlobalConstants;
 import eetac.model.MatrixCollection;
 import eetac.model.basicstructure.Engine;
-import eetac.model.realcomponent.Difusser;
+import eetac.model.realcomponent.Diffusser;
 import eetac.model.realcomponent.Nozzle;
 
 public class Nozzletest {
