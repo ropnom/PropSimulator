@@ -17,6 +17,11 @@ public class SimulationProject extends BasicBlock {
 
 	// cosas
 	private SimulationBlock block;
+	
+	public SimulationProject(SimulationBlock b) {
+		this.matrixProyect = new MatrixCollection();
+		this.block = b;
+	}
 
 	public SimulationProject() {
 		this.matrixProyect = new MatrixCollection();

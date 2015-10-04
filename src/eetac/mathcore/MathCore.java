@@ -1,16 +1,18 @@
 package eetac.mathcore;
 
-import javax.xml.crypto.dsig.spec.XSLTTransformParameterSpec;
-
 import org.jblas.DoubleMatrix;
 import org.jblas.Solve;
 
+import eetac.model.Result;
 import eetac.model.basicstructure.Engine;
+import eetac.model.basicstructure.SimulationProject;
 
 public class MathCore {
+	
+	protected Result result;
 
 	// DEfines variables of problem
-	protected Engine eng;
+	protected SimulationProject simproject;
 	protected double[][] X;
 	protected double[][] Fx;
 	protected double[][] Jx;
@@ -20,7 +22,7 @@ public class MathCore {
 	protected double[][] X_new;
 
 	// AuxVariables
-	protected double relativetolerance = 0.01;
+	protected double relativetolerance = 0.001;
 	protected double absoluttolerance = 0.01;
 
 	// Iteration Finished
@@ -36,7 +38,14 @@ public class MathCore {
 		boolean cumple = false;
 		for (int i = 0; ((i < X.length) && !finished); i++) {
 
-			if ((Math.abs(X_new[i][0] - X[i][0]) < absoluttolerance) || (Math.abs(X_new[i][0] / X[i][0] - 1) < relativetolerance) || (Fx[i][0] < absoluttolerance)) {
+//			if ((Math.abs(X_new[i][0] - X[i][0]) < absoluttolerance) || (Math.abs(X_new[i][0] / X[i][0] - 1) < relativetolerance) || (Fx[i][0] < absoluttolerance)) {
+//				cumple = true;
+//			} else {
+//				cumple = false;
+//				break;
+//			}
+			
+			if ((Math.abs(Fx[i][0]) < absoluttolerance)) {
 				cumple = true;
 			} else {
 				cumple = false;
@@ -51,10 +60,11 @@ public class MathCore {
 
 	public void GetMatrixEngine() {
 
-		X = eng.getMatrixProyect().getX_equations();
-		Fx = eng.getMatrixProyect().getFx_equations();
-		Jx = eng.getMatrixProyect().getJx();
-		constants = eng.getMatrixProyect().getConstants();
+		//simproject.BuildMatrix();
+		X = simproject.getMatrixProyect().getX_equations();
+		Fx = simproject.getMatrixProyect().getFx_equations();
+		Jx = simproject.getMatrixProyect().getJx();
+		constants = simproject.getMatrixProyect().getConstants();
 
 	}
 
@@ -72,7 +82,7 @@ public class MathCore {
 
 	public void SetMatrixEngine() {
 
-		eng.UpdateMatrixinComponents(X_new);
+		simproject.UpdateMatrixinComponents(X_new);
 
 	}
 
@@ -85,7 +95,7 @@ public class MathCore {
 		this.numiteration = 0;
 		this.time = System.currentTimeMillis();
 		while (this.numiteration < Max_iteration && !finished) {
-
+						
 			GetMatrixEngine();
 			Functions = new DoubleMatrix(Fx);
 			Jacobian = new DoubleMatrix(Jx);
@@ -110,17 +120,19 @@ public class MathCore {
 		this.time = System.currentTimeMillis() - this.time;
 		
 		System.out.println(variables.rows + "x" + variables.columns + ": " + variables);
+		
+		result = new Result(X_new, time, numiteration);
 
 	}
 
 	// SET and GETS
 
-	public Engine getEng() {
-		return eng;
+	public SimulationProject getEng() {
+		return simproject;
 	}
 
-	public void setEng(Engine eng) {
-		this.eng = eng;
+	public void setEng(SimulationProject eng) {
+		this.simproject = eng;
 	}
 
 	public double[][] getX() {
@@ -210,5 +222,23 @@ public class MathCore {
 	public void setTime(long time) {
 		this.time = time;
 	}
+
+	public Result getResult() {
+		return result;
+	}
+
+	public void setResult(Result result) {
+		this.result = result;
+	}
+
+	public SimulationProject getSimproject() {
+		return simproject;
+	}
+
+	public void setSimproject(SimulationProject simproject) {
+		this.simproject = simproject;
+	}
+	
+	
 
 }

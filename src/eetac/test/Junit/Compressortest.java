@@ -7,7 +7,9 @@ import org.junit.Test;
 import eetac.mathcore.MathCore;
 import eetac.model.GlobalConstants;
 import eetac.model.MatrixCollection;
+import eetac.model.Result;
 import eetac.model.basicstructure.Engine;
+import eetac.model.basicstructure.SimulationProject;
 import eetac.model.realcomponent.Compressor;
 
 public class Compressortest {
@@ -18,7 +20,7 @@ public class Compressortest {
 	protected static boolean[] constants;
 
 	protected static MathCore core;
-	protected static Engine engine;
+	protected static SimulationProject project;
 
 	public void CargarValores() {
 		compressor = new Compressor();
@@ -151,14 +153,19 @@ public class Compressortest {
 
 	@Test
 	public void test_engine() {
-		
-		System.out.println("init comrpesor in engine test");
-		engine = new Engine();
-		engine.addBlock(compressor);
-		engine.BuildMatrix();
-		engine.PrintMatrix();
-		
-		// TODO: Miquel aqui hay que testear que las ecuaciones del engien son las mismas que el comrpesor
+
+		System.out.println("init compresor simulation in engine test");
+		project = new SimulationProject(compressor);
+		project.BuildMatrix();
+
+		// Check matrix
+
+		assertEquals("Check Objet", compressor, project.getBlock());
+		assertEquals("Check Numconstants", compressor.getNumconstants(), project.getNumconstants());
+		assertEquals("Check Numequations", compressor.getNumequations(), project.getNumequations());
+		assertEquals("Check Numrelations", compressor.getNumrelations(), project.getNumrelations());
+		assertEquals("Check Numvariables", compressor.getNumvariables(), project.getNumvariables());
+		assertEquals("Check Numvariables", compressor.getNumvariables(), project.getNumvariables());
 
 	}
 
@@ -166,12 +173,30 @@ public class Compressortest {
 	public void test_math_core() {
 
 		core = new MathCore();
-		core.setEng(engine);
+		core.setEng(project);
 		core.RunIteration();
-		
-		System.out.println("Num the iterations was: "+core.getNumiteration());
-		System.out.println("Timing was: "+core.getTime()+" milisecons");
-		// aqui hay que hacer correr el core y ver que el resultado es el que tenemso en excel.
+		double[][] resultado = new double[11][1];
+
+		resultado[0][0] = 97000;
+		resultado[1][0] = 290;
+		resultado[2][0] = 1000;
+		resultado[3][0] = 1720000;
+		resultado[4][0] = 755;
+		resultado[5][0] = 1000;
+		resultado[6][0] = 17.73195876;
+		resultado[7][0] = 2.603448276;
+		resultado[8][0] = -467325000;
+		resultado[9][0] = 0.794528399;
+		resultado[10][0] = 0.858593504;
+
+		for (int i = 0; i < 11; i++) {
+			assertEquals("Check resultados "+i, core.getResult().getMatrix()[i][0], resultado[i][0], 0.1);
+		}
+
+		System.out.println("Num the iterations was: " + core.getNumiteration());
+		System.out.println("Timing was: " + core.getTime() + " milisecons");
+		// aqui hay que hacer correr el core y ver que el resultado es el que
+		// tenemso en excel.
 
 	}
 

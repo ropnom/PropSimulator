@@ -14,6 +14,8 @@ public class SimulationBlock extends BasicBlock {
 	 * Simulation block lilke Simulate(), getFx, getvariable,
 	 * setvariable,getdifferencial...
 	 */
+	
+	private static String[] typeofblocks = {"Diffuser","Compressor","CombustionChamber","Turbine","PostCombustor", "Nozzle"};
 
 	// math internal matrix
 	protected MatrixCollection matrices = new MatrixCollection();
@@ -175,9 +177,9 @@ public class SimulationBlock extends BasicBlock {
 	protected void iteration(double[][] X) {
 
 		for (int i = 0; i < this.numvariables; i++) {
-
 			setvariable(X[i + initnum][0], i);
 		}
+		this.matrices.setX_equations(X);
 		genMatrix();
 
 	}
@@ -321,5 +323,23 @@ public class SimulationBlock extends BasicBlock {
 		}
 
 	}
+
+	public static String[] getTypeofblocks() {
+		return typeofblocks;
+	}
+
+	public static void setTypeofblocks(String[] typeofblocks) {
+		SimulationBlock.typeofblocks = typeofblocks;
+	}
+
+	public static int[] getType() {
+		return type;
+	}
+
+	public static void setType(int[] type) {
+		SimulationBlock.type = type;
+	}
+	
+	
 
 }

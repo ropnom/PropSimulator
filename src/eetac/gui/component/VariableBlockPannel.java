@@ -4,6 +4,7 @@ import javax.swing.JCheckBox;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
+import eetac.gui.rodrigo.VariablesPannel;
 import eetac.model.basicstructure.SimulationBlock;
 
 public class VariableBlockPannel extends JPanel {
