@@ -11,6 +11,7 @@ import eetac.model.realcomponent.Compressor;
 import javax.swing.JPanel;
 
 import java.awt.BorderLayout;
+import java.awt.Component;
 import java.awt.GridLayout;
 
 public class VariablesEdit {
@@ -52,10 +53,15 @@ public class VariablesEdit {
 		block = new Compressor();		
 		JPanel panel = new JPanel();
 		frame.getContentPane().add(panel, BorderLayout.CENTER);
-		panel.setLayout(new GridLayout(1,block.getNumvariables()));
+		panel.setLayout(new GridLayout(0,1));
+		panel.setAlignmentX(Component.LEFT_ALIGNMENT);
+		
+		Variableitem[] varitems = new Variableitem[block.getNumvariables()];  
 		
 		for(int i = 0; i<block.getNumvariables();i++){
 			//Create each variable item
+			varitems[i] = new Variableitem(block, i);
+			panel.add(varitems[i]);
 		}
 	}
 
