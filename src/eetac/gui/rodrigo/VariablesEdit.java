@@ -13,6 +13,7 @@ import javax.swing.JPanel;
 import java.awt.BorderLayout;
 import java.awt.Component;
 import java.awt.GridLayout;
+import javax.swing.JLabel;
 
 public class VariablesEdit {
 
@@ -55,6 +56,9 @@ public class VariablesEdit {
 		frame.getContentPane().add(panel, BorderLayout.CENTER);
 		panel.setLayout(new GridLayout(0,1));
 		panel.setAlignmentX(Component.LEFT_ALIGNMENT);
+		
+		JLabel lblNewLabel = new JLabel("New label");
+		panel.add(lblNewLabel);
 		
 		Variableitem[] varitems = new Variableitem[block.getNumvariables()];  
 		
