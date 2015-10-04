@@ -57,9 +57,6 @@ public class VariablesEdit {
 		panel.setLayout(new GridLayout(0,1));
 		panel.setAlignmentX(Component.LEFT_ALIGNMENT);
 		
-		JLabel lblNewLabel = new JLabel("New label");
-		panel.add(lblNewLabel);
-		
 		Variableitem[] varitems = new Variableitem[block.getNumvariables()];  
 		
 		for(int i = 0; i<block.getNumvariables();i++){
