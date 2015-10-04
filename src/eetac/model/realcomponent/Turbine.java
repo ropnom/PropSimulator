@@ -123,5 +123,18 @@ public class Turbine extends FlowWorkBlock {
 
 		return (X[6][0] - Math.pow((1 + (X[7][0] - 1) / X[9][0]), AirPropierties.getGamma_gamma_1_airfuel()));
 	}
+	
+	@Override
+	protected double WorkRelations(double[][] X) {
+		/*
+		 * Work RELATION Work= CP | Equation 6: Work-Massflow*Cp(Tin-Tout) = 0
+		 */
+		if (X[2][0] >= X[5][0]) {
+
+			return (X[8][0] - X[2][0] * AirPropierties.getCp_c_fuel() * (X[1][0] - X[4][0]));
+		} else {
+			return (X[8][0] - X[5][0] * AirPropierties.getCp_c_fuel()  * (X[1][0] - X[4][0]));
+		}
+	}
 
 }

@@ -24,17 +24,17 @@ public class Turbinetest {
 	public void CargarValores() {
 		turbine = new Turbine();
 		// init values of test
-		turbine.setPin(300557.5757);
+		turbine.setPin(1480000);
 		turbine.setTin(1200);
-		turbine.setMassFlow_in(1000);
-		turbine.setPout(1800000);
-		turbine.setTout(800);
-		turbine.setMassFlow_out(1000);
-		turbine.setPi(18);
-		turbine.setTau(2.7);
-		turbine.setWork(-450000000);
-		turbine.setN_i(0.8);
-		turbine.setN_p(0.88);
+		turbine.setMassFlow_in(1016);
+		turbine.setPout(399600);
+		turbine.setTout(900);
+		turbine.setMassFlow_out(1016);
+		turbine.setPi(0.3);
+		turbine.setTau(0.8);
+		turbine.setWork(325000000);
+		turbine.setN_i(0.9);
+		turbine.setN_p(0.85);
 		turbine.genX();
 
 		// reference plane
@@ -49,15 +49,15 @@ public class Turbinetest {
 		boolean[] constants = matriz.getConstants();
 
 		// Change constants introduced by user
-		X[0][0] = 97000;
+		X[0][0] = 1480000;
 		constants[0] = true;
-		X[1][0] = 290;
+		X[1][0] = 1200;
 		constants[1] = true;
-		X[2][0] = 1000;
+		X[2][0] = 1016;
 		constants[2] = true;
-		X[3][0] = 1720000;
+		X[3][0] = 399600;
 		constants[3] = true;
-		X[4][0] = 755;
+		X[4][0] = 900;
 		constants[4] = true;
 
 		// insert cahnge in matrix
@@ -77,7 +77,7 @@ public class Turbinetest {
 
 		// assert statements
 		System.out.print("Check Compresor parameters...");
-		assertEquals("Idnum mus be " + (GlobalConstants.getCompresor() + 1), (GlobalConstants.getCompresor() + 1), turbine.getIdnum());
+		assertEquals("Idnum mus be " + (GlobalConstants.getTurbine() + 1), (GlobalConstants.getTurbine() + 1), turbine.getIdnum());
 		assertEquals("Num equations must be 6", 6, turbine.getNumequations());
 		assertEquals("Num variables must be 11", 11, turbine.getNumvariables());
 		assertEquals("Num constants must be 5", 5, turbine.getNumconstants());
@@ -85,20 +85,20 @@ public class Turbinetest {
 
 		// assert statements
 		System.out.print("Check Inputs...");
-		assertEquals("Pin must be 97000 PA in matrix", 97000.0, turbine.getMatrices().getX_equations()[0][0], 0.01);
-		assertEquals("Pin must be 97000 PA in variable", 97000.0, turbine.getPin(), 0.01);
+		assertEquals("Pin must be 1480000 PA in matrix", 1480000.0, turbine.getMatrices().getX_equations()[0][0], 0.01);
+		assertEquals("Pin must be 1480000 PA in variable", 1480000.0, turbine.getPin(), 0.01);
 
-		assertEquals("Tin must be 290 ºKin matrix", 290.0, turbine.getMatrices().getX_equations()[1][0], 0.01);
-		assertEquals("Tin must be 290 ºK  in variable", 290.0, turbine.getTin(), 0.01);
+		assertEquals("Tin must be 1200 ºKin matrix", 1200.0, turbine.getMatrices().getX_equations()[1][0], 0.01);
+		assertEquals("Tin must be 1200 ºK  in variable", 1200.0, turbine.getTin(), 0.01);
 
-		assertEquals("Min must be 1000 kg/seg in matrix", 1000.0, turbine.getMatrices().getX_equations()[2][0], 0.01);
-		assertEquals("Min must be 1000 kg/seg  in variable", 1000.0, turbine.getMassFlow_in(), 0.01);
+		assertEquals("Min must be 1016 kg/seg in matrix", 1016.0, turbine.getMatrices().getX_equations()[2][0], 0.01);
+		assertEquals("Min must be 1016 kg/seg  in variable", 1016.0, turbine.getMassFlow_in(), 0.01);
 
-		assertEquals("Pout must be 1720000 PA in matrix", 1720000.0, turbine.getMatrices().getX_equations()[3][0], 0.01);
-		assertEquals("Pout must be 1720000 PA  in variable", 1720000.0, turbine.getPout(), 0.01);
+		assertEquals("Pout must be 399600 PA in matrix", 399600.0, turbine.getMatrices().getX_equations()[3][0], 0.01);
+		assertEquals("Pout must be 399600 PA  in variable", 399600.0, turbine.getPout(), 0.01);
 
-		assertEquals("Tout must be 755 PA in matrix", 755.0, turbine.getMatrices().getX_equations()[4][0], 0.01);
-		assertEquals("Tout must be 755 PA  in variable", 755.0, turbine.getTout(), 0.01);
+		assertEquals("Tout must be 900 PA in matrix", 900.0, turbine.getMatrices().getX_equations()[4][0], 0.01);
+		assertEquals("Tout must be 900 PA  in variable", 900.0, turbine.getTout(), 0.01);
 
 		System.out.println(" OK");
 
@@ -112,12 +112,12 @@ public class Turbinetest {
 		turbine.Simulate();
 		// assert functions
 		System.out.print("Functions Inputs...");
-		assertEquals("Funcion 0 must be", -26000.0, turbine.getMatrices().getFx_equations()[0][0], 0.01);
-		assertEquals("Funcion 1 must be", -28, turbine.getMatrices().getFx_equations()[1][0], 0.01);
+		assertEquals("Funcion 0 must be", -44400.0, turbine.getMatrices().getFx_equations()[0][0], 0.01);
+		assertEquals("Funcion 1 must be", -60, turbine.getMatrices().getFx_equations()[1][0], 0.01);
 		assertEquals("Funcion 2 must be", 0, turbine.getMatrices().getFx_equations()[2][0], 0.01);
-		assertEquals("Funcion 3 must be", -3.31083, turbine.getMatrices().getFx_equations()[3][0], 0.01);
-		assertEquals("Funcion 4 must be", -2.192589, turbine.getMatrices().getFx_equations()[4][0], 0.01);
-		assertEquals("Funcion 5 must be", 17325000, turbine.getMatrices().getFx_equations()[5][0], 0.01);
+		assertEquals("Funcion 3 must be", -0.049631459, turbine.getMatrices().getFx_equations()[3][0], 0.01);
+		assertEquals("Funcion 4 must be", -0.065674235, turbine.getMatrices().getFx_equations()[4][0], 0.01);
+		assertEquals("Funcion 5 must be", -27653600, turbine.getMatrices().getFx_equations()[5][0], 0.01);
 		System.out.println(" OK");
 	}
 
@@ -131,8 +131,8 @@ public class Turbinetest {
 
 		boolean showtest = false;
 
-		double[][] referencia = { { -18.0000020200000, 0, 0, 1.00000063000000, 0, 0, -97000, 0, 0, 0, 0 }, { 0, -2.70000000000000, 0, 0, 1, 0, 0, -290, 0, 0, 0 }, { 0, 0, -1, 0, 0, 1, 0, 0, 0, 0, 0 }, { 0, 0, 0, 0, 0, 0, 1, -24.3110700200000, 0, 0, -74.0974526300000 }, { 0, 0, 0, 0, 0, 0, 1, -23.9583244000000, 0, -50.9138662900000, 0 }, { 0, -1005000, 467324.999600000, 0, 1005000, 467324.999600000, 0, 0, 1.00016593900000, 0, 0 }, { 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 }, { 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0 }, { 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0 }, { 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0 }, { 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0 } };
-
+		double[][] referencia = {{-0.299999956000000,0,0,1.00000004700000,0,0,-1480000,0,0,0,0},{0,-0.800000000000000,0,0,1,0,0,-1200,0,0,0},{0,0,-1,0,0,1,0,0,0,0,0},{0,0,0,0,0,0,1,-2.05867689900000,0,0,-0.432233736000000},{0,0,0,0,0,0,1,-2.09158439100000,0,-0.464667363000000,0},{0,-1175512,-347099.999800000,0,1175512,-347099.999800000,0,0,1.00016593900000,0,0},{1.00000063000000,0,0,0,0,0,0,0,0,0,0},{0,1,0,0,0,0,0,0,0,0,0},{0,0,1,0,0,0,0,0,0,0,0},{0,0,0,1.00000004700000,0,0,0,0,0,0,0},{0,0,0,0,1,0,0,0,0,0,0}};
+		
 		// assert Jx
 		System.out.print("JX...");
 		for (int i = 0; i < referencia.length; i++) {
