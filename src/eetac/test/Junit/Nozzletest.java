@@ -8,6 +8,7 @@ import eetac.mathcore.MathCore;
 import eetac.model.GlobalConstants;
 import eetac.model.MatrixCollection;
 import eetac.model.basicstructure.Engine;
+import eetac.model.basicstructure.SimulationProject;
 import eetac.model.realcomponent.Diffusser;
 import eetac.model.realcomponent.Nozzle;
 
@@ -19,7 +20,7 @@ public class Nozzletest {
 	protected static boolean[] constants;
 
 	protected static MathCore core;
-	protected static Engine engine;
+	protected static SimulationProject project;
 
 	public void CargarValores() {
 		nozzle = new Nozzle();
@@ -140,14 +141,18 @@ public class Nozzletest {
 	@Test
 	public void test_engine() {
 
-		System.out.println("init diffuser in engine test");
-		engine = new Engine();
-		engine.addBlock(nozzle);
-		engine.BuildMatrix();
-		engine.PrintMatrix();
+		System.out.println("init compresor simulation in engine test");
+		project = new SimulationProject(nozzle);
+		project.BuildMatrix();
 
-		// TODO: Miquel aqui hay que testear que las ecuaciones del engien son
-		// las mismas que el comrpesor
+		// Check matrix
+
+		assertEquals("Check Objet", nozzle, project.getBlock());
+		assertEquals("Check Numconstants", nozzle.getNumconstants(), project.getNumconstants());
+		assertEquals("Check Numequations", nozzle.getNumequations(), project.getNumequations());
+		assertEquals("Check Numrelations", nozzle.getNumrelations(), project.getNumrelations());
+		assertEquals("Check Numvariables", nozzle.getNumvariables(), project.getNumvariables());
+		assertEquals("Check Numvariables", nozzle.getNumvariables(), project.getNumvariables());
 
 	}
 
@@ -155,13 +160,28 @@ public class Nozzletest {
 	public void test_math_core() {
 
 		core = new MathCore();
-		core.setEng(engine);
+		core.setEng(project);
 		core.RunIteration();
-		System.out.println("Num the iterations was: "+core.getNumiteration());
-		System.out.println("Timing was: "+core.getTime()+" milisecons");
+		double[][] resultado = new double[nozzle.getNumvariables()][1];
 
+		resultado[0][0] = 40000;
+		resultado[1][0] = 984;
+		resultado[2][0] = 1000;
+		resultado[3][0] = 22500;
+		resultado[4][0] = 852.26;
+		resultado[5][0] = 1000;
+		resultado[6][0] = 304.84636;
+		
+
+		for (int i = 0; i < nozzle.getNumvariables(); i++) {
+			assertEquals("Check resultados "+i, core.getResult().getMatrix()[i][0], resultado[i][0], 0.1);
+		}
+
+		System.out.println("Num the iterations was: " + core.getNumiteration());
+		System.out.println("Timing was: " + core.getTime() + " milisecons");
 		// aqui hay que hacer correr el core y ver que el resultado es el que
 		// tenemso en excel.
+
 
 	}
 

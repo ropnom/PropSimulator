@@ -158,12 +158,12 @@ public class Nozzle extends DinamicFlowBlock {
 		/*
 		 * VELOCITY RELATION Vin = MASSout | Equation 3: MASSout-MASSin = 0
 		 */
-		System.out.println(X[6][0]);
-		System.out.println(2 / X[2][0] * AirPropierties.getCp_c_fuel() * (X[1][0] - X[4][0]));
-		System.out.println(AirPropierties.getCp_c_fuel());
-		
-		System.out.println(X[1][0] - X[4][0]);
-		System.out.println(X[2][0]);
+//		System.out.println(X[6][0]);
+//		System.out.println(2 / X[2][0] * AirPropierties.getCp_c_fuel() * (X[1][0] - X[4][0]));
+//		System.out.println(AirPropierties.getCp_c_fuel());
+//		
+//		System.out.println(X[1][0] - X[4][0]);
+//		System.out.println(X[2][0]);
 		
 		return (X[6][0] - 2 / X[2][0] * AirPropierties.getCp_c_fuel() * (X[1][0] - X[4][0]));
 	}

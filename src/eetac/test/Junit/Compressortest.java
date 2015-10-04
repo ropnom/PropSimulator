@@ -175,7 +175,7 @@ public class Compressortest {
 		core = new MathCore();
 		core.setEng(project);
 		core.RunIteration();
-		double[][] resultado = new double[11][1];
+		double[][] resultado = new double[compressor.getNumvariables()][1];
 
 		resultado[0][0] = 97000;
 		resultado[1][0] = 290;
@@ -189,7 +189,7 @@ public class Compressortest {
 		resultado[9][0] = 0.794528399;
 		resultado[10][0] = 0.858593504;
 
-		for (int i = 0; i < 11; i++) {
+		for (int i = 0; i < compressor.getNumvariables(); i++) {
 			assertEquals("Check resultados "+i, core.getResult().getMatrix()[i][0], resultado[i][0], 0.1);
 		}
 

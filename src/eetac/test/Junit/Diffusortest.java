@@ -8,6 +8,7 @@ import eetac.mathcore.MathCore;
 import eetac.model.GlobalConstants;
 import eetac.model.MatrixCollection;
 import eetac.model.basicstructure.Engine;
+import eetac.model.basicstructure.SimulationProject;
 import eetac.model.realcomponent.Compressor;
 import eetac.model.realcomponent.Diffusser;
 
@@ -19,7 +20,7 @@ public class Diffusortest {
 	protected static boolean[] constants;
 
 	protected static MathCore core;
-	protected static Engine engine;
+	protected static SimulationProject project;
 
 	public void CargarValores() {
 		diffusor = new Diffusser();
@@ -144,14 +145,18 @@ public class Diffusortest {
 	@Test
 	public void test_engine() {
 
-		System.out.println("init diffuser in engine test");
-		engine = new Engine();
-		engine.addBlock(diffusor);
-		engine.BuildMatrix();
-		engine.PrintMatrix();
+		System.out.println("init compresor simulation in engine test");
+		project = new SimulationProject(diffusor);
+		project.BuildMatrix();
 
-		// TODO: Miquel aqui hay que testear que las ecuaciones del engien son
-		// las mismas que el comrpesor
+		// Check matrix
+
+		assertEquals("Check Objet", diffusor, project.getBlock());
+		assertEquals("Check Numconstants", diffusor.getNumconstants(), project.getNumconstants());
+		assertEquals("Check Numequations", diffusor.getNumequations(), project.getNumequations());
+		assertEquals("Check Numrelations", diffusor.getNumrelations(), project.getNumrelations());
+		assertEquals("Check Numvariables", diffusor.getNumvariables(), project.getNumvariables());
+		assertEquals("Check Numvariables", diffusor.getNumvariables(), project.getNumvariables());
 
 	}
 
@@ -159,13 +164,27 @@ public class Diffusortest {
 	public void test_math_core() {
 
 		core = new MathCore();
-		core.setEng(engine);
+		core.setEng(project);
 		core.RunIteration();
-		System.out.println("Num the iterations was: "+core.getNumiteration());
-		System.out.println("Timing was: "+core.getTime()+" milisecons");
+		double[][] resultado = new double[diffusor.getNumvariables()][1];
 
+		resultado[0][0] = 26500;
+		resultado[1][0] = 223.1;
+		resultado[2][0] = 1000;
+		resultado[3][0] = 208470.5418;
+		resultado[4][0] = 402.2;
+		resultado[5][0] = 1000;
+		resultado[6][0] = 600;
+		
+		for (int i = 0; i < diffusor.getNumvariables(); i++) {
+			assertEquals("Check resultados "+i, core.getResult().getMatrix()[i][0], resultado[i][0], 0.1);
+		}
+
+		System.out.println("Num the iterations was: " + core.getNumiteration());
+		System.out.println("Timing was: " + core.getTime() + " milisecons");
 		// aqui hay que hacer correr el core y ver que el resultado es el que
 		// tenemso en excel.
+
 
 	}
 

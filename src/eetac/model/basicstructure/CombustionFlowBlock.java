@@ -150,14 +150,14 @@ public class CombustionFlowBlock extends FlowBlock {
 		 * TEMPERATURE RELATION Tout = Tin * TAU | Equation 2: Tout-Tin*Tau = 0
 		 */
 
-		System.out.println("Tout is: " + X[4][0]);
-		System.out.println("Tin is: " + X[1][0]);
-		System.out.println("Min is: "+X[2][0]);
-		System.out.println("Mout is: "+X[5][0]);
-		System.out.println("Mfuel is: "+X[6][0]);
-		System.out.println("Hfuel is: "+FuelPropierties.getFuel(this.fueltype).getHf());
-		System.out.println("CP is: "+AirPropierties.getCp_c_fuel());
-		System.out.println();
+//		System.out.println("Tout is: " + X[4][0]);
+//		System.out.println("Tin is: " + X[1][0]);
+//		System.out.println("Min is: "+X[2][0]);
+//		System.out.println("Mout is: "+X[5][0]);
+//		System.out.println("Mfuel is: "+X[6][0]);
+//		System.out.println("Hfuel is: "+FuelPropierties.getFuel(this.fueltype).getHf());
+//		System.out.println("CP is: "+AirPropierties.getCp_c_fuel());
+//		System.out.println();
 
 		return (X[4][0] - ((X[2][0] / X[5][0]) * (X[1][0] + (X[6][0] * X[7][0] * FuelPropierties.getFuel(this.fueltype).getHf() / (X[2][0] * AirPropierties.getCp_c_fuel())))));
 	}
