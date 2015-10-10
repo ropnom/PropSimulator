@@ -14,6 +14,7 @@ import javax.swing.event.ChangeListener;
 
 import eetac.model.basicstructure.SimulationBlock;
 import java.awt.GridLayout;
+import javax.swing.JLabel;
 
 public class Variableitem extends JPanel {
 
@@ -45,7 +46,7 @@ public class Variableitem extends JPanel {
 		this.setAlignmentX(Component.LEFT_ALIGNMENT);
 		this.a = a;
 		this.variableindex = varindex;
-		this.variable = new JCheckBox("" + a.getMatrices().getVariable()[variableindex], false);
+		this.variable = new JCheckBox("<variable>", false);
 		variable.addChangeListener(new ChangeListener() {
 			public void stateChanged(ChangeEvent arg0) {
 				if (variable.isSelected()) {
@@ -70,11 +71,14 @@ public class Variableitem extends JPanel {
 		value.setHorizontalAlignment(JTextField.CENTER);
 
 		value.setEnabled(false);
-		setLayout(new GridLayout(0, 2, 0, 0));
+		setLayout(new GridLayout(0, 3, 0, 0));
 
 		
 		this.add(variable);
 		this.add(value);
+		
+		JLabel lblNewLabel = new JLabel("{units}");
+		add(lblNewLabel);
 
 	}
 
