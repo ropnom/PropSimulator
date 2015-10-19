@@ -46,7 +46,7 @@ public class Variableitem extends JPanel {
 		this.setAlignmentX(Component.LEFT_ALIGNMENT);
 		this.a = a;
 		this.variableindex = varindex;
-		this.variable = new JCheckBox("<variable>", false);
+		this.variable = new JCheckBox("" + a.getMatrices().getVariable()[varindex], false);
 		variable.addChangeListener(new ChangeListener() {
 			public void stateChanged(ChangeEvent arg0) {
 				if (variable.isSelected()) {

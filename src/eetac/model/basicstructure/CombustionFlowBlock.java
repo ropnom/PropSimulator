@@ -147,13 +147,13 @@ public class CombustionFlowBlock extends FlowBlock {
 
 	protected double TemperatureRelations(double[][] X) {
 		/*
-		 * TEMPERATURE RELATION Tout = Tin * TAU | Equation 2: Tout-Tin*Tau = 0
+		 * TEMPERATURE RELATION Tout = Tin *
 		 */
 
 //		System.out.println("Tout is: " + X[4][0]);
 //		System.out.println("Tin is: " + X[1][0]);
 //		System.out.println("Min is: "+X[2][0]);
-//		System.out.println("Mout is: "+X[5][0]);
+//		System.out.println("Mout is: "+X[5][0]);Default fuel
 //		System.out.println("Mfuel is: "+X[6][0]);
 //		System.out.println("Hfuel is: "+FuelPropierties.getFuel(this.fueltype).getHf());
 //		System.out.println("CP is: "+AirPropierties.getCp_c_fuel());

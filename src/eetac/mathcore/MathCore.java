@@ -4,10 +4,10 @@ import org.jblas.DoubleMatrix;
 import org.jblas.Solve;
 
 import eetac.model.Result;
-import eetac.model.basicstructure.Engine;
+import eetac.model.basicstructure.BasicBlock;
 import eetac.model.basicstructure.SimulationProject;
 
-public class MathCore {
+public class MathCore extends BasicBlock {
 	
 	protected Result result;
 
