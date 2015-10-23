@@ -1,7 +1,9 @@
 package eetac.model.basicstructure;
 
+import java.io.Serializable;
 
-public abstract class BasicBlock {
+
+public abstract class BasicBlock implements Serializable {
 	/* This class provide the Basic information like identificator, order, name, description and original reference of element.
 	 * 
 	 */

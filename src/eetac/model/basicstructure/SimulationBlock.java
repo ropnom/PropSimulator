@@ -1,12 +1,18 @@
 package eetac.model.basicstructure;
 
+import java.io.Serializable;
 import java.util.Comparator;
 
 import eetac.model.AuxMethods;
 import eetac.model.GlobalConstants;
 import eetac.model.MatrixCollection;
 
-public class SimulationBlock extends BasicBlock {
+public class SimulationBlock extends BasicBlock implements Serializable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	/*
 	 * This class provide of need variables for work inside math core of
 	 * simulation. Contain a MatricCollection of equations, counters of

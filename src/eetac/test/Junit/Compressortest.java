@@ -1,14 +1,18 @@
 package eetac.test.Junit;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+
+import java.io.FileOutputStream;
+import java.io.ObjectOutputStream;
+import java.nio.file.Paths;
 
 import org.junit.Test;
+
+import com.google.gson.Gson;
 
 import eetac.mathcore.MathCore;
 import eetac.model.GlobalConstants;
 import eetac.model.MatrixCollection;
-import eetac.model.Result;
-import eetac.model.basicstructure.Engine;
 import eetac.model.basicstructure.SimulationProject;
 import eetac.model.realcomponent.Compressor;
 
@@ -190,13 +194,27 @@ public class Compressortest {
 		resultado[10][0] = 0.858593504;
 
 		for (int i = 0; i < compressor.getNumvariables(); i++) {
-			assertEquals("Check resultados "+i, core.getResult().getMatrix()[i][0], resultado[i][0], 0.1);
+			assertEquals("Check resultados " + i, core.getResult().getMatrix()[i][0], resultado[i][0], 0.1);
 		}
 
 		System.out.println("Num the iterations was: " + core.getNumiteration());
 		System.out.println("Timing was: " + core.getTime() + " milisecons");
 		// aqui hay que hacer correr el core y ver que el resultado es el que
 		// tenemso en excel.
+
+		try {
+			Gson gson = new Gson();
+			String json = gson.toJson(project);
+			System.out.println(Paths.get("").toAbsolutePath().toString());
+			FileOutputStream fout = new FileOutputStream(Paths.get("").toAbsolutePath().toString() + "\\compresor.jprop");
+			ObjectOutputStream oos = new ObjectOutputStream(fout);
+			oos.writeUTF(json);
+			oos.close();
+			System.out.println("Done");
+
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		}
 
 	}
 

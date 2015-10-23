@@ -1,9 +1,11 @@
 package eetac.model.basicstructure;
 
+import java.io.Serializable;
+
 import eetac.model.GlobalConstants;
 import eetac.model.MatrixCollection;
 
-public class SimulationProject extends BasicBlock {
+public class SimulationProject extends BasicBlock implements Serializable {
 
 	// Engine matrix
 	protected MatrixCollection matrixProyect;

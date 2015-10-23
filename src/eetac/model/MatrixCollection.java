@@ -1,8 +1,9 @@
 package eetac.model;
 
+import java.io.Serializable;
 import java.util.Arrays;
 
-public class MatrixCollection {
+public class MatrixCollection implements Serializable{
 
 	// Math matrix using in math method
 	protected double[][] X_equations;
